@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { Component } from "react";
+import Typography from '@material-ui/core/Typography';
 import './App.css';
+import NavBar from "./components/NavBar";
+import EventCardList from "./components/EventCardList";
+import EventInfo from "./components/EventInfo";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  render() {
+    return ( 
+      <div className="app">
+        <NavBar />
+        <div className="content">
+{/*
+          <div className="event-list">
+            <Typography gutterBottom variant="h5" component="h2">所有賽事</Typography>
+            <EventCardList />
+          </div>*/}
+          <EventInfo />
+{/*//          <EventInfo />*/}
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;
