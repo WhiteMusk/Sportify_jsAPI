@@ -8,11 +8,6 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    // const title = req.body.title;
-    // const date = Date.parse(req.body.date);
-    // const location = req.body.location;
-    // const description = req.body.description;
-
     const newEvent = new Event({ 
         title: req.body.title,
         date: Date.parse(req.body.date),

@@ -17,3 +17,7 @@ const formSchema = new Schema({
 }, {
     timestamps: true
 });
+
+const Form = mongoose.model('Form', formSchema);
+
+module.exports = Form;

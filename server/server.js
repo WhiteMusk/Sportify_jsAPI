@@ -18,10 +18,10 @@ connection.once('open', () => {
 });
 
 const eventsRouter = require('./routes/events');
-// const formsRouter = require('./routes/forms');
+const formsRouter = require('./routes/forms');
 
 app.use('/events', eventsRouter);
-// app.use('/forms', formsRouter);
+app.use('/forms', formsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
