@@ -36,7 +36,9 @@ function HomePage() {
         <Container maxWidth="md" className={classes.container}>
             <div className={classes.appBarSpacer} />
             <Typography gutterBottom variant="h5" component="h2">所有賽事</Typography>
-            <EventCardList eventList={eventList} />
+            {!eventList.length ?
+                <Typography>比賽列表載入中...</Typography> :
+                <EventCardList eventList={eventList} />}
         </Container>
     )
 }
