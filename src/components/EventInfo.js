@@ -72,7 +72,9 @@ function EventInfo(props) {
       </Drawer>
       <Container maxWidth="md" className={classes.container}>
         <Toolbar />
-        {/* <EventDescription info={eventInfo[0]} /> */}
+        {!eventInfo.length ?
+          <Typography>資訊載入中...</Typography> :
+          <EventDescription info={eventInfo[0]} />}
       </Container>
     </>
   );

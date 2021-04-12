@@ -13,9 +13,9 @@ const instance = axios.create({
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-        marginTop: "50px"
+        paddingBottom: theme.spacing(4)
     },
+    appBarSpacer: theme.mixins.toolbar,
 }));
 
 function HomePage() {
@@ -34,6 +34,7 @@ function HomePage() {
 
     return (
         <Container maxWidth="md" className={classes.container}>
+            <div className={classes.appBarSpacer} />
             <Typography gutterBottom variant="h5" component="h2">所有賽事</Typography>
             <EventCardList eventList={eventList} />
         </Container>

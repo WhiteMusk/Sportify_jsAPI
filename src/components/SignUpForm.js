@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
-        marginTop: "30px"
     },
     form: {
         marginTop: "20px",
@@ -36,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     submitBut: {
         marginTop: "30px",
         float: "right"
-    }
+    },
+    appBarSpacer: theme.mixins.toolbar,
 }));
 
 function SignUpForm() {
@@ -54,6 +54,7 @@ function SignUpForm() {
 
     return (
         <Container maxWidth="md" className={classes.container}>
+            <div className={classes.appBarSpacer} />
             <Paper>
                 <Container maxWidth="md" className={classes.container}>
                     <Grid>
