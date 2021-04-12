@@ -8,28 +8,27 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { NavLink } from "react-router-dom";
 
-function EventCard() {
+function EventCard(props) {
   return (
     <Card>
       <CardActionArea
-        component={NavLink} to="/eventInfo"
+        component={NavLink} to={"/eventInfo/" + props.event._id}
       >
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
           height="140"
           image="https://www.eventpal.com.tw/573a50d7-122f-4d23-9c9a-525ba403732e/1.jpg"
-          title="2021 山道王-塔塔加挑戰賽"
+          title={props.event.title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            2021 山道王-塔塔加挑戰賽
-            </Typography>
+            {props.event.title}
+          </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            活動日期：2021-08-01 (日)<br />
-              報名截止：2021-06-14 (一)<br />
-              集合地點：南投水里商工
-            </Typography>
+            {"活動日期： " + props.event.date.slice(0, 10)}<br />
+            {"集合地點： " + props.event.location}
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -38,7 +37,7 @@ function EventCard() {
           </Button>
         <Button
           size="small" color="primary"
-          component={NavLink} to="/eventInfo"
+          component={NavLink} to={"/eventInfo/" + props.event._id}
         >
           更多資訊
           </Button>

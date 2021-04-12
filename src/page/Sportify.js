@@ -12,7 +12,7 @@ function Sportify() {
             {/* set routing */}
             <Switch>
                 <Route exact path="/" component={HomePage} />
-                <Route exact path="/eventInfo" component={EventInfo} />
+                <Route exact path="/eventInfo/:eventID?" component={EventInfo} />
                 <Route exact path="/signUpFrom" component={SignUpForm} />
             </Switch>
         </div>

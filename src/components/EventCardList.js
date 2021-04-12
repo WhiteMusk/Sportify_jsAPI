@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import EventCard from "./EventCard";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -11,39 +12,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EventCardList() {
+function EventCardList(props) {
   const classes = useStyles();
 
   return (
     <Container maxWidth="md" className={classes.container}>
       <Grid container spacing={3}>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
-        <Grid item sm={6} md={4}>
-          <EventCard />
-        </Grid>
+        {props.eventList.map((e, i) => {
+          return (
+            <Grid item sm={6} md={4} key={i}>
+              <EventCard event={e} />
+            </Grid>
+          )
+        })}
       </Grid>
     </Container>
   );

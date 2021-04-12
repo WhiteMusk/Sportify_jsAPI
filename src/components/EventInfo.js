@@ -10,6 +10,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { NavLink } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios'
+import { useEffect, useState } from 'react';
+import EventDescription from './EventDescription';
+
+const API_ROOT = 'http://localhost:5000/';
+const instance = axios.create({
+  baseURL: API_ROOT
+});
 
 const drawerWidth = 240;
 
@@ -20,8 +28,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EventInfo() {
+function EventInfo(props) {
   const classes = useStyles();
+  const [eventInfo, setEventInfo] = useState([]);
+
+  const getEventInfo = async (id) => {
+    const { data: info } = await instance.get('/events/eventInfo', { params: { id } });
+    setEventInfo(info);
+  }
+
+  useEffect(() => {
+    getEventInfo(props.match.params.eventID);
+  },
+    [props.match.params.eventID]
+  )
 
   return (
     <>
@@ -52,18 +72,7 @@ function EventInfo() {
       </Drawer>
       <Container maxWidth="md" className={classes.container}>
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac. 這格式我調不好，左邊應該不要覆蓋右邊的
-          </Typography>
+        {/* <EventDescription info={eventInfo[0]} /> */}
       </Container>
     </>
   );
