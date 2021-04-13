@@ -7,18 +7,25 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-    const newForm = new Form({ 
+router.route('/newApplication').post((req, res) => {
+    const newForm = new Form({
+        event_id: req.body.application.event_id,
         applicant: {
-            name: req.body.applicant.name,
-            gender: req.body.applicant.gender,
-            email: req.body.applicant.email,
-            phone: req.body.applicant.phone
+            name: req.body.application.applicant.name,
+            gender: req.body.application.applicant.gender,
+            birthday: req.body.application.applicant.birthday,
+            email: req.body.application.applicant.email,
+            phone: req.body.application.applicant.phone
         },
         emergency_contact: {
-            name: req.body.emergency_contact.name,
-            relationship: req.body.emergency_contact.relationship,
-            phone: req.body.emergency_contact.phone
+            name: req.body.application.emergency_contact.name,
+            relationship: req.body.application.emergency_contact.relationship,
+            phone: req.body.application.emergency_contact.phone
+        },
+        event_option: {
+            category: req.body.application.event_option.category,
+            partner: req.body.application.event_option.partner,
+            group: req.body.application.event_option.group,
         }
     });
 

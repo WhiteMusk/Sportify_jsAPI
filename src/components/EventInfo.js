@@ -62,7 +62,7 @@ function EventInfo(props) {
           <List>
             {['贊助商', '線上報名'].map((text, index) => (
               <ListItem button key={text}
-                component={NavLink} to="/signUpFrom"
+                component={NavLink} to={"/signUpFrom/" + props.match.params.eventID}
               >
                 <ListItemText primary={text} />
               </ListItem>
