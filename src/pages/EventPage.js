@@ -7,12 +7,13 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import EventDescription from './EventDescription';
+import EventDescription from '../components/EventDescription';
+import Navbar from "../components/Navbar";
 
 const API_ROOT = 'http://localhost:5000/';
 const instance = axios.create({
@@ -45,6 +46,8 @@ function EventInfo(props) {
 
   return (
     <>
+      <Navbar />
+
       <Drawer
         style={{ width: { drawerWidth }, flexShrink: 0 }}
         variant="permanent"
@@ -62,7 +65,7 @@ function EventInfo(props) {
           <List>
             {['贊助商', '線上報名'].map((text, index) => (
               <ListItem button key={text}
-                component={NavLink} to={"/signUpFrom/" + props.match.params.eventID}
+                component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
               >
                 <ListItemText primary={text} />
               </ListItem>

@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { NavLink } from "react-router-dom";
 
-function NavBar() {
+function Navbar() {
   return (
     <AppBar position="fixed" style={{ zIndex: 1201 }}>
       <Toolbar>
@@ -21,4 +21,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Navbar;

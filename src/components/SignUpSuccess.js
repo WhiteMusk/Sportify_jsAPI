@@ -38,7 +38,7 @@ function SignUpSuccess(props) {
         <Paper>
             <Container maxWidth="md" className={classes.container}>
                 <Button className={classes.backBut} variant="contained" color="default"
-                    component={NavLink} to={"/eventInfo/" + props.application.event_id}
+                    component={NavLink} to={"/event/" + props.application.event_id}
                 >
                     回比賽資訊
                 </Button>
