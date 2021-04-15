@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
 }));
 
-function HomePage({ setLocale }) {
+function HomePage() {
     const classes = useStyles();
     const [eventList, setEventList] = useState([]);
 
@@ -35,7 +35,7 @@ function HomePage({ setLocale }) {
 
     return (
         <>
-            <Navbar setLocale={setLocale}/>
+            <Navbar />
 
             <Container maxWidth="md" className={classes.container}>
                 <div className={classes.appBarSpacer} />
