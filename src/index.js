@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+
+import { IntlProvider } from 'react-intl';
+import en from './i18n/en.js';
+import zh from './i18n/zh.js';
+
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
 
+const Root = () => {
+  const [locale, setLocale] = useState(navigator.language);
+  let messages = locale.includes('zh') ? zh : en;
+
+  return (
+    <IntlProvider locale={locale} key={locale} defaultLocale="en" messages={messages}>
+      <App setLocale={setLocale}/>
+    </IntlProvider>
+  )
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );

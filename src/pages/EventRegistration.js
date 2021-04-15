@@ -14,7 +14,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import axios from 'axios'
+import axios from 'axios';
 import SignUpSuccess from '../components/SignUpSuccess';
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";

@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import EventCardList from "../components/EventCardList";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios'
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const API_ROOT = 'http://localhost:5000/';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
 }));
 
-function HomePage() {
+function HomePage({ setLocale }) {
     const classes = useStyles();
     const [eventList, setEventList] = useState([]);
 
@@ -35,7 +35,7 @@ function HomePage() {
 
     return (
         <>
-            <Navbar />
+            <Navbar setLocale={setLocale}/>
 
             <Container maxWidth="md" className={classes.container}>
                 <div className={classes.appBarSpacer} />

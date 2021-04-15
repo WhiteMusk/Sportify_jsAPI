@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios'
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
 import Navbar from "../components/Navbar";
