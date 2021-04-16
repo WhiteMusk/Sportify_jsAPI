@@ -1,4 +1,5 @@
-import { SET_LOCALE } from "../actions/action-types";
+import { SET_LOCALE } from '../actions';
+
 
 const initialState = {
   locale: navigator.language,
@@ -10,5 +11,6 @@ const localeReducer = (state = initialState, action) => {
   }
   return state;
 }
+
 
 export default localeReducer;

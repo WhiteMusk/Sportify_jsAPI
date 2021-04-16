@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setLocale } from '../actions';
+import { setLocale } from '../redux/actions';
 import { FormattedMessage } from 'react-intl';
 import { LOCALE_OPTIONS } from '../i18n/locale-settings';
 
