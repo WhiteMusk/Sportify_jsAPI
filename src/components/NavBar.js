@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setLocale } from '../actions';
 import { FormattedMessage } from 'react-intl';
+import { LOCALE_OPTIONS } from '../i18n/locale-settings';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -16,8 +17,8 @@ function Navbar() {
       <Toolbar>
         <Button color="inherit" component={Link} to="/">Sportify</Button>
         <div style={{ flexGrow: 1 }}></div>
-        <Button color="inherit" onClick={() => dispatch(setLocale('zh-TW'))}>中文</Button>
-        <Button color="inherit" onClick={() => dispatch(setLocale('en'))}>English</Button>
+        <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
+        <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
         <Button color="inherit">
           <FormattedMessage id="login" />
         </Button>

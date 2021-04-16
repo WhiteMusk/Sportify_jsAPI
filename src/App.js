@@ -7,11 +7,14 @@ import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
 import EventRegistration from "./pages/EventRegistration";
 
+import { getLocaleMessages } from './i18n/locale-settings';
+
 function App () {
-  const locale = useSelector(state => state.locale);
+  const locale = useSelector(state => state.locale.locale);
+  const messages = getLocaleMessages(locale);
 
   return (
-    <IntlProvider locale={locale.locale} key={locale.locale} messages={locale.messages}>
+    <IntlProvider locale={locale} key={locale} messages={messages}>
       <Router>
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -19,7 +22,7 @@ function App () {
           <Route exact path="/event/:eventID/register/" component={EventRegistration} />
         </Switch>
       </Router>
-    // </IntlProvider>
+    </IntlProvider>
   );
 }
 

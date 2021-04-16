@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
 import Navbar from "../components/Navbar";
+import { FormattedMessage } from "react-intl";
 
 const API_ROOT = 'http://localhost:5000/';
 const instance = axios.create({
@@ -55,7 +56,7 @@ function EventInfo(props) {
         <Toolbar />
         <div>
           <List>
-            {['賽事資訊', '報名資訊', '交通資訊', '獎項'].map((text, index) => (
+            {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemText primary={text} />
               </ListItem>
@@ -63,7 +64,7 @@ function EventInfo(props) {
           </List>
           <Divider />
           <List>
-            {['贊助商', '線上報名'].map((text, index) => (
+            {['贊助商', <FormattedMessage id="eventPage.register" />].map((text, index) => (
               <ListItem button key={text}
                 component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
               >
@@ -76,7 +77,7 @@ function EventInfo(props) {
       <Container maxWidth="md" className={classes.container}>
         <Toolbar />
         {!eventInfo.length ?
-          <Typography>資訊載入中...</Typography> :
+          <Typography><FormattedMessage id="loading"/></Typography> :
           <EventDescription info={eventInfo[0]} />}
       </Container>
     </>

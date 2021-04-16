@@ -1,5 +1,5 @@
-import { SET_LOCALE } from "./actionTypes";
+import { SET_LOCALE } from "./action-types";
 
-export const setLocale = (payload) => {
-    return { type: SET_LOCALE, payload };
+export const setLocale = (newLocale) => {
+    return { type: SET_LOCALE, newLocale };
 };

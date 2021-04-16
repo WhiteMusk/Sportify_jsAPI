@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const API_ROOT = 'http://localhost:5000/';
 const instance = axios.create({
@@ -39,9 +40,13 @@ function HomePage() {
 
             <Container maxWidth="md" className={classes.container}>
                 <div className={classes.appBarSpacer} />
-                <Typography gutterBottom variant="h5" component="h2">所有賽事</Typography>
+                <Typography gutterBottom variant="h5" component="h2">
+                    <FormattedMessage id="homePage.allEvents" />
+                </Typography>
                 {!eventList.length ?
-                    <Typography>比賽列表載入中...</Typography> :
+                    <Typography>
+                        <FormattedMessage id="loading"/>
+                    </Typography> :
                     <EventCardList eventList={eventList} />}
             </Container>
         </>
