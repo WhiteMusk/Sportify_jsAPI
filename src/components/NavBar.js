@@ -19,7 +19,7 @@ function Navbar() {
         <div style={{ flexGrow: 1 }}></div>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
-        <Button color="inherit">
+        <Button color="inherit" component={Link} to="/organizer/event/" >
           <FormattedMessage id="login" />
         </Button>
       </Toolbar>

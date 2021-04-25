@@ -187,7 +187,7 @@ function EventRegistration(props) {
                                     </Select>
                                 </Grid>
                                 <Grid>
-                                    <Typography className={classes.fromItemTitle}>連絡電話</Typography>
+                                    <Typography className={classes.fromItemTitle}>聯絡電話</Typography>
                                     <TextField required label="Phone" variant="outlined"
                                         value={applicantPhone}
                                         onInput={e => setApplicantPhone(e.target.value)}

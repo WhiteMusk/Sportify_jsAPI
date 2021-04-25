@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl';
 import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
 import EventRegistration from "./pages/EventRegistration";
+import EventDashboard from "./pages/EventDashboard";
 
 import { getLocaleMessages } from './i18n/locale-settings';
 
@@ -19,7 +20,8 @@ function App () {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/event/:eventID?" component={EventPage} />
-          <Route exact path="/event/:eventID/register/" component={EventRegistration} />
+          <Route exact path="/event/:eventID?/register/" component={EventRegistration} />
+          <Route exact path="/organizer/event/" component={EventDashboard} />
         </Switch>
       </Router>
     </IntlProvider>
