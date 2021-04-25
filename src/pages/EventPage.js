@@ -64,7 +64,7 @@ function EventInfo(props) {
           </List>
           <Divider />
           <List>
-            {['贊助商', <FormattedMessage id="eventPage.register" />].map((text, index) => (
+            {['聯絡主辦', '線上報名'].map((text, index) => (
               <ListItem button key={text}
                 component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
               >
