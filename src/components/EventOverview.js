@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,14 +20,14 @@ function EventOverview() {
 
     return (
         <List className={classes.root}>
-            <Typography variant="h4">賽事名稱：XXX</Typography>
+            <Typography variant="h4"><FormattedMessage id="eventOverview.name" />：XXX</Typography>
             <ListItem>
                 <ListItemAvatar>
                     <Avatar>
                         {/* <ImageIcon /> */}
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="公開狀態" secondary="公開" />
+                <ListItemText primary={<FormattedMessage id="eventOverview.public" />} secondary="公開" />
             </ListItem>
             <ListItem>
                 <ListItemAvatar>
@@ -34,7 +35,7 @@ function EventOverview() {
                         {/* <WorkIcon /> */}
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="發佈狀態" secondary="已發佈" />
+                <ListItemText primary={<FormattedMessage id="eventOverview.release" />} secondary="已發佈" />
             </ListItem>
             <ListItem>
                 <ListItemAvatar>
@@ -42,7 +43,7 @@ function EventOverview() {
                         {/* <BeachAccessIcon /> */}
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="頁面瀏覽次數" secondary="124" />
+                <ListItemText primary={<FormattedMessage id="eventOverview.views" />} secondary="124" />
             </ListItem>
             <ListItem>
                 <ListItemAvatar>
@@ -50,7 +51,7 @@ function EventOverview() {
                         {/* <BeachAccessIcon /> */}
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="報名人次" secondary="20" />
+                <ListItemText primary={<FormattedMessage id="eventOverview.count" />} secondary="20" />
             </ListItem>
         </List>
     );

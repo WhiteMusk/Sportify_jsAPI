@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import EventBasicInfo from './EventBasicInfo';
 import RichTextEditor from './RichTextEditor';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles({
 
@@ -27,11 +28,11 @@ function EventInfo() {
                     textColor="primary"
                     onChange={handleTabChange}
                 >
-                    <Tab label="基本資訊" value={1} />
-                    <Tab label="賽事資訊(簡章)" value={2} />
-                    <Tab label="報名資訊" value={3} />
-                    <Tab label="交通資訊" value={4} />
-                    <Tab label="獎項" value={5} />
+                    <Tab label={<FormattedMessage id="eventInfo.basic" />} value={1} />
+                    <Tab label={<FormattedMessage id="eventInfo.brief" />} value={2} />
+                    <Tab label={<FormattedMessage id="eventInfo.registraion" />} value={3} />
+                    <Tab label={<FormattedMessage id="eventInfo.traffic" />} value={4} />
+                    <Tab label={<FormattedMessage id="eventInfo.prize" />} value={5} />
                 </Tabs>
 
                 {currentTab === 1 ?

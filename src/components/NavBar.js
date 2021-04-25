@@ -19,7 +19,13 @@ function Navbar() {
         <div style={{ flexGrow: 1 }}></div>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
+<<<<<<< HEAD
         <Button color="inherit" component={Link} to="/organizer/event/" >
+=======
+        <Button color="inherit"
+          component={Link} to="/organizer/event/"
+        >
+>>>>>>> 2d95bc3... add multi-language to organizer dashboard
           <FormattedMessage id="login" />
         </Button>
       </Toolbar>

@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles({
     container: {
@@ -35,27 +36,25 @@ function EventBasicInfo() {
     return (
         <Container className={classes.container}>
             <form>
-                <Typography>賽事名稱</Typography>
+                <Typography><FormattedMessage id="eventBasicInfo.name" /></Typography>
                 <TextField fullWidth className={classes.inputfield} label="Name" />
-                <Typography>賽事圖片</Typography>
+                <Typography><FormattedMessage id="eventBasicInfo.pic" /></Typography>
                 <input type="file" onChange={handleSelectImg} className={classes.inputfield} />
                 <img width="360px" src={img} />
-                <Typography>比賽日期</Typography>
+                <Typography><FormattedMessage id="eventBasicInfo.date" /></Typography>
                 <TextField
                     type="date"
                     className={classes.inputfield}
                 // value={birthday}
                 // onInput={e => setBirthday(e.target.value)}
                 />
-                <Typography>地點</Typography>
+                <Typography><FormattedMessage id="eventBasicInfo.location" /></Typography>
                 <TextField fullWidth className={classes.inputfield} label="Place" />
-                <Typography >匯款資訊(銀行代碼、帳號)</Typography>
+                <Typography ><FormattedMessage id="eventBasicInfo.bank" /></Typography>
                 <TextField className={classes.inputfield} label="Bank Code" />
                 <TextField className={classes.inputfield} label="Bank Account" />
-                <Typography >聯絡資訊(負責人/機構、電話、Email)</Typography>
-                <TextField className={classes.inputfield} label="Name" />
-                <TextField className={classes.inputfield} label="Phone" />
-                <TextField className={classes.inputfield} label="Email" />
+                <Typography ><FormattedMessage id="eventBasicInfo.fee" /></Typography>
+                <TextField className={classes.inputfield} label="Registery Fee" />
 
                 <Button className={classes.submitBut} variant="contained" color="default"
                     type="submit"

@@ -10,6 +10,8 @@ import { useState } from 'react'
 import EventOverview from '../components/EventOverview';
 import RegistrationStatus from '../components/RegistrationStatus';
 import EventInfo from '../components/EventInfo';
+import OrganizerInfo from '../components/OrganizerInfo';
+import { FormattedMessage } from 'react-intl';
 
 const drawerWidth = 240;
 
@@ -39,7 +41,7 @@ function EventDashboard() {
                 <Toolbar />
                 <div>
                     <List>
-                        {['總覽', '賽事資訊', '報名狀況', '賽事進度'].map((text, index) => (
+                        {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
                             <ListItem button key={text} onClick={() => handleTabClick(index)}>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -52,7 +54,7 @@ function EventDashboard() {
                 <Toolbar />
                 {currentTab === 0 ? <EventOverview /> :
                     (currentTab === 1 ? <EventInfo /> :
-                        (currentTab === 2 ? <RegistrationStatus /> : <></>))
+                        (currentTab === 2 ? <RegistrationStatus /> : <OrganizerInfo />))
                 }
             </Container>
         </>

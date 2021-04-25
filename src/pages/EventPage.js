@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
-import Navbar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 import { FormattedMessage } from "react-intl";
 
 const API_ROOT = 'http://localhost:5000/';
@@ -65,11 +65,16 @@ function EventInfo(props) {
           <Divider />
           <List>
             {['聯絡主辦', '線上報名'].map((text, index) => (
-              <ListItem button key={text}
-                component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
-              >
-                <ListItemText primary={text} />
-              </ListItem>
+              index === 0 ?
+                (<ListItem button key={text}
+                >
+                  <ListItemText primary={text} />
+                </ListItem>) :
+                (<ListItem button key={text}
+                  component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
+                >
+                  <ListItemText primary={text} />
+                </ListItem>)
             ))}
           </List>
         </div>
