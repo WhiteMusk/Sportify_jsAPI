@@ -1,8 +1,6 @@
 import Typography from '@material-ui/core/Typography';
-import EventCardList from "../components/EventCardList";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const useStyles = makeStyles((theme) => ({

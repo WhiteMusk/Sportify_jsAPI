@@ -19,15 +19,15 @@ function Navbar() {
         <Button color="inherit" component={Link} to="/">
           <FormattedMessage id="app.title"/>
         </Button>
-        {/* Only show ManageEvents link if user is logged in */
-        isLoggedIn &&
+        {/* Show ManageEvents link if user is logged in, else show Services link */
+        isLoggedIn ?
           <Button color="inherit" component={Link} to="/manage/all">
             <FormattedMessage id="navbar.manageEvents"/>
+          </Button> :
+          <Button color="inherit" component={Link} to="/about">
+            <FormattedMessage id="navbar.about"/>
           </Button>
         }
-        <Button color="inherit" component={Link} to="/about">
-          <FormattedMessage id="navbar.about"/>
-        </Button>
         <div style={{ flexGrow: 1 }}></div>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
