@@ -47,8 +47,6 @@ function EventInfo(props) {
 
   return (
     <>
-      <Navbar />
-
       <Drawer
         style={{ width: { drawerWidth }, flexShrink: 0 }}
         variant="permanent"

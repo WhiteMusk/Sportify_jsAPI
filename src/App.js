@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { IntlProvider } from 'react-intl';
 
+import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import EventPage from "./pages/EventPage";
 import EventRegistration from "./pages/EventRegistration";
@@ -18,12 +19,13 @@ function App () {
   return (
     <IntlProvider locale={locale} key={locale} messages={messages}>
       <Router>
+        <Navbar />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/event/:eventID?" component={EventPage} />
-          <Route exact path="/event/:eventID?/register/" component={EventRegistration} />
-          <Route exact path="/manage/all" component={EventManagement} />
-          <Route exact path="/manage/:eventID?" component={EventDashboard} />
+          <Route exact path="/"><HomePage /></Route>
+          <Route exact path="/event/:eventID?"><EventPage /></Route>
+          <Route exact path="/event/:eventID?/register/"><EventRegistration /></Route>
+          <Route exact path="/manage/all"><EventManagement /></Route>
+          <Route exact path="/manage/:eventID?"><EventDashboard /></Route>
         </Switch>
       </Router>
     </IntlProvider>

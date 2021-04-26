@@ -35,21 +35,17 @@ function HomePage() {
     })
 
     return (
-        <>
-            <Navbar />
-
-            <Container maxWidth="md" className={classes.container}>
-                <div className={classes.appBarSpacer} />
-                <Typography gutterBottom variant="h5" component="h2">
-                    <FormattedMessage id="homePage.allEvents" />
-                </Typography>
-                {!eventList.length ?
-                    <Typography>
-                        <FormattedMessage id="loading"/>
-                    </Typography> :
-                    <EventCardList eventList={eventList} />}
-            </Container>
-        </>
+        <Container maxWidth="md" className={classes.container}>
+            <div className={classes.appBarSpacer} />
+            <Typography gutterBottom variant="h5" component="h2">
+                <FormattedMessage id="homePage.allEvents" />
+            </Typography>
+            {!eventList.length ?
+                <Typography>
+                    <FormattedMessage id="loading"/>
+                </Typography> :
+                <EventCardList eventList={eventList} />}
+        </Container>
     )
 }
 

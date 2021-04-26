@@ -101,9 +101,7 @@ function EventRegistration(props) {
     }
 
     return (
-        <>
-            <Navbar />
-            <Container maxWidth="md" className={classes.container}>
+        <Container maxWidth="md" className={classes.container}>
                 <div className={classes.appBarSpacer} />
                 {!success ?
                     <Paper>
@@ -223,7 +221,6 @@ function EventRegistration(props) {
                         </Container>
                     </Paper> : <SignUpSuccess application={application} />}
             </Container>
-        </>
     );
 }
 

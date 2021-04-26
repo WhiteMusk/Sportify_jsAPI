@@ -32,8 +32,6 @@ function EventDashboard() {
 
     return (
         <>
-            <NavBar />
-
             <Drawer
                 style={{ width: { drawerWidth }, flexShrink: 0 }}
                 variant="permanent"

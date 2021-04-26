@@ -28,15 +28,11 @@ function EventManagement(props) {
   const classes = useStyles();
 
   return (
-    <>
-      <Navbar />
+    <Container maxWidth="md" className={classes.container}>
+      <Toolbar />
 
-      <Container maxWidth="md" className={classes.container}>
-        <Toolbar />
-
-        <EventStatusTable />
-      </Container>
-    </>
+      <EventStatusTable />
+    </Container>
   );
 }
 
