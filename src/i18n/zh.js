@@ -1,7 +1,9 @@
 const zh_TW = {
+    'app.title': 'Sportify',
     'login': '登入',
     'logout': '登出',
     'loading': '載入中...',
+    'navbar.manageEvents': '管理賽事',
     'homePage.allEvents': '所有賽事',
     'eventPage.regulations': '活動簡章',
     'eventPage.register': '線上報名',

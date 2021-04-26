@@ -22,9 +22,8 @@ function App () {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/event/:eventID?" component={EventPage} />
           <Route exact path="/event/:eventID?/register/" component={EventRegistration} />
-          <Route exact path="/manage/" component={EventManagement} />
+          <Route exact path="/manage/all" component={EventManagement} />
           <Route exact path="/manage/:eventID?" component={EventDashboard} />
-          {/* <Route exact path="/organizer/event/" component={EventDashboard} /> */}
         </Switch>
       </Router>
     </IntlProvider>

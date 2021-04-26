@@ -1,7 +1,9 @@
 const en = {
+    'app.title': 'Sportify',
     'login': 'Log In',
     'logout': 'Log Out',
     'loading': 'Loading...',
+    'navbar.manageEvents': 'Manage Events',
     'homePage.allEvents': 'All Events',
     'homePage.loadingEvents': 'Loading events...',
     'eventPage.regulations': 'Event Regulations',

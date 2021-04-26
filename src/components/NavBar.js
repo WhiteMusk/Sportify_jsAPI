@@ -16,7 +16,14 @@ function Navbar() {
   return (
     <AppBar position="fixed" style={{ zIndex: 1201 }}>
       <Toolbar>
-        <Button color="inherit" component={Link} to="/">Sportify</Button>
+        <Button color="inherit" component={Link} to="/">
+          <FormattedMessage id="app.title"/>
+        </Button>
+        {isLoggedIn &&
+          <Button color="inherit" component={Link} to="/manage/all">
+            <FormattedMessage id="navbar.manageEvents"/>
+          </Button>
+        }
         <div style={{ flexGrow: 1 }}></div>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
@@ -24,7 +31,7 @@ function Navbar() {
           <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
             <FormattedMessage id="logout" />
           </Button> :
-          <Button color="inherit" component={Link} to="/manage/" onClick={() => dispatch(logIn())}>
+          <Button color="inherit" component={Link} to="/manage/all" onClick={() => dispatch(logIn())}>
             <FormattedMessage id="login" />
           </Button>
         }
