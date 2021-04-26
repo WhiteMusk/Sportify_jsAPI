@@ -34,7 +34,6 @@ function EventManagement(props) {
       <Container maxWidth="md" className={classes.container}>
         <Toolbar />
 
-
         <EventStatusTable />
       </Container>
     </>
