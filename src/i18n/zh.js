@@ -1,5 +1,6 @@
 const zh_TW = {
     'login': '登入',
+    'logout': '登出',
     'loading': '載入中...',
     'homePage.allEvents': '所有賽事',
     'eventPage.regulations': '活動簡章',

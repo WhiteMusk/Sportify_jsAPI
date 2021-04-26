@@ -1,5 +1,6 @@
 const en = {
     'login': 'Log In',
+    'logout': 'Log Out',
     'loading': 'Loading...',
     'homePage.allEvents': 'All Events',
     'homePage.loadingEvents': 'Loading events...',
