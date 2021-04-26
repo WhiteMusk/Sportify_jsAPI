@@ -19,15 +19,20 @@ function Navbar() {
         <Button color="inherit" component={Link} to="/">
           <FormattedMessage id="app.title"/>
         </Button>
-        {isLoggedIn &&
+        {/* Only show ManageEvents link if user is logged in */
+        isLoggedIn &&
           <Button color="inherit" component={Link} to="/manage/all">
             <FormattedMessage id="navbar.manageEvents"/>
           </Button>
         }
+        <Button color="inherit" component={Link} to="/about">
+          <FormattedMessage id="navbar.about"/>
+        </Button>
         <div style={{ flexGrow: 1 }}></div>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
         <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
-        {isLoggedIn ? 
+        {/* Show log out button if user is currently logged in, and vice versa */
+        isLoggedIn ? 
           <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
             <FormattedMessage id="logout" />
           </Button> :

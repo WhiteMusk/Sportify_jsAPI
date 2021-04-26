@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { IntlProvider } from 'react-intl';
 
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
 import EventPage from "./pages/EventPage";
 import EventRegistration from "./pages/EventRegistration";
 import EventManagement from "./pages/EventManagement";
@@ -18,16 +19,15 @@ function App () {
 
   return (
     <IntlProvider locale={locale} key={locale} messages={messages}>
-      <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path="/"><HomePage /></Route>
-          <Route exact path="/event/:eventID?"><EventPage /></Route>
-          <Route exact path="/event/:eventID?/register/"><EventRegistration /></Route>
-          <Route exact path="/manage/all"><EventManagement /></Route>
-          <Route exact path="/manage/:eventID?"><EventDashboard /></Route>
-        </Switch>
-      </Router>
+      <Navbar />
+      <Switch>
+        <Route exact path="/"><HomePage /></Route>
+        <Route exact path="/about"><AboutPage /></Route>
+        <Route exact path="/event/:eventID?"><EventPage /></Route>
+        <Route exact path="/event/:eventID?/register/"><EventRegistration /></Route>
+        <Route exact path="/manage/all"><EventManagement /></Route>
+        <Route exact path="/manage/:eventID?"><EventDashboard /></Route>
+      </Switch>
     </IntlProvider>
   );
 }
