@@ -1,5 +1,4 @@
 import Typography from '@material-ui/core/Typography';
-import Navbar from "../components/Navbar";
 import EventCardList from "../components/EventCardList";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';

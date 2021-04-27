@@ -13,7 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
-import Navbar from "../components/Navbar";
 import { FormattedMessage } from "react-intl";
 
 const API_ROOT = 'http://localhost:5000/';
