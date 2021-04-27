@@ -9,7 +9,6 @@ import { useState } from 'react'
 import EventOverview from '../components/EventOverview';
 import RegistrationStatus from '../components/RegistrationStatus';
 import EventInfo from '../components/EventInfo';
-import OrganizerInfo from '../components/OrganizerInfo';
 import { FormattedMessage } from 'react-intl';
 
 const drawerWidth = 240;
@@ -51,7 +50,7 @@ function EventDashboard() {
                 <Toolbar />
                 {currentTab === 0 ? <EventOverview /> :
                     (currentTab === 1 ? <EventInfo /> :
-                        (currentTab === 2 ? <RegistrationStatus /> : <OrganizerInfo />))
+                        (currentTab === 2 ? <RegistrationStatus /> : <></>))
                 }
             </Container>
         </>

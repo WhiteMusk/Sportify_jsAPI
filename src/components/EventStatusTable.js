@@ -1,6 +1,6 @@
 import React from 'react';
+import { useState } from 'react'
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,14 +13,17 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import { FormattedMessage } from 'react-intl';
 import { Link, useHistory } from 'react-router-dom';
-
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 function createData(title, date, access, publish, status) {
   return { title, date, access, publish, status };
@@ -60,11 +63,11 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-  { id: 'title', numeric: false, disablePadding: true, label: <FormattedMessage id="manage.eventTitle"/> },
-  { id: 'date', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventDate"/> },
-  { id: 'access', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventAccess"/> },
-  { id: 'publish', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventPublish"/> },
-  { id: 'status', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventStatus"/> },
+  { id: 'title', numeric: false, disablePadding: true, label: <FormattedMessage id="manage.eventTitle" /> },
+  { id: 'date', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventDate" /> },
+  { id: 'access', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventAccess" /> },
+  { id: 'publish', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventPublish" /> },
+  { id: 'status', numeric: false, disablePadding: false, label: <FormattedMessage id="manage.eventStatus" /> },
 ];
 
 function EnhancedTableHead(props) {
@@ -128,16 +131,57 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+  createBut: {
+    width: "10em",
+  },
 }));
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Toolbar className={classes.root}>
       <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
         <FormattedMessage id="manage.listTitle" />
       </Typography>
+
+      <Button className={classes.createBut} variant="contained" onClick={handleClickOpen}>
+        <FormattedMessage id="manage.createEvent" />
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title"><FormattedMessage id="manage.createEvent" /></DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <FormattedMessage id="manage.createEventContent" />
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Event Name"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            <FormattedMessage id="manage.createEventCancel" />
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            <FormattedMessage id="manage.createEventSubmit" />
+          </Button>
+        </DialogActions>
+      </Dialog>
+
 
       <Tooltip title="Filter list">
         <IconButton aria-label="filter list">

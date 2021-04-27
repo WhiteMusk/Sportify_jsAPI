@@ -10,39 +10,45 @@ import { FormattedMessage } from 'react-intl';
 import { LOCALE_OPTIONS } from '../i18n/locale-settings';
 
 function Navbar() {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
-  return (
-    <AppBar position="fixed" style={{ zIndex: 1201 }}>
-      <Toolbar>
-        <Button color="inherit" component={Link} to="/">
-          <FormattedMessage id="app.title"/>
-        </Button>
-        {/* Show ManageEvents link if user is logged in, else show Services link */
-        isLoggedIn ?
-          <Button color="inherit" component={Link} to="/manage/all">
-            <FormattedMessage id="navbar.manageEvents"/>
-          </Button> :
-          <Button color="inherit" component={Link} to="/about">
-            <FormattedMessage id="navbar.about"/>
-          </Button>
-        }
-        <div style={{ flexGrow: 1 }}></div>
-        <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
-        <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
-        {/* Show log out button if user is currently logged in, and vice versa */
-        isLoggedIn ? 
-          <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
-            <FormattedMessage id="logout" />
-          </Button> :
-          <Button color="inherit" component={Link} to="/manage/all" onClick={() => dispatch(logIn())}>
-            <FormattedMessage id="login" />
-          </Button>
-        }
-      </Toolbar>
-    </AppBar>
-  );
+    return (
+        <AppBar position="fixed" style={{ zIndex: 1201 }}>
+            <Toolbar>
+                <Button color="inherit" component={Link} to="/">
+                    <FormattedMessage id="app.title" />
+                </Button>
+                {/* Show ManageEvents link if user is logged in, else show Services link */
+                    isLoggedIn ?
+                        <Button color="inherit" component={Link} to="/manage/all">
+                            <FormattedMessage id="navbar.manageEvents" />
+                        </Button> :
+                        <Button color="inherit" component={Link} to="/about">
+                            <FormattedMessage id="navbar.about" />
+                        </Button>
+                }
+                <div style={{ flexGrow: 1 }}></div>
+                <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
+                <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
+                {/* Show log out button if user is currently logged in, and vice versa */
+                    isLoggedIn ?
+                        <>
+                            <Button color="inherit" component={Link} to="/manage/organizerInfo">
+                                <FormattedMessage id="organizerInfo" />
+                            </Button>
+                            <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
+                                <FormattedMessage id="logout" />
+                            </Button>
+                        </>
+                        :
+                        <Button color="inherit" component={Link} to="/manage/all" onClick={() => dispatch(logIn())}>
+                            <FormattedMessage id="login" />
+                        </Button>
+                }
+            </Toolbar>
+        </AppBar>
+    );
 }
 
 export default Navbar;

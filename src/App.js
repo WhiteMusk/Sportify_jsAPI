@@ -10,6 +10,7 @@ import EventPage from "./pages/EventPage";
 import EventRegistration from "./pages/EventRegistration";
 import EventManagement from "./pages/EventManagement";
 import EventDashboard from "./pages/EventDashboard";
+import OranizerInfo from "./pages/OrganizerInfo";
 
 import { getLocaleMessages } from './i18n/locale-settings';
 
@@ -26,6 +27,7 @@ function App () {
         <Route exact path="/event/:eventID?"><EventPage /></Route>
         <Route exact path="/event/:eventID?/register/"><EventRegistration /></Route>
         <Route exact path="/manage/all"><EventManagement /></Route>
+        <Route exact path="/manage/organizerInfo"><OranizerInfo /></Route>
         <Route exact path="/manage/:eventID?"><EventDashboard /></Route>
       </Switch>
     </IntlProvider>
