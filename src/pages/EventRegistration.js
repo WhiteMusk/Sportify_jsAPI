@@ -16,11 +16,13 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import SignUpSuccess from '../components/SignUpSuccess';
 import { Link } from "react-router-dom";
+import { useMutation } from '@apollo/client';
+import { New_Form_MUTATION } from '../graphql';
 
-const API_ROOT = 'http://localhost:5000/';
-const instance = axios.create({
-    baseURL: API_ROOT
-});
+// const API_ROOT = 'http://localhost:5000/';
+// const instance = axios.create({
+//     baseURL: API_ROOT
+// });
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -64,6 +66,8 @@ function EventRegistration(props) {
     const [application, setApplication] = useState({});
     const [success, setSuccess] = useState(false);
 
+    const [newApplication] = useMutation(New_Form_MUTATION);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -90,12 +94,45 @@ function EventRegistration(props) {
             }
         )
 
-        const { data: success } = await instance.post('forms/newApplication', {
-            application
-        })
+        // const { data: success } = await instance.post('forms/newApplication', {
+        //     application
+        // })
+        var isSuccess = true;
+        try {
+            await newApplication({
+                variables: {
+                    event_id: props.match.params.eventID,
+                    applicant: {
+                        name: applicantName,
+                        gender: gender,
+                        birthday: birthday,
+                        email: email,
+                        phone: applicantPhone
+                    },
+                    emergency_contact: {
+                        name: emergencyName,
+                        relationship: emergencyRelation,
+                        phone: emergencyPhone
+                    },
+                    event_option: {
+                        category: category,
+                        partner: partner,
+                        group: group,
+                    }
+                }
+            })
+        } catch (e) {
+            console.log(e.networkError.result.errors); // here you can see your network
+            isSuccess = false;
+        }
 
-        setSuccess(true);
-        alert("新增比賽成功！");
+        if (isSuccess) {
+            setSuccess(true);
+            alert("新增比賽成功！");
+        } else {
+            alert("新增比賽失敗！");
+        }
+
     }
 
     return (
@@ -112,107 +149,98 @@ function EventRegistration(props) {
                             <Grid>
                                 <Typography variant="h4">報名表單</Typography>
                             </Grid>
-                            <FormControl className={classes.form}>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>您的名字是</Typography>
-                                    <TextField required label="Name" variant="outlined"
-                                        value={applicantName}
-                                        onInput={e => setApplicantName(e.target.value)}
-                                    />
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>生理性別</Typography>
-                                    <RadioGroup required aria-label="gender" name="gender1"
-                                        value={gender}
-                                        onChange={e => setGender(e.target.value)}
-                                    >
-                                        <FormControlLabel value="female" control={<Radio />} label="女" />
-                                        <FormControlLabel value="male" control={<Radio />} label="男" />
-                                    </RadioGroup>
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>出生日期</Typography>
-                                    <TextField
-                                        required
-                                        type="date"
-                                        defaultValue="2010-05-24"
-                                        value={birthday}
-                                        onInput={e => setBirthday(e.target.value)}
-                                    />
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>您的email</Typography>
-                                    <TextField required label="Email" variant="outlined"
-                                        value={email}
-                                        onInput={e => setEmail(e.target.value)}
-                                    />
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>單打/雙打</Typography>
-                                    <RadioGroup required aria-label="category" name="category"
-                                        value={category}
-                                        onChange={e => setCategory(e.target.value)}
-                                    >
-                                        <FormControlLabel value="singles" control={<Radio />} label="單打" />
-                                        <FormControlLabel value="doubles" control={<Radio />} label="雙打" />
-                                    </RadioGroup>
-                                    {category !== "doubles" ?
-                                        <React.Fragment></React.Fragment> :
-                                        <React.Fragment>
-                                            <Typography className={classes.fromItemTitle}>雙打搭檔姓名</Typography>
-                                            <TextField label="Partner Name" variant="outlined"
-                                                value={partner}
-                                                onInput={e => setPartner(e.target.value)}
-                                            />
-                                        </React.Fragment>}
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>參賽組別</Typography>
-                                    {/* <InputLabel htmlFor="group">Group</InputLabel> */}
-                                    <Select required
-                                        inputProps={{
-                                            id: "group"
-                                        }}
-                                        value={group}
-                                        onChange={e => setGruop(e.target.value)}
-                                    >
-                                        <MenuItem value={0}>請選擇組別</MenuItem>
-                                        <MenuItem value={1}>A組</MenuItem>
-                                        <MenuItem value={2}>B組</MenuItem>
-                                        <MenuItem value={3}>C組</MenuItem>
-                                    </Select>
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>聯絡電話</Typography>
-                                    <TextField required label="Phone" variant="outlined"
-                                        value={applicantPhone}
-                                        onInput={e => setApplicantPhone(e.target.value)}
-                                    />
-                                </Grid>
-                                <Grid>
-                                    <Typography className={classes.fromItemTitle}>緊急聯絡人</Typography>
-                                    <Typography className={classes.textFieldLabel}>姓名</Typography>
-                                    <TextField required label="Emergency Contact" variant="outlined"
-                                        value={emergencyName}
-                                        onInput={e => setEmergencyName(e.target.value)}
-                                    />
-                                    <Typography className={classes.textFieldLabel}>關係</Typography>
-                                    <TextField required label="Relationship" variant="outlined"
-                                        value={emergencyRelation}
-                                        onInput={e => setEmergencyRelation(e.target.value)}
-                                    />
-                                    <Typography className={classes.textFieldLabel}>電話</Typography>
-                                    <TextField required label="Contact Phone" variant="outlined"
-                                        value={emergencyPhone}
-                                        onInput={e => setEmergencyPhone(e.target.value)}
-                                    />
-                                </Grid>
-                                <Grid>
-                                    <Button className={classes.submitBut} variant="contained" color="default"
-                                        type="submit"
-                                        onClick={handleSubmit}
-                                    >
-                                        提交表單
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>生理性別</Typography>
+                                <RadioGroup required aria-label="gender" name="gender1"
+                                    value={gender}
+                                    onChange={e => setGender(e.target.value)}
+                                >
+                                    <FormControlLabel value="female" control={<Radio />} label="女" />
+                                    <FormControlLabel value="male" control={<Radio />} label="男" />
+                                </RadioGroup>
+                            </Grid>
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>出生日期</Typography>
+                                <TextField
+                                    required
+                                    type="date"
+                                    value={birthday}
+                                    onInput={e => setBirthday(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>您的email</Typography>
+                                <TextField required label="Email" variant="outlined"
+                                    value={email}
+                                    onInput={e => setEmail(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>單打/雙打</Typography>
+                                <RadioGroup required aria-label="category" name="category"
+                                    value={category}
+                                    onChange={e => setCategory(e.target.value)}
+                                >
+                                    <FormControlLabel value="singles" control={<Radio />} label="單打" />
+                                    <FormControlLabel value="doubles" control={<Radio />} label="雙打" />
+                                </RadioGroup>
+                                {category !== "doubles" ?
+                                    <React.Fragment></React.Fragment> :
+                                    <React.Fragment>
+                                        <Typography className={classes.fromItemTitle}>雙打搭檔姓名</Typography>
+                                        <TextField label="Partner Name" variant="outlined"
+                                            value={partner}
+                                            onInput={e => setPartner(e.target.value)}
+                                        />
+                                    </React.Fragment>}
+                            </Grid>
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>參賽組別</Typography>
+                                {/* <InputLabel htmlFor="group">Group</InputLabel> */}
+                                <Select required
+                                    inputProps={{
+                                        id: "group"
+                                    }}
+                                    value={group}
+                                    onChange={e => setGruop(e.target.value)}
+                                >
+                                    <MenuItem value={0}>請選擇組別</MenuItem>
+                                    <MenuItem value={1}>A組</MenuItem>
+                                    <MenuItem value={2}>B組</MenuItem>
+                                    <MenuItem value={3}>C組</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>聯絡電話</Typography>
+                                <TextField required label="Phone" variant="outlined"
+                                    value={applicantPhone}
+                                    onInput={e => setApplicantPhone(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid>
+                                <Typography className={classes.fromItemTitle}>緊急聯絡人</Typography>
+                                <Typography className={classes.textFieldLabel}>姓名</Typography>
+                                <TextField required label="Emergency Contact" variant="outlined"
+                                    value={emergencyName}
+                                    onInput={e => setEmergencyName(e.target.value)}
+                                />
+                                <Typography className={classes.textFieldLabel}>關係</Typography>
+                                <TextField required label="Relationship" variant="outlined"
+                                    value={emergencyRelation}
+                                    onInput={e => setEmergencyRelation(e.target.value)}
+                                />
+                                <Typography className={classes.textFieldLabel}>電話</Typography>
+                                <TextField required label="Contact Phone" variant="outlined"
+                                    value={emergencyPhone}
+                                    onInput={e => setEmergencyPhone(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid>
+                                <Button className={classes.submitBut} variant="contained" color="default"
+                                    type="submit"
+                                    onClick={handleSubmit}
+                                >
+                                    提交表單
                                 </Button>
                                 </Grid>
                             </FormControl>

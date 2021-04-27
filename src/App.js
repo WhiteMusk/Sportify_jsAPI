@@ -24,8 +24,8 @@ function App () {
       <Switch>
         <Route exact path="/"><HomePage /></Route>
         <Route exact path="/about"><AboutPage /></Route>
-        <Route exact path="/event/:eventID?"><EventPage /></Route>
-        <Route exact path="/event/:eventID?/register/"><EventRegistration /></Route>
+        <Route exact path="/event/:eventID?" component={EventPage}></Route>
+        <Route exact path="/event/:eventID?/register/" component={EventRegistration}></Route>
         <Route exact path="/manage/all"><EventManagement /></Route>
         <Route exact path="/manage/organizerInfo"><OranizerInfo /></Route>
         <Route exact path="/manage/:eventID?"><EventDashboard /></Route>

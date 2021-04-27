@@ -8,14 +8,23 @@ import store from "./redux/store";
 
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
+import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: "http://localhost:4000/"
+});
 
 const Root = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <App/>
-      </Router>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    </ApolloProvider>
   )
 };
 

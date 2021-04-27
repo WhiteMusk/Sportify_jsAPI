@@ -6,13 +6,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function EventCard(props) {
   return (
     <Card>
       <CardActionArea
-        component={NavLink} to={"/eventInfo/" + props.event._id}
+        component={Link} to={"/event/" + props.event._id}
       >
         <CardMedia
           component="img"
@@ -37,7 +37,7 @@ function EventCard(props) {
           </Button>
         <Button
           size="small" color="primary"
-          component={NavLink} to={"/eventInfo/" + props.event._id}
+          component={Link} to={"/event/" + props.event._id}
         >
           更多資訊
           </Button>

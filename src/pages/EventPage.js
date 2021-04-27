@@ -13,12 +13,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
+import { useQuery } from '@apollo/client';
 import { FormattedMessage } from "react-intl";
 
-const API_ROOT = 'http://localhost:5000/';
-const instance = axios.create({
-  baseURL: API_ROOT
-});
+import { Event_QUERY } from '../graphql';
+
+// const API_ROOT = 'http://localhost:5000/';
+// const instance = axios.create({
+//   baseURL: API_ROOT
+// });
 
 const drawerWidth = 240;
 
@@ -31,18 +34,21 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
-  const [eventInfo, setEventInfo] = useState([]);
+  // const [eventInfo, setEventInfo] = useState([]);
 
-  const getEventInfo = async (id) => {
-    const { data: info } = await instance.get('/events/eventInfo', { params: { id } });
-    setEventInfo(info);
-  }
+  // const getEventInfo = async (id) => {
+  //   const { data: info } = await instance.get('/events/eventInfo', { params: { id } });
+  //   setEventInfo(info);
+  // }
 
-  useEffect(() => {
-    getEventInfo(props.match.params.eventID);
-  },
-    [props.match.params.eventID]
-  )
+  // useEffect(() => {
+  //   getEventInfo(props.match.params.eventID);
+  // },
+  //   [props.match.params.eventID]
+  // )
+
+  const { loading, error, data } = useQuery(Event_QUERY, { variables: { id: props.match.params.eventID } });
+  if (error) console.log(error);
 
   return (
     <>
@@ -78,9 +84,9 @@ function EventInfo(props) {
       </Drawer>
       <Container maxWidth="md" className={classes.container}>
         <Toolbar />
-        {!eventInfo.length ?
-          <Typography><FormattedMessage id="loading"/></Typography> :
-          <EventDescription info={eventInfo[0]} />}
+        {loading ?
+          <Typography><FormattedMessage id="loading" /></Typography> :
+          <EventDescription info={data.event} />}
       </Container>
     </>
   );
