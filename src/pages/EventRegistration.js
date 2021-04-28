@@ -243,7 +243,6 @@ function EventRegistration(props) {
                                     提交表單
                                 </Button>
                                 </Grid>
-                            </FormControl>
                         </Container>
                     </Paper> : <SignUpSuccess application={application} />}
             </Container>
