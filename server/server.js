@@ -1,36 +1,23 @@
-// const express = require('express');
-// const cors = require('cors');
+const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
-const { ApolloServer, gql } = require('apollo-server');
 
 require('dotenv').config({ path: __dirname + '/.env' });
 
-// const app = express();
-const port = process.env.PORT || 5000;
-
 const typeDefs = require('./schema.graphql');
-
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
+const Event = require('./models/event.model');
+const Form = require('./models/form.model');
+const Host = require('./models/host.model');
 
-const EventDB = require('./models/event.model');
-const FormDB = require('./models/form.model');
-const HostDB = require('./models/host.model');
+const port = process.env.PORT || 5000;
+const MONGO_DB = process.env.ATLAS_URI;
 
-// app.use(cors());
-// app.use(express.json());
-
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log("MongoDB database connection established successfully");
-});
-
-const db = mongoose.connection
+mongoose.connect(MONGO_DB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+const db = mongoose.connection;
 
 db.on('error', (error) => {
-    console.error(error)
+    console.error(error);
 })
 
 db.once('open', () => {
@@ -45,15 +32,15 @@ db.once('open', () => {
             Mutation
         },
         context: {
-            EventDB,
-            FormDB,
-            HostDB
+            Event,
+            Form,
+            Host
             //   pubsub
         }
     });
 
-    server.listen().then(({ port }) => {
-        console.log(`🚀  Server ready at ${port}`);
+    server.listen(port).then(({ url }) => {
+        console.log(`🚀 Server running at ${url}`);
     });
 })
 

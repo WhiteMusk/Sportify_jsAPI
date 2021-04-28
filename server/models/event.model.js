@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+const { model, Schema } = require('mongoose');
 
 const eventSchema = new Schema({
     host_id: { type: Schema.Types.ObjectId, ref: 'Host' },
@@ -12,6 +10,6 @@ const eventSchema = new Schema({
     timestamps: true,
 });
 
-const Event = mongoose.model('Event', eventSchema);
+const Event = model('Event', eventSchema);
 
 module.exports = Event;

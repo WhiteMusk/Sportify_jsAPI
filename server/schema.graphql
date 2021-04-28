@@ -10,8 +10,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    allEvents: [Event]
-    event(id: String!): Event
+    getAllEvents: [Event]
+    getEvent(id: String!): Event
   }
 
   input Applicant {

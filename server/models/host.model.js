@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+const { model, Schema } = require('mongoose');
 
 const hostSchema = new Schema({
     name: { type: String, required: true, trim: true, minlength: 3 },
@@ -13,6 +11,6 @@ const hostSchema = new Schema({
     timestamps: true,
 });
 
-const Host = mongoose.model('Host', hostSchema);
+const Host = model('Host', hostSchema);
 
 module.exports = Host;
