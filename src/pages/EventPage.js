@@ -10,7 +10,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Link } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
 import { useQuery } from '@apollo/client';
@@ -34,20 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
-  // const [eventInfo, setEventInfo] = useState([]);
-
-  // const getEventInfo = async (id) => {
-  //   const { data: info } = await instance.get('/events/eventInfo', { params: { id } });
-  //   setEventInfo(info);
-  // }
-
-  // useEffect(() => {
-  //   getEventInfo(props.match.params.eventID);
-  // },
-  //   [props.match.params.eventID]
-  // )
-
-  const { loading, error, data } = useQuery(Event_QUERY, { variables: { id: props.match.params.eventID } });
+  const { loading, error, data } = useQuery(Event_QUERY, { variables: { eventId: props.match.params.eventID } });
   if (error) console.log(error);
 
   return (

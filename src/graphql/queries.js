@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const AllEvents_QUERY = gql`
   query {
-    allEvents{
+    allEvents {
         _id
         title
         date
@@ -12,10 +12,8 @@ const AllEvents_QUERY = gql`
 `
 
 const Event_QUERY = gql`
-  query (
-    $id: String!
-  ) {
-    event(id: $id) {
+  query ($eventId: String!) {
+    event(eventId: $eventId) {
         title
         date
         location

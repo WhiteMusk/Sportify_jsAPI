@@ -35,7 +35,7 @@ function Navbar() {
                     isLoggedIn ?
                         <>
                             <Button color="inherit" component={Link} to="/manage/organizerInfo">
-                                <FormattedMessage id="organizerInfo" />
+                                <FormattedMessage id="navbar.hostInfo" />
                             </Button>
                             <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
                                 <FormattedMessage id="logout" />

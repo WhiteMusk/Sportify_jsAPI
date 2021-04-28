@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter as Router } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import { Provider } from "react-redux";
-import store from "./redux/store";
-
+import { store, persistor } from "./redux/store";
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
-import { ApolloProvider } from '@apollo/client';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -19,11 +17,13 @@ const client = new ApolloClient({
 const Root = () => {
   return (
     <ApolloProvider client={client}>
-      <Provider store={store}>
-        <Router>
-          <App />
-        </Router>
-      </Provider>
+      <ReduxProvider store={store}>
+        <PersistGate persistor={persistor}>
+          <Router>
+            <App />
+          </Router>
+        </PersistGate>
+      </ReduxProvider>
     </ApolloProvider>
   )
 };
