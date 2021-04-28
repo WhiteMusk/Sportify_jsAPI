@@ -18,6 +18,9 @@ const GET_EVENT_QUERY = gql`
         date
         location
         description
+        registrationInfo
+        trafficInfo
+        prize
     }
   }
 `

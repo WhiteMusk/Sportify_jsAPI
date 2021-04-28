@@ -33,9 +33,25 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_EVENT_QUERY, { 
-    variables: { eventId: props.match.params.eventID } 
-  });
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabClick = (index) => {
+    setCurrentTab(index);
+  }
+  // const [eventInfo, setEventInfo] = useState([]);
+
+  // const getEventInfo = async (id) => {
+  //   const { data: info } = await instance.get('/events/eventInfo', { params: { id } });
+  //   setEventInfo(info);
+  // }
+
+  // useEffect(() => {
+  //   getEventInfo(props.match.params.eventID);
+  // },
+  //   [props.match.params.eventID]
+  // )
+
+  const { loading, error, data } = useQuery(Event_QUERY, { variables: { id: props.match.params.eventID } });
   if (error) console.log(error);
 
   return (
@@ -48,7 +64,7 @@ function EventInfo(props) {
         <div>
           <List>
             {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
-              <ListItem button key={text}>
+              <ListItem button key={text} onClick={() => handleTabClick(index)}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
@@ -57,7 +73,7 @@ function EventInfo(props) {
           <List>
             {['聯絡主辦', '線上報名'].map((text, index) => (
               index === 0 ?
-                (<ListItem button key={text}
+                (<ListItem button key={text} onClick={() => handleTabClick(index + 4)}
                 >
                   <ListItemText primary={text} />
                 </ListItem>) :
@@ -74,7 +90,7 @@ function EventInfo(props) {
         <Toolbar />
         {loading ?
           <Typography><FormattedMessage id="loading" /></Typography> :
-          <EventDescription info={data.getEvent} />}
+          <EventDescription info={data.event} tab={currentTab} />}
       </Container>
     </>
   );
