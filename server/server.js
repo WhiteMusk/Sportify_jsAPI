@@ -3,12 +3,8 @@ const mongoose = require('mongoose');
 
 require('dotenv').config({ path: __dirname + '/.env' });
 
-const typeDefs = require('./schema.graphql');
-const Query = require('./resolvers/Query');
-const Mutation = require('./resolvers/Mutation');
-const Event = require('./models/event.model');
-const Form = require('./models/form.model');
-const Host = require('./models/host.model');
+const typeDefs = require('./graphql/schema.graphql');
+const resolvers = require('./graphql/resolvers');
 
 const port = process.env.PORT || 5000;
 const MONGO_DB = process.env.ATLAS_URI;
@@ -27,16 +23,7 @@ db.once('open', () => {
 
     const server = new ApolloServer({
         typeDefs,
-        resolvers: {
-            Query,
-            Mutation
-        },
-        context: {
-            Event,
-            Form,
-            Host
-            //   pubsub
-        }
+        resolvers
     });
 
     server.listen(port).then(({ url }) => {
