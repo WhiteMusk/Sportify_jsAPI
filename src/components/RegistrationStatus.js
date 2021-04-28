@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
+import { useQuery } from '@apollo/client';
+import { Host_RegistrationStatus_QUERY } from '../graphql';
 
 const useStyles = makeStyles((theme) => ({
     chip: {
@@ -29,48 +31,57 @@ const rows = [
     createData('test 2', "男", "85-01-13", "雙打", "test 3", "A組", "test2@gmail.com", "09-11111111", true),
 ];
 
-function RegistrationStatus() {
+function RegistrationStatus(props) {
     const classes = useStyles();
+
+    const { loading, error, data } = useQuery(Host_RegistrationStatus_QUERY, { variables: { event_id: props.eventID } });
+    if (error) console.log(error);
 
     return (
         <>
-            <Typography variant="h4"><FormattedMessage id="registrationStatus.title" /></Typography>
-            <Chip label={<FormattedMessage id="registrationStatus.count" />} variant="outlined" className={classes.chip} />
+            {loading ?
+                <>
+                    <Typography variant="h4"><FormattedMessage id="registrationStatus.title" /></Typography>
+                    <Typography><FormattedMessage id="loading" /></Typography>
+                </>
+                :
+                <><Typography variant="h4"><FormattedMessage id="registrationStatus.title" /></Typography>
+                    <Chip label={data.eventForms.length} variant="outlined" className={classes.chip} />
 
-            <TableContainer component={Paper}>
-                <Table className={classes.table} size="small" aria-label="a dense table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell><FormattedMessage id="registrationStatus.name" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.gender" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.birthday" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.category" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.partner" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.group" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.email" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.phone" /></TableCell>
-                            <TableCell align="right"><FormattedMessage id="registrationStatus.fee" /></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row.gender}</TableCell>
-                                <TableCell align="right">{row.birthday}</TableCell>
-                                <TableCell align="right">{row.category}</TableCell>
-                                <TableCell align="right">{row.partner}</TableCell>
-                                <TableCell align="right">{row.group}</TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
-                                <TableCell align="right">{row.phone}</TableCell>
-                                {row.isPay === true ? <TableCell align="right"><FormattedMessage id="registrationStatus.isFee" /></TableCell> : <TableCell align="right"><FormattedMessage id="registrationStatus.noFee" /></TableCell>}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table} size="small" aria-label="a dense table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><FormattedMessage id="registrationStatus.name" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.gender" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.birthday" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.category" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.partner" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.group" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.email" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.phone" /></TableCell>
+                                    <TableCell align="right"><FormattedMessage id="registrationStatus.fee" /></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {data.eventForms.map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell component="th" scope="row">
+                                            {row.applicant.name}
+                                        </TableCell>
+                                        <TableCell align="right">{row.applicant.gender}</TableCell>
+                                        <TableCell align="right">{row.applicant.birthday}</TableCell>
+                                        <TableCell align="right">{row.event_option.category}</TableCell>
+                                        <TableCell align="right">{row.event_option.partner}</TableCell>
+                                        <TableCell align="right">{row.event_option.group}</TableCell>
+                                        <TableCell align="right">{row.applicant.email}</TableCell>
+                                        <TableCell align="right">{row.applicant.phone}</TableCell>
+                                        <TableCell align="right"><FormattedMessage id="registrationStatus.noFee" /></TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer></>}
         </>
     );
 }

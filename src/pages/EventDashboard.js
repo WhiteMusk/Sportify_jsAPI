@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function EventDashboard() {
+function EventDashboard(props) {
     const classes = useStyles();
     const [currentTab, setCurrentTab] = useState(0);
 
@@ -48,9 +48,9 @@ function EventDashboard() {
 
             <Container maxWidth="md" className={classes.container}>
                 <Toolbar />
-                {currentTab === 0 ? <EventOverview /> :
-                    (currentTab === 1 ? <EventInfo /> :
-                        (currentTab === 2 ? <RegistrationStatus /> : <></>))
+                {currentTab === 0 ? <EventOverview eventID={props.match.params.eventID} /> :
+                    (currentTab === 1 ? <EventInfo eventID={props.match.params.eventID} /> :
+                        (currentTab === 2 ? <RegistrationStatus eventID={props.match.params.eventID} /> : <></>))
                 }
             </Container>
         </>

@@ -18,7 +18,7 @@ function EventManagement() {
     <Container maxWidth="md" className={classes.container}>
       <Toolbar />
 
-      <EventStatusTable />
+      <EventStatusTable hostID={props.match.params.hostID} />
     </Container>
   );
 }

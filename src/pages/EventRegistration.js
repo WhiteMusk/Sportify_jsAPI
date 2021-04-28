@@ -128,9 +128,9 @@ function EventRegistration(props) {
 
         if (isSuccess) {
             setSuccess(true);
-            alert("新增比賽成功！");
+            alert("報名成功！");
         } else {
-            alert("新增比賽失敗！");
+            alert("報名失敗！請再試一次");
         }
 
     }

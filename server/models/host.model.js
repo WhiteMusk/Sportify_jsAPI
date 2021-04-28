@@ -2,11 +2,11 @@ const { model, Schema } = require('mongoose');
 
 const hostSchema = new Schema({
     name: { type: String, required: true, trim: true, minlength: 3 },
-    phone: { type: String, required: true, trim: true, minlength: 8 },
+    phone: { type: String, trim: true },
     email: { type: String, required: true, trim: true, minlength: 5 },
-    page: { type: String, required: true, trim: true, minlength: 8 },
-    bank_code: { type: Number, required: true, trim: true, minlength: 3 },
-    bank_account: { type: Number, required: true, trim: true, minlength: 3 },
+    page: { type: String, trim: true },
+    bank_code: { type: String, trim: true },
+    bank_account: { type: String, trim: true },
 }, {
     timestamps: true,
 });
