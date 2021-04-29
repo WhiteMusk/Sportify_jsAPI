@@ -33,25 +33,9 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
-  const [currentTab, setCurrentTab] = useState(0);
-
-  const handleTabClick = (index) => {
-    setCurrentTab(index);
-  }
-  // const [eventInfo, setEventInfo] = useState([]);
-
-  // const getEventInfo = async (id) => {
-  //   const { data: info } = await instance.get('/events/eventInfo', { params: { id } });
-  //   setEventInfo(info);
-  // }
-
-  // useEffect(() => {
-  //   getEventInfo(props.match.params.eventID);
-  // },
-  //   [props.match.params.eventID]
-  // )
-
-  const { loading, error, data } = useQuery(Event_QUERY, { variables: { id: props.match.params.eventID } });
+  const { loading, error, data } = useQuery(GET_EVENT_QUERY, {
+    variables: { eventId: props.match.params.eventID }
+  });
   if (error) console.log(error);
 
   return (
