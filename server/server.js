@@ -1,12 +1,12 @@
 const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
-require('dotenv').config({ path: __dirname + '/.env' });
-
 const typeDefs = require('./graphql/schema.graphql');
 const resolvers = require('./graphql/resolvers');
 
-const port = process.env.PORT || 5000;
+require('dotenv').config({ path: `${__dirname}/../.env` });
+
+const port = process.env.PORT || 4000;
 const MONGO_DB = process.env.ATLAS_URI;
 
 mongoose.connect(MONGO_DB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -30,13 +30,3 @@ db.once('open', () => {
         console.log(`🚀 Server running at ${url}`);
     });
 })
-
-// const eventsRouter = require('./routes/events');
-// const formsRouter = require('./routes/forms');
-
-// app.use('/events', eventsRouter);
-// app.use('/forms', formsRouter);
-
-// app.listen(port, () => {
-//     console.log(`Server is running on port: ${port}`);
-// });

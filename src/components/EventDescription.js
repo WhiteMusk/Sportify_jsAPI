@@ -8,17 +8,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function EventDescription(props) {
+function EventDescription({ info }) {
     const classes = useStyles();
 
     return (
         <React.Fragment>
-            <Typography variant="h4" className={classes.title}>{props.info.title}</Typography>
+            <Typography variant="h4" className={classes.title}>{info.title}</Typography>
             <Typography paragraph>
-                {"日期： " + props.info.date.slice(0, 10)}<br />
-                {"地點： " + props.info.location}<br />
+                {"日期： " + info.date.slice(0, 10)}<br />
+                {"地點： " + info.location}<br />
           說明：<br />
-                {props.info.description}
+                {info.description}
             </Typography>
         </React.Fragment>
     )

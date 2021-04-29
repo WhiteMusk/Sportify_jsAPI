@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
     Mutation: {
-        async newForm(_, {
+        async addForm(_, {
             data: { event_id, applicant, emergency_contact, event_option }
         }) {
             const newForm = new Form({

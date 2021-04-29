@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 
-const New_Form_MUTATION = gql`
-  mutation newForm(
+const CREATE_FORM_MUTATION = gql`
+  mutation addForm(
         $event_id: String!
         $applicant: Applicant!
         $emergency_contact: EmergencyContact!
         $event_option: EventOption!
     ){
-        newForm(
+        addForm (
             data: {
                 event_id: $event_id
                 applicant: $applicant
@@ -18,4 +18,4 @@ const New_Form_MUTATION = gql`
     }
 `
 
-export { New_Form_MUTATION };
+export { CREATE_FORM_MUTATION };

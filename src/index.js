@@ -9,9 +9,11 @@ import { store, persistor } from "./redux/store";
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
 
+require('dotenv').config({ path: `${__dirname}/../.env` });
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: "http://localhost:4000/"
+  uri: `http://localhost:${process.env.PORT}/`
 });
 
 const Root = () => {

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-const AllEvents_QUERY = gql`
+const GET_EVENTS_QUERY = gql`
   query {
-    allEvents {
+    getEvents {
         _id
         title
         date
@@ -11,9 +11,9 @@ const AllEvents_QUERY = gql`
   }
 `
 
-const Event_QUERY = gql`
+const GET_EVENT_QUERY = gql`
   query ($eventId: String!) {
-    event(eventId: $eventId) {
+    getEvent(eventId: $eventId) {
         title
         date
         location
@@ -22,4 +22,4 @@ const Event_QUERY = gql`
   }
 `
 
-export { AllEvents_QUERY, Event_QUERY };
+export { GET_EVENTS_QUERY, GET_EVENT_QUERY };

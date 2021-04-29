@@ -2,10 +2,10 @@ import Typography from '@material-ui/core/Typography';
 import EventCardList from "../components/EventCardList";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from '@apollo/client';
-import { AllEvents_QUERY } from '../graphql';
+
+import { GET_EVENTS_QUERY } from '../graphql';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePage() {
     const classes = useStyles();
-    const { loading, error, data } = useQuery(AllEvents_QUERY);
+    const { loading, error, data } = useQuery(GET_EVENTS_QUERY);
     if (error) console.log(error);
 
     return (
@@ -32,7 +32,7 @@ function HomePage() {
                     <FormattedMessage id="loading"/>
                 </Typography> : (
                 data ? 
-                    <EventCardList eventList={data.allEvents} /> :
+                    <EventCardList events={data.getEvents} /> :
                     <Typography>
                         Cannot connect to server.
                     </Typography>)

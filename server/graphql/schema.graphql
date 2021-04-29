@@ -10,8 +10,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    AllEvents: [Event]
-    event(eventId: String!): Event
+    getEvents: [Event]
+    getEvent(eventId: String!): Event
   }
 
   input Applicant {
@@ -42,7 +42,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    newForm(data: FormInput!): Boolean!
+    addForm(data: FormInput!): Boolean!
   }
 `;
 

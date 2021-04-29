@@ -8,26 +8,26 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
 
-function EventCard(props) {
+function EventCard({ event }) {
   return (
     <Card>
       <CardActionArea
-        component={Link} to={"/event/" + props.event._id}
+        component={Link} to={"/event/" + event._id}
       >
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
           height="140"
           image="https://www.eventpal.com.tw/573a50d7-122f-4d23-9c9a-525ba403732e/1.jpg"
-          title={props.event.title}
+          title={event.title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.event.title}
+            {event.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {"活動日期： " + props.event.date.slice(0, 10)}<br />
-            {"集合地點： " + props.event.location}
+            {"活動日期： " + event.date.slice(0, 10)}<br />
+            {"集合地點： " + event.location}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -37,7 +37,7 @@ function EventCard(props) {
           </Button>
         <Button
           size="small" color="primary"
-          component={Link} to={"/event/" + props.event._id}
+          component={Link} to={"/event/" + event._id}
         >
           更多資訊
           </Button>

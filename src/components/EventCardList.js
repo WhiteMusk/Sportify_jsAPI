@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EventCardList(props) {
+function EventCardList({ events }) {
   const classes = useStyles();
 
   return (
     <Container maxWidth="md" className={classes.container}>
       <Grid container spacing={3}>
-        {props.eventList.map((e, i) => {
+        {events.map((e, i) => {
           return (
             <Grid item sm={6} md={4} key={i}>
               <EventCard event={e} />

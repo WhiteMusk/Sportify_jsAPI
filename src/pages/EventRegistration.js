@@ -16,7 +16,8 @@ import Button from '@material-ui/core/Button';
 import SignUpSuccess from '../components/SignUpSuccess';
 import { Link } from "react-router-dom";
 import { useMutation } from '@apollo/client';
-import { New_Form_MUTATION } from '../graphql';
+
+import { CREATE_FORM_MUTATION } from '../graphql';
 
 // const API_ROOT = 'http://localhost:5000/';
 // const instance = axios.create({
@@ -65,7 +66,7 @@ function EventRegistration(props) {
     const [application, setApplication] = useState({});
     const [success, setSuccess] = useState(false);
 
-    const [newApplication] = useMutation(New_Form_MUTATION);
+    const [newApplication] = useMutation(CREATE_FORM_MUTATION);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

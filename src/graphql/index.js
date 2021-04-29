@@ -1,2 +1,7 @@
-export { AllEvents_QUERY, Event_QUERY } from './queries';
-export { New_Form_MUTATION } from './mutations';
+const queries = require('./queries');
+const mutations = require('./mutations');
+
+module.exports = {
+    ...queries,
+    ...mutations
+}

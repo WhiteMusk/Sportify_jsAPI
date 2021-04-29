@@ -15,7 +15,7 @@ import EventDescription from '../components/EventDescription';
 import { useQuery } from '@apollo/client';
 import { FormattedMessage } from "react-intl";
 
-import { Event_QUERY } from '../graphql';
+import { GET_EVENT_QUERY } from '../graphql';
 
 // const API_ROOT = 'http://localhost:5000/';
 // const instance = axios.create({
@@ -33,7 +33,9 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(Event_QUERY, { variables: { eventId: props.match.params.eventID } });
+  const { loading, error, data } = useQuery(GET_EVENT_QUERY, { 
+    variables: { eventId: props.match.params.eventID } 
+  });
   if (error) console.log(error);
 
   return (
@@ -72,7 +74,7 @@ function EventInfo(props) {
         <Toolbar />
         {loading ?
           <Typography><FormattedMessage id="loading" /></Typography> :
-          <EventDescription info={data.event} />}
+          <EventDescription info={data.getEvent} />}
       </Container>
     </>
   );
