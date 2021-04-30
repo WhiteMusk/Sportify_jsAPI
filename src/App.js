@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl';
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
+import AuthPage from "./pages/AuthPage";
 import EventPage from "./pages/EventPage";
 import EventRegistration from "./pages/EventRegistration";
 import EventManagement from "./pages/EventManagement";
@@ -26,6 +27,7 @@ function App () {
         <Route exact path="/about"><AboutPage /></Route>
         <Route exact path="/event/:eventID?" component={EventPage}></Route>
         <Route exact path="/event/:eventID?/register/" component={EventRegistration}></Route>
+        <Route exact path="/auth"><AuthPage /></Route>
         <Route exact path="/manage/all"><EventManagement /></Route>
         <Route exact path="/manage/organizerInfo"><OranizerInfo /></Route>
         <Route exact path="/manage/:eventID?"><EventDashboard /></Route>

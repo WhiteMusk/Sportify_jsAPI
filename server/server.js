@@ -6,7 +6,7 @@ const resolvers = require('./graphql/resolvers');
 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
-const port = process.env.PORT || 4000;
+const port = process.env.SERVER_PORT || 4000;
 const MONGO_DB = process.env.ATLAS_URI;
 
 mongoose.connect(MONGO_DB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });

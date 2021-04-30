@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLocale, logIn, logOut } from '../redux/actions';
 import { FormattedMessage } from 'react-intl';
 import { LOCALE_OPTIONS } from '../i18n/locale-settings';
+import { Typography } from "@material-ui/core";
 
 function Navbar() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const userData = useSelector(state => state.auth.userData);
 
     return (
         <AppBar position="fixed" style={{ zIndex: 1201 }}>
@@ -37,12 +39,15 @@ function Navbar() {
                             <Button color="inherit" component={Link} to="/manage/organizerInfo">
                                 <FormattedMessage id="navbar.hostInfo" />
                             </Button>
+                            <Typography>
+                                {userData.profile.name}
+                            </Typography>
                             <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
                                 <FormattedMessage id="logout" />
                             </Button>
                         </>
                         :
-                        <Button color="inherit" component={Link} to="/manage/all" onClick={() => dispatch(logIn())}>
+                        <Button color="inherit" component={Link} to="/auth">
                             <FormattedMessage id="login" />
                         </Button>
                 }

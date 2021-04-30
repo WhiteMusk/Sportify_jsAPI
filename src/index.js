@@ -11,9 +11,11 @@ import App from './App';
 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
+const port = process.env.SERVER_PORT || 4000;
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: `http://localhost:${process.env.PORT}/`
+  uri: `http://localhost:${port}/`
 });
 
 const Root = () => {
