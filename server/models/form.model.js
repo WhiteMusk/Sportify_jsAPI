@@ -16,6 +16,7 @@ const formSchema = new Schema({
         transactionName: { type: String, trim: true },
         information: { type: String, trim: true },
         otherInformation: { type: String, trim: true },
+        paid: { type: Boolean }
     },
     emergency_contact: {
         name: { type: String, trim: true },

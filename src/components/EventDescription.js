@@ -12,41 +12,41 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function EventDescription({ info }) {
+function EventDescription({ info, tab }) {
     const classes = useStyles();
 
-    const { loading, error, data } = useQuery(Host_QUERY, { variables: { host_id: props.info.host_id } });
+    const { loading, error, data } = useQuery(Host_QUERY, { variables: { host_id: info.host_id } });
     if (error) console.log(error);
 
     return (
         <>
-            {props.tab === 0 ?
+            {tab === 0 ?
                 <>
-                    <Typography variant="h4" className={classes.title}>{props.info.title}</Typography>
+                    <Typography variant="h4" className={classes.title}>{info.title}</Typography>
                     <Typography paragraph>
-                        {"日期： " + props.info.date.slice(0, 10)}<br />
-                        {"地點： " + props.info.location}<br />
+                        {"日期： " + info.date.slice(0, 10)}<br />
+                        {"地點： " + info.location}<br />
                         說明：<br />
                     </Typography>
-                    {htmlToReactParser.parse(props.info.description)}
+                    {htmlToReactParser.parse(info.description)}
                 </>
                 :
-                (props.tab === 1 ?
+                (tab === 1 ?
                     <>
                         <Typography variant="h4" className={classes.title}>報名資訊</Typography>
-                        {htmlToReactParser.parse(props.info.registrationInfo)}
+                        {htmlToReactParser.parse(info.registrationInfo)}
                     </>
                     :
-                    (props.tab === 2 ?
+                    (tab === 2 ?
                         <>
                             <Typography variant="h4" className={classes.title}>交通資訊</Typography>
-                            {htmlToReactParser.parse(props.info.trafficInfo)}
+                            {htmlToReactParser.parse(info.trafficInfo)}
                         </>
                         :
-                        (props.tab === 3 ?
+                        (tab === 3 ?
                             <>
                                 <Typography variant="h4" className={classes.title}>獎項</Typography>
-                                {htmlToReactParser.parse(props.info.prize)}
+                                {htmlToReactParser.parse(info.prize)}
                             </>
                             :
                             <>

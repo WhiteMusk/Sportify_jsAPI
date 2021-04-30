@@ -17,11 +17,6 @@ import { FormattedMessage } from "react-intl";
 
 import { GET_EVENT_QUERY } from '../graphql';
 
-// const API_ROOT = 'http://localhost:5000/';
-// const instance = axios.create({
-//   baseURL: API_ROOT
-// });
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +31,8 @@ function EventInfo(props) {
   const { loading, error, data } = useQuery(GET_EVENT_QUERY, {
     variables: { eventId: props.match.params.eventID }
   });
-  if (error) console.log(error);
+  // if (error) console.log(error);
+  if (error) console.log(error.networkError.result.errors);
 
   return (
     <>

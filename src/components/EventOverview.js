@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
 function EventOverview(props) {
     const classes = useStyles();
 
-    const { loading, error, data } = useQuery(Host_EventOverview_QUERY, { variables: { id: props.eventID } });
-    if (error) console.log(error);
+    const { loading, error, data } = useQuery(Host_EventOverview_QUERY, { variables: { eventId: props.eventID } });
+    // if (error) console.log(error);
+    if (error) console.log(error.networkError.result.errors);
 
     return (
         <List className={classes.root}>
@@ -32,7 +33,7 @@ function EventOverview(props) {
                 <Typography variant="h4"><FormattedMessage id="loading" /></Typography>
                 :
                 <>
-                    <Typography variant="h4" className={classes.title}><FormattedMessage id="eventOverview.name" />：{data.event.title}</Typography>
+                    <Typography variant="h4" className={classes.title}><FormattedMessage id="eventOverview.name" />：{data.getEvent.title}</Typography>
                     <ListItem>
                         <ListItemAvatar>
                             <Avatar>
@@ -40,7 +41,7 @@ function EventOverview(props) {
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={<FormattedMessage id="eventOverview.public" />}
-                            secondary={data.event.public ? "已公開" : "未公開"} />
+                            secondary={data.getEvent.public ? "已公開" : "未公開"} />
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>
@@ -49,7 +50,7 @@ function EventOverview(props) {
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={<FormattedMessage id="eventOverview.release" />}
-                            secondary={data.event.release ? "已發佈" : "未發佈"} />
+                            secondary={data.getEvent.release ? "已發佈" : "未發佈"} />
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>

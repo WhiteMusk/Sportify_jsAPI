@@ -266,7 +266,8 @@ export default function EnhancedTable(props) {
   host_id = props.hostID;
 
   const { loading, error, data } = useQuery(Host_Events_QUERY, { variables: { host_id: props.hostID } });
-  if (error) console.log(error);
+  // if (error) console.log(error);
+  if (error) console.log(error.networkError.result.errors);
 
   const handleRequestSort = (_, property) => {
     const isAsc = orderBy === property && order === 'asc';

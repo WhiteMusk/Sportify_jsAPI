@@ -46,6 +46,12 @@ function SignUpSuccess(props) {
                     <Typography variant="h4">報名成功！</Typography>
                 </Grid>
                 <Grid>
+                    <Typography variant="h4">{"匯款銀行代碼" + props.bankInfo.bank_code}</Typography>
+                </Grid>
+                <Grid>
+                    <Typography variant="h4">{"匯款帳號" + props.bankInfo.bank_account}</Typography>
+                </Grid>
+                {/* <Grid>
                     <Typography className={classes.fromItemTitle}>名字</Typography>
                     <Typography>{props.application.applicant.name}</Typography>
                 </Grid>
@@ -89,7 +95,7 @@ function SignUpSuccess(props) {
                     <Typography>{props.application.emergency_contact.relationship}</Typography>
                     <Typography className={classes.fromItemTitle}>緊急聯絡人電話</Typography>
                     <Typography>{props.application.emergency_contact.phone}</Typography>
-                </Grid>
+                </Grid> */}
             </Container>
         </Paper>
     )

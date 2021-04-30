@@ -7,13 +7,14 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from "./redux/store";
 import App from './App';
-//import reportWebVitals from './reportWebVitals';
 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
+const port = process.env.SERVER_PORT || 5000;
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: `http://localhost:${process.env.PORT}/`
+  uri: `http://localhost:${port}/`
 });
 
 const Root = () => {

@@ -2,6 +2,11 @@ const Form = require('../../models/form.model');
 const ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
+    Query: {
+        async eventForms(parent, args, { FormDB }, info) {
+            return await Form.find({ event_id: ObjectId(args.event_id) });
+        },
+    },
     Mutation: {
         async addForm(_, {
             data: { event_id, applicant, emergency_contact, event_option }
@@ -13,7 +18,15 @@ module.exports = {
                     gender: applicant.gender,
                     birthday: applicant.birthday,
                     email: applicant.email,
-                    phone: applicant.phone
+                    phone: applicant.phone,
+                    studentID: applicant.studentID,
+                    department: applicant.department,
+                    notableResult: applicant.notableResult,
+                    lastFiveDigit: applicant.lastFiveDigit,
+                    transactionTime: applicant.transactionTime,
+                    transactionName: applicant.transactionName,
+                    information: applicant.information,
+                    otherInformation: applicant.otherInformation,
                 },
                 emergency_contact: {
                     name: emergency_contact.name,
@@ -35,5 +48,17 @@ module.exports = {
 
             return true;
         },
+        async setPaidStatus(parent, args) {
+            await Form.findOne({ _id: ObjectId(args.data._id) }, function (err, form) {
+                if (!err) {
+                    if (form) {
+                        form.applicant.paid = args.data.applicant.paid;
+                        form.save();
+                    }
+                }
+            });
+
+            return true;
+        }
     }
 }

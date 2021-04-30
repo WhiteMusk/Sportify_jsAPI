@@ -40,22 +40,22 @@ function EventBasicInfo(props) {
     const [location, setLocation] = useState("");
     const [fee, setFee] = useState("");
 
-    const { loading, error, data, refetch } = useQuery(Host_EventBasicInfo_QUERY, { variables: { id: props.eventID } });
+    const { loading, error, data, refetch } = useQuery(Host_EventBasicInfo_QUERY, { variables: { eventId: props.eventID } });
     if (error) console.log(error);
 
     useEffect(() => {
         if (!loading) {
-            setTitle(data.event.title);
-            if (data.event.highlight !== null)
-                setHighlight(data.event.highlight);
-            if (data.event.date !== null)
-                setDate(data.event.date);
-            if (data.event.dateEnd !== null)
-                setDateEnd(data.event.dateEnd);
-            if (data.event.location !== null)
-                setLocation(data.event.location);
-            if (data.event.fee !== null)
-                setFee(data.event.fee);
+            setTitle(data.getEvent.title);
+            if (data.getEvent.highlight !== null)
+                setHighlight(data.getEvent.highlight);
+            if (data.getEvent.date !== null)
+                setDate(data.getEvent.date);
+            if (data.getEvent.dateEnd !== null)
+                setDateEnd(data.getEvent.dateEnd);
+            if (data.getEvent.location !== null)
+                setLocation(data.getEvent.location);
+            if (data.getEvent.fee !== null)
+                setFee(data.getEvent.fee);
         }
     },
         [data],

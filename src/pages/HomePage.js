@@ -29,12 +29,12 @@ function HomePage() {
             </Typography>
             {loading ?
                 <Typography>
-                    <FormattedMessage id="loading"/>
+                    <FormattedMessage id="loading" />
                 </Typography> : (
-                data ? 
-                    <EventCardList events={data.getEvents} /> :
-                    <Typography>
-                        Cannot connect to server.
+                    data ?
+                        <EventCardList events={data.getEvents} /> :
+                        <Typography>
+                            Cannot connect to server.
                     </Typography>)
             }
         </Container>

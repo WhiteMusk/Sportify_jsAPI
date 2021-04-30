@@ -15,9 +15,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import SignUpSuccess from '../components/SignUpSuccess';
 import { Link } from "react-router-dom";
-import { useMutation } from '@apollo/client';
-
-import { CREATE_FORM_MUTATION } from '../graphql';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_EVENTHOST_QUERY, CREATE_FORM_MUTATION } from '../graphql';
 
 // const API_ROOT = 'http://localhost:5000/';
 // const instance = axios.create({
@@ -77,6 +76,10 @@ function EventRegistration(props) {
     const [transactionName, setTransactionName] = useState("");
     const [information, setInformation] = useState("");
     const [otherInformation, setOtherInformation] = useState("");
+
+    const { loading, error, data } = useQuery(GET_EVENTHOST_QUERY, { variables: { event_id: props.match.params.eventID } });
+    if (error) console.log(error);
+    console.log(data);
 
     const [newApplication] = useMutation(CREATE_FORM_MUTATION);
 
@@ -335,7 +338,9 @@ function EventRegistration(props) {
                                 </Button>
                         </Grid>
                     </Container>
-                </Paper> : <SignUpSuccess application={application} />}
+                </Paper> : <SignUpSuccess
+                    bankInfo={data.getEventHost}
+                    application={application} />}
         </Container>
     );
 }

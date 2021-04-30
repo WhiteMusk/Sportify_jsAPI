@@ -102,4 +102,19 @@ const Edit_Host_MUTATION = gql`
     }
 `
 
-export { New_Form_MUTATION, New_Event_MUTATION, Edit_Host_MUTATION, Edit_Event_MUTATION, Event_RichEditor_MUTATION };
+const Host_SetPaidStatus_MUTATION = gql`
+  mutation setPaidStatus(
+        $_id: String
+        $applicant: ApplicantInput!
+    ){
+        setPaidStatus(
+            data: {
+                _id: $_id
+                applicant: $applicant
+            }
+        )
+    }
+`
+
+export { CREATE_FORM_MUTATION, New_Event_MUTATION, Edit_Host_MUTATION, Edit_Event_MUTATION, Event_RichEditor_MUTATION, Host_SetPaidStatus_MUTATION };
+

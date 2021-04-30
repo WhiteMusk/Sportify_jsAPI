@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EventManagement() {
+function EventManagement(props) {
   const classes = useStyles();
 
   return (

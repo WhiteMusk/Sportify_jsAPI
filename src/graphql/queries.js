@@ -25,6 +25,15 @@ const GET_EVENT_QUERY = gql`
   }
 `
 
+const GET_EVENTHOST_QUERY = gql`
+  query ($event_id: String!) {
+    getEventHost(event_id: $event_id) {
+      bank_code
+      bank_account
+    }
+  }
+`
+
 const Host_Events_QUERY = gql`
   query (
     $host_id: String!
@@ -41,9 +50,9 @@ const Host_Events_QUERY = gql`
 
 const Host_EventOverview_QUERY = gql`
   query (
-    $id: String!
+    $eventId: String!
   ) {
-    event(id: $id) {
+    getEvent(eventId: $eventId) {
         title
         public
         release
@@ -53,9 +62,9 @@ const Host_EventOverview_QUERY = gql`
 
 const Host_EventBasicInfo_QUERY = gql`
   query (
-    $id: String!
+    $eventId: String!
   ) {
-    event(id: $id) {
+    getEvent(eventId: $eventId) {
         title
         highlight
         date
@@ -68,9 +77,9 @@ const Host_EventBasicInfo_QUERY = gql`
 
 const Host_RichEditor_QUERY = gql`
   query (
-    $id: String!
+    $eventId: String!
   ) {
-    event(id: $id) {
+    getEvent(eventId: $eventId) {
         description
         registrationInfo
         trafficInfo
@@ -84,22 +93,20 @@ const Host_RegistrationStatus_QUERY = gql`
     $event_id: String!
   ) {
     eventForms(event_id: $event_id) {
+        _id
         applicant{
           name
-          gender
-          birthday
           email
           phone
-      }
-        emergency_contact {
-          name
-          relationship
-          phone
-      }
-        event_option {
-          category
-          partner
-          group
+          studentID
+          department
+          notableResult
+          lastFiveDigit
+          transactionTime
+          transactionName
+          information
+          otherInformation
+          paid
       }
     }
   }
@@ -122,6 +129,6 @@ const Host_QUERY = gql`
 `
 
 export {
-  AllEvents_QUERY, Event_QUERY, Host_Events_QUERY, Host_QUERY, Host_EventOverview_QUERY,
-  Host_RegistrationStatus_QUERY, Host_EventBasicInfo_QUERY, Host_RichEditor_QUERY
+  GET_EVENTS_QUERY, GET_EVENT_QUERY, Host_Events_QUERY, Host_QUERY, Host_EventOverview_QUERY,
+  Host_RegistrationStatus_QUERY, Host_EventBasicInfo_QUERY, Host_RichEditor_QUERY, GET_EVENTHOST_QUERY
 };

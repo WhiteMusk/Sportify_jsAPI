@@ -23,20 +23,20 @@ function RichTextEditor(props) {
     const classes = useStyles();
     const [content, setContent] = useState("");
 
-    const { loading, error, data, refetch } = useQuery(Host_RichEditor_QUERY, { variables: { id: props.eventID } });
+    const { loading, error, data, refetch } = useQuery(Host_RichEditor_QUERY, { variables: { eventId: props.eventID } });
     if (error) console.log(error);
 
     useEffect(() => {
         setContent("")
         if (!loading) {
-            if (props.tab === 2 && data.event.description !== null)
-                setContent(data.event.description);
-            if (props.tab === 3 && data.event.registrationInfo !== null)
-                setContent(data.event.registrationInfo);
-            if (props.tab === 4 && data.event.trafficInfo !== null)
-                setContent(data.event.trafficInfo);
-            if (props.tab === 5 && data.event.prize !== null)
-                setContent(data.event.prize);
+            if (props.tab === 2 && data.getEvent.description !== null)
+                setContent(data.getEvent.description);
+            if (props.tab === 3 && data.getEvent.registrationInfo !== null)
+                setContent(data.getEvent.registrationInfo);
+            if (props.tab === 4 && data.getEvent.trafficInfo !== null)
+                setContent(data.getEvent.trafficInfo);
+            if (props.tab === 5 && data.getEvent.prize !== null)
+                setContent(data.getEvent.prize);
         }
     },
         [data, props.tab],
