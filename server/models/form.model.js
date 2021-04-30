@@ -4,20 +4,28 @@ const formSchema = new Schema({
     event_id: { type: Schema.Types.ObjectId, ref: 'Event' },
     applicant: {
         name: { type: String, required: true, trim: true, minlength: 2 },
-        gender: { type: String, required: true },
-        birthday: { type: Date, required: true },
-        email: { type: String, required: true, trim: true, minlength: 5 },
+        gender: { type: String },
+        birthday: { type: Date },
+        email: { type: String, trim: true, minlength: 5 },
         phone: { type: String, required: true, trim: true, minlength: 8 },
+        studentID: { type: String, trim: true },
+        department: { type: String, trim: true },
+        notableResult: { type: String, trim: true },
+        lastFiveDigit: { type: String, trim: true },
+        transactionTime: { type: String, trim: true },
+        transactionName: { type: String, trim: true },
+        information: { type: String, trim: true },
+        otherInformation: { type: String, trim: true },
     },
     emergency_contact: {
-        name: { type: String, required: true, trim: true, minlength: 2 },
-        relationship: { type: String, required: true },
-        phone: { type: String, required: true, trim: true, minlength: 8 },
+        name: { type: String, trim: true },
+        relationship: { type: String },
+        phone: { type: String, trim: true },
     },
     event_option: {
-        category: { type: String, required: true },
+        category: { type: String },
         partner: { type: String },
-        group: { type: String, required: true },
+        group: { type: String },
     }
 }, {
     timestamps: true

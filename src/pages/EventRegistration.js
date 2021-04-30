@@ -31,10 +31,14 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         marginTop: "20px",
+        width: "inherit"
     },
     fromItemTitle: {
         marginTop: "10px",
         marginBottom: "10px",
+    },
+    formItemSubtitle: {
+        fontSize: "75%",
     },
     textFieldLabel: {
         display: "inline",
@@ -65,6 +69,14 @@ function EventRegistration(props) {
     const [emergencyRelation, setEmergencyRelation] = useState("");
     const [application, setApplication] = useState({});
     const [success, setSuccess] = useState(false);
+    const [studentID, setStudentID] = useState("");
+    const [department, setDepartment] = useState("");
+    const [notableResult, setNotableResult] = useState("");
+    const [lastFiveDigit, setLastFiveDigit] = useState("");
+    const [transactionTime, setTransactionTime] = useState("");
+    const [transactionName, setTransactionName] = useState("");
+    const [information, setInformation] = useState("");
+    const [otherInformation, setOtherInformation] = useState("");
 
     const [newApplication] = useMutation(CREATE_FORM_MUTATION);
 
@@ -79,7 +91,15 @@ function EventRegistration(props) {
                     gender: gender,
                     birthday: birthday,
                     email: email,
-                    phone: applicantPhone
+                    phone: applicantPhone,
+                    studentID: studentID,
+                    department: department,
+                    notableResult: notableResult,
+                    lastFiveDigit: lastFiveDigit,
+                    transactionTime: transactionTime,
+                    transactionName: transactionName,
+                    information: information,
+                    otherInformation: otherInformation,
                 },
                 emergency_contact: {
                     name: emergencyName,
@@ -107,7 +127,15 @@ function EventRegistration(props) {
                         gender: gender,
                         birthday: birthday,
                         email: email,
-                        phone: applicantPhone
+                        phone: applicantPhone,
+                        studentID: studentID,
+                        department: department,
+                        notableResult: notableResult,
+                        lastFiveDigit: lastFiveDigit,
+                        transactionTime: transactionTime,
+                        transactionName: transactionName,
+                        information: information,
+                        otherInformation: otherInformation,
                     },
                     emergency_contact: {
                         name: emergencyName,
@@ -122,7 +150,8 @@ function EventRegistration(props) {
                 }
             })
         } catch (e) {
-            console.log(e.networkError.result.errors); // here you can see your network
+            // console.log(e.networkError.result.errors); // here you can see your network
+            console.log(e);
             isSuccess = false;
         }
 
@@ -137,19 +166,96 @@ function EventRegistration(props) {
 
     return (
         <Container maxWidth="md" className={classes.container}>
-                <div className={classes.appBarSpacer} />
-                {!success ?
-                    <Paper>
-                        <Container maxWidth="md" className={classes.container}>
-                            <Button className={classes.backBut} variant="contained" color="default"
-                                component={Link} to={"/event/" + props.match.params.eventID}
-                            >
-                                回比賽資訊
+            <div className={classes.appBarSpacer} />
+            {!success ?
+                <Paper>
+                    <Container maxWidth="md" className={classes.container}>
+                        <Button className={classes.backBut} variant="contained" color="default"
+                            component={Link} to={"/event/" + props.match.params.eventID}
+                        >
+                            回比賽資訊
                     </Button>
-                            <Grid>
-                                <Typography variant="h4">報名表單</Typography>
-                            </Grid>
-                            <Grid>
+                        <Grid>
+                            <Typography variant="h4">報名表單</Typography>
+                            <Typography className={classes.fromItemTitle}>名字</Typography>
+                            <TextField required label="Name" variant="outlined"
+                                value={applicantName}
+                                onInput={e => setApplicantName(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>學號</Typography>
+                            <TextField required label="Student ID" variant="outlined"
+                                value={studentID}
+                                onInput={e => setStudentID(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>系級</Typography>
+                            <TextField required label="Department and Grade" variant="outlined"
+                                value={department}
+                                onInput={e => setDepartment(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>Email</Typography>
+                            <TextField required label="Email" variant="outlined"
+                                value={email}
+                                onInput={e => setEmail(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>聯絡電話</Typography>
+                            <TextField required label="Phone" variant="outlined"
+                                value={applicantPhone}
+                                onInput={e => setApplicantPhone(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>得知比賽資訊來源 Where you acquired the information of this tournament</Typography>
+                            <RadioGroup required aria-label="information" name="information"
+                                value={information}
+                                onChange={e => setInformation(e.target.value)}
+                            >
+                                <FormControlLabel value="fb" control={<Radio />} label="台大校網粉專 FB" />
+                                <FormControlLabel value="friends" control={<Radio />} label="朋友告知 Friends" />
+                                <FormControlLabel value="others" control={<Radio />}
+                                    label={<TextField id="standard-basic" label="其他"
+                                        value={otherInformation}
+                                        onInput={e => setOtherInformation(e.target.value)}
+                                    />} />
+                            </RadioGroup>
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>歷屆最佳成績（無參賽經驗者填無）</Typography>
+                            <Typography className={classes.formItemSubtitle}>e.g.2018新生盃八強，或在外比賽皆可</Typography>
+                            <TextField fullWidth required label="Notable results" variant="outlined"
+                                value={notableResult}
+                                onInput={e => setNotableResult(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>匯款帳號末五碼</Typography>
+                            <TextField fullWidth required label="The last five digits of your account number" variant="outlined"
+                                value={lastFiveDigit}
+                                onInput={e => setLastFiveDigit(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>大約匯款時間</Typography>
+                            <TextField fullWidth required label="Approximate time of transaction" variant="outlined"
+                                value={transactionTime}
+                                onInput={e => setTransactionTime(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid>
+                            <Typography className={classes.fromItemTitle}>匯款人姓名</Typography>
+                            <TextField required label="Remitter's name" variant="outlined"
+                                value={transactionName}
+                                onInput={e => setTransactionName(e.target.value)}
+                            />
+                        </Grid>
+                        {/* <Grid>
                                 <Typography className={classes.fromItemTitle}>生理性別</Typography>
                                 <RadioGroup required aria-label="gender" name="gender1"
                                     value={gender}
@@ -167,15 +273,8 @@ function EventRegistration(props) {
                                     value={birthday}
                                     onInput={e => setBirthday(e.target.value)}
                                 />
-                            </Grid>
-                            <Grid>
-                                <Typography className={classes.fromItemTitle}>您的email</Typography>
-                                <TextField required label="Email" variant="outlined"
-                                    value={email}
-                                    onInput={e => setEmail(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid>
+                            </Grid> */}
+                        {/* <Grid>
                                 <Typography className={classes.fromItemTitle}>單打/雙打</Typography>
                                 <RadioGroup required aria-label="category" name="category"
                                     value={category}
@@ -193,10 +292,9 @@ function EventRegistration(props) {
                                             onInput={e => setPartner(e.target.value)}
                                         />
                                     </React.Fragment>}
-                            </Grid>
-                            <Grid>
+                            </Grid> */}
+                        {/* <Grid>
                                 <Typography className={classes.fromItemTitle}>參賽組別</Typography>
-                                {/* <InputLabel htmlFor="group">Group</InputLabel> */}
                                 <Select required
                                     inputProps={{
                                         id: "group"
@@ -209,15 +307,8 @@ function EventRegistration(props) {
                                     <MenuItem value={2}>B組</MenuItem>
                                     <MenuItem value={3}>C組</MenuItem>
                                 </Select>
-                            </Grid>
-                            <Grid>
-                                <Typography className={classes.fromItemTitle}>聯絡電話</Typography>
-                                <TextField required label="Phone" variant="outlined"
-                                    value={applicantPhone}
-                                    onInput={e => setApplicantPhone(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid>
+                            </Grid> */}
+                        {/* <Grid>
                                 <Typography className={classes.fromItemTitle}>緊急聯絡人</Typography>
                                 <Typography className={classes.textFieldLabel}>姓名</Typography>
                                 <TextField required label="Emergency Contact" variant="outlined"
@@ -234,18 +325,18 @@ function EventRegistration(props) {
                                     value={emergencyPhone}
                                     onInput={e => setEmergencyPhone(e.target.value)}
                                 />
-                            </Grid>
-                            <Grid>
-                                <Button className={classes.submitBut} variant="contained" color="default"
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                >
-                                    提交表單
+                            </Grid> */}
+                        <Grid>
+                            <Button className={classes.submitBut} variant="contained" color="default"
+                                type="submit"
+                                onClick={handleSubmit}
+                            >
+                                提交表單
                                 </Button>
-                                </Grid>
-                        </Container>
-                    </Paper> : <SignUpSuccess application={application} />}
-            </Container>
+                        </Grid>
+                    </Container>
+                </Paper> : <SignUpSuccess application={application} />}
+        </Container>
     );
 }
 

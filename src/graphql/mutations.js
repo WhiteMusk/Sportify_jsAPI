@@ -3,9 +3,9 @@ import { gql } from '@apollo/client';
 const CREATE_FORM_MUTATION = gql`
   mutation addForm(
         $event_id: String!
-        $applicant: Applicant!
-        $emergency_contact: EmergencyContact!
-        $event_option: EventOption!
+        $applicant: ApplicantInput!
+        $emergency_contact: EmergencyContactInput
+        $event_option: EventOptionInput
     ){
         addForm (
             data: {
