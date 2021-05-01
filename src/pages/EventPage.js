@@ -76,7 +76,7 @@ function EventInfo(props) {
         <Toolbar />
         {loading ?
           <Typography><FormattedMessage id="loading" /></Typography> :
-          <EventDescription info={data.event} tab={currentTab} />}
+          <EventDescription info={data.getEvent} tab={currentTab} />}
       </Container>
     </>
   );

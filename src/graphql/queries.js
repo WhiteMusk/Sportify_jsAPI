@@ -14,6 +14,7 @@ const GET_EVENTS_QUERY = gql`
 const GET_EVENT_QUERY = gql`
   query ($eventId: String!) {
     getEvent(eventId: $eventId) {
+      host_id
         title
         date
         location

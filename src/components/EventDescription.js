@@ -16,7 +16,7 @@ function EventDescription({ info, tab }) {
     const classes = useStyles();
 
     const { loading, error, data } = useQuery(Host_QUERY, { variables: { host_id: info.host_id } });
-    if (error) console.log(error);
+    if (error) console.log(error.networkError.result.errors);
 
     return (
         <>
@@ -55,10 +55,10 @@ function EventDescription({ info, tab }) {
                                 {loading ?
                                     <Typography><FormattedMessage id="loading" /></Typography> :
                                     <Typography paragraph>
-                                        {"主辦單位： " + data.host.name}<br />
-                                        {"連絡電話： " + data.host.phone}<br />
-                                        {"連絡信箱： " + data.host.email}<br />
-                                        {"官方網站/粉絲頁： " + data.host.page}<br />
+                                        {"主辦單位： " + (data !== undefined ? data.host.name : "未提供")}<br />
+                                        {"連絡電話： " + (data !== undefined ? data.host.phone : "未提供")}<br />
+                                        {"連絡信箱： " + (data !== undefined ? data.host.email : "未提供")}<br />
+                                        {"官方網站/粉絲頁： " + (data !== undefined ? data.host.page : "未提供")}<br />
                                     </Typography>
                                 }
                             </>)))}
