@@ -79,7 +79,6 @@ function EventRegistration(props) {
 
     const { loading, error, data } = useQuery(GET_EVENTHOST_QUERY, { variables: { event_id: props.match.params.eventID } });
     if (error) console.log(error);
-    console.log(data);
 
     const [newApplication] = useMutation(CREATE_FORM_MUTATION);
 

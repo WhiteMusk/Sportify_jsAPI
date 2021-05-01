@@ -20,12 +20,14 @@ const CREATE_FORM_MUTATION = gql`
 
 const New_Event_MUTATION = gql`
   mutation newEvent(
+        $host_id: String!
         $title: String!
         $public: Boolean!
         $release: Boolean!
     ){
         newEvent(
             data: {
+                host_id: $host_id
                 title: $title
                 public: $public
                 release: $release
