@@ -121,14 +121,14 @@ function EventBasicInfo(props) {
                 <TextField
                     type="date"
                     className={classes.inputfield}
-                    value={date}
+                    value={date.slice(0, 10)}
                     onInput={e => setDate(e.target.value)}
                 />
                 <Typography className={classes.dateText}> ~ </Typography>
                 <TextField
                     type="date"
                     className={classes.inputfield}
-                    value={dateEnd}
+                    value={dateEnd.slice(0, 10)}
                     onInput={e => setDateEnd(e.target.value)}
                 />
                 <Typography><FormattedMessage id="eventBasicInfo.location" /></Typography>

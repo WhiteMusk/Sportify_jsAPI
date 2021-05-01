@@ -1,14 +1,12 @@
 const { gql } = require('apollo-server');
 
-scalar DateTime
-
 const typeDefs = gql`
   type Event {
     _id: String!
     host_id: String
     title: String!
-    date: String
-    dateEnd: String
+    date: Date
+    dateEnd: Date
     location: String
     description: String
     registrationInfo: String
@@ -33,7 +31,7 @@ const typeDefs = gql`
   type Applicant {
       name: String!
       gender: String
-      birthday: String
+      birthday: Date
       email: String!
       phone: String!
       studentID: String
@@ -79,7 +77,7 @@ const typeDefs = gql`
   input ApplicantInput {
       name: String
       gender: String
-      birthday: String
+      birthday: Date
       email: String
       phone: String
       studentID: String
@@ -117,8 +115,8 @@ const typeDefs = gql`
       _id: String
       host_id: String
       title: String
-      date: String
-      dateEnd: String
+      date: Date
+      dateEnd: Date
       location: String
       description: String
       registrationInfo: String

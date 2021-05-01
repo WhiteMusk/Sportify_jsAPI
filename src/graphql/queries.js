@@ -6,6 +6,7 @@ const GET_EVENTS_QUERY = gql`
         _id
         title
         date
+        dateEnd
         location
     }
   }
@@ -17,6 +18,7 @@ const GET_EVENT_QUERY = gql`
         host_id
         title
         date
+        dateEnd
         location
         description
         registrationInfo
@@ -43,6 +45,7 @@ const Host_Events_QUERY = gql`
         _id
         title
         date
+        dateEnd
         public
         release
     }

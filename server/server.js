@@ -2,8 +2,8 @@ const { ApolloServer } = require('apollo-server');
 const { DateTimeResolver, DateTimeTypeDefinition } = require('graphql-scalars');
 const mongoose = require('mongoose');
 
-const typeDefs = require('./graphql/schema.graphql');
-const resolvers = require('./graphql/resolvers');
+const self_typeDefs = require('./graphql/schema.graphql');
+const self_resolvers = require('./graphql/resolvers');
 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
@@ -23,8 +23,8 @@ db.once('open', () => {
     // const pubsub = new PubSub()
 
     const server = new ApolloServer({
-        typeDefs: [typeDefs, DateTimeTypeDefinition],
-        resolvers: [resolvers, DateTimeResolver]
+        typeDefs: [...typeDefs, self_typeDefs],
+        resolvers: { ...resolvers, ...self_resolvers }
     });
 
     server.listen(port).then(({ url }) => {

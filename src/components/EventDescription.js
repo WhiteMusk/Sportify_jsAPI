@@ -24,7 +24,8 @@ function EventDescription({ info, tab }) {
                 <>
                     <Typography variant="h4" className={classes.title}>{info.title}</Typography>
                     <Typography paragraph>
-                        {"日期： " + info.date.slice(0, 10)}<br />
+                        {info.date == null ? "未設定" : (info.dateEnd == null ? "日期： " + info.date.slice(0, 10) :
+                            "日期： " + info.date.slice(0, 10) + "~" + info.dateEnd.slice(0, 10))}<br />
                         {"地點： " + info.location}<br />
                         說明：<br />
                     </Typography>

@@ -41,8 +41,8 @@ const Edit_Event_MUTATION = gql`
         $_id: String!
         $title: String!
         $highlight: String
-        $date: String
-        $dateEnd: String
+        $date: Date
+        $dateEnd: Date
         $location: String
         $fee: Int
     ){

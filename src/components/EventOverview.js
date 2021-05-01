@@ -50,7 +50,7 @@ function EventOverview(props) {
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={<FormattedMessage id="eventOverview.release" />}
-                            secondary={data.getEvent.release ? "已發佈" : "未發佈"} />
+                            secondary="功能未開放" />
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>
@@ -58,7 +58,7 @@ function EventOverview(props) {
                                 {/* <BeachAccessIcon /> */}
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={<FormattedMessage id="eventOverview.views" />} secondary="124" />
+                        <ListItemText primary={<FormattedMessage id="eventOverview.views" />} secondary="功能未開放" />
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>
@@ -66,7 +66,7 @@ function EventOverview(props) {
                                 {/* <BeachAccessIcon /> */}
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={<FormattedMessage id="eventOverview.count" />} secondary="20" />
+                        <ListItemText primary={<FormattedMessage id="eventOverview.count" />} secondary="功能未開放" />
                     </ListItem></>}
         </List>
     );
