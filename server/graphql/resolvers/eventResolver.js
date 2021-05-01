@@ -42,7 +42,6 @@ module.exports = {
     },
     Mutation: {
         async newEvent(parent, args, { EventDB }, info) {
-            let Event = require('../models/event.model');
             const newEvent = new Event({
                 host_id: ObjectId(args.data.host_id),
                 title: args.data.title,
