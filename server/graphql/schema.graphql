@@ -1,5 +1,7 @@
 const { gql } = require('apollo-server');
 
+scalar DateTime
+
 const typeDefs = gql`
   type Event {
     _id: String!
