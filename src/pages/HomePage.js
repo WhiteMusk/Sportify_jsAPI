@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from '@apollo/client';
+import { useEffect } from 'react';
 
 import { GET_EVENTS_QUERY } from '../graphql';
 
@@ -18,8 +19,12 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePage() {
     const classes = useStyles();
-    const { loading, error, data } = useQuery(GET_EVENTS_QUERY);
+    const { loading, error, data, refetch } = useQuery(GET_EVENTS_QUERY);
     if (error) console.log(error);
+
+    useEffect(() => {
+        refetch();
+    }, [data]);
 
     return (
         <Container maxWidth="md" className={classes.container}>

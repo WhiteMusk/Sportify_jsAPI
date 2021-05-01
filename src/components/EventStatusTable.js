@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -272,7 +272,11 @@ export default function EnhancedTable(props) {
   if (error) console.log(error.networkError.result.errors);
   doRefetch = refetch;
 
-  const handleRequestSort = (_, property) => {
+  useEffect(() => {
+    refetch()
+  }, [data]);
+
+  const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
