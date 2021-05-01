@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabClick = (index) => {
+    setCurrentTab(index);
+  }
+
   const { loading, error, data } = useQuery(GET_EVENT_QUERY, {
     variables: { eventId: props.match.params.eventID }
   });
