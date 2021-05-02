@@ -72,7 +72,7 @@ function EventInfo(props) {
           </List>
         </div>
       </Drawer>
-      <Container maxWidth="md" className={classes.container}>
+      <Container maxWidth="md" className={`display-ckeditor ${classes.container}`}>
         <Toolbar />
         {loading ?
           <Typography><FormattedMessage id="loading" /></Typography> :
