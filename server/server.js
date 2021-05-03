@@ -1,12 +1,13 @@
 const { ApolloServer } = require('apollo-server');
+const { typeDefs, resolvers } = require('graphql-scalars');
 const mongoose = require('mongoose');
 
-const typeDefs = require('./graphql/schema.graphql');
-const resolvers = require('./graphql/resolvers');
+const self_typeDefs = require('./graphql/schema.graphql');
+const self_resolvers = require('./graphql/resolvers');
 
 require('dotenv').config({ path: `${__dirname}/../.env` });
 
-const port = process.env.SERVER_PORT || 4000;
+const port = process.env.SERVER_PORT || 5000;
 const MONGO_DB = process.env.ATLAS_URI;
 
 mongoose.connect(MONGO_DB, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
@@ -22,8 +23,8 @@ db.once('open', () => {
     // const pubsub = new PubSub()
 
     const server = new ApolloServer({
-        typeDefs,
-        resolvers
+        typeDefs: [...typeDefs, self_typeDefs],
+        resolvers: { ...resolvers, ...self_resolvers }
     });
 
     server.listen(port).then(({ url }) => {

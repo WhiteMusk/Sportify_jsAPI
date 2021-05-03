@@ -17,11 +17,6 @@ import { FormattedMessage } from "react-intl";
 
 import { GET_EVENT_QUERY } from '../graphql';
 
-// const API_ROOT = 'http://localhost:5000/';
-// const instance = axios.create({
-//   baseURL: API_ROOT
-// });
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -33,10 +28,17 @@ const useStyles = makeStyles((theme) => ({
 
 function EventInfo(props) {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_EVENT_QUERY, { 
-    variables: { eventId: props.match.params.eventID } 
+  const [currentTab, setCurrentTab] = useState(0);
+
+  const handleTabClick = (index) => {
+    setCurrentTab(index);
+  }
+
+  const { loading, error, data } = useQuery(GET_EVENT_QUERY, {
+    variables: { eventId: props.match.params.eventID }
   });
-  if (error) console.log(error);
+  // if (error) console.log(error);
+  if (error) console.log(error.networkError.result.errors);
 
   return (
     <>
@@ -48,7 +50,7 @@ function EventInfo(props) {
         <div>
           <List>
             {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
-              <ListItem button key={text}>
+              <ListItem button key={text} onClick={() => handleTabClick(index)}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
@@ -57,7 +59,7 @@ function EventInfo(props) {
           <List>
             {['聯絡主辦', '線上報名'].map((text, index) => (
               index === 0 ?
-                (<ListItem button key={text}
+                (<ListItem button key={text} onClick={() => handleTabClick(index + 4)}
                 >
                   <ListItemText primary={text} />
                 </ListItem>) :
@@ -70,11 +72,11 @@ function EventInfo(props) {
           </List>
         </div>
       </Drawer>
-      <Container maxWidth="md" className={classes.container}>
+      <Container maxWidth="md" className={`display-ckeditor ${classes.container}`}>
         <Toolbar />
         {loading ?
           <Typography><FormattedMessage id="loading" /></Typography> :
-          <EventDescription info={data.getEvent} />}
+          <EventDescription info={data.getEvent} tab={currentTab} />}
       </Container>
     </>
   );

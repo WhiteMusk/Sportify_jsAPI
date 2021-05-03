@@ -11,14 +11,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EventManagement() {
+function EventManagement(props) {
   const classes = useStyles();
 
   return (
     <Container maxWidth="md" className={classes.container}>
       <Toolbar />
 
-      <EventStatusTable />
+      <EventStatusTable hostID={props.match.params.hostID} />
     </Container>
   );
 }

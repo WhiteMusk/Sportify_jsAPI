@@ -23,7 +23,7 @@ function Navbar() {
                 </Button>
                 {/* Show ManageEvents link if user is logged in, else show Services link */
                     isLoggedIn ?
-                        <Button color="inherit" component={Link} to="/manage/all">
+                        <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all">
                             <FormattedMessage id="navbar.manageEvents" />
                         </Button> :
                         <Button color="inherit" component={Link} to="/about">
@@ -36,8 +36,8 @@ function Navbar() {
                 {/* Show log out button if user is currently logged in, and vice versa */
                     isLoggedIn ?
                         <>
-                            <Button color="inherit" component={Link} to="/manage/organizerInfo">
-                                <FormattedMessage id="navbar.hostInfo" />
+                            <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/organizerInfo">
+                                <FormattedMessage id="organizerInfo" />
                             </Button>
                             <Typography>
                                 {userData.profile.name}
@@ -48,6 +48,7 @@ function Navbar() {
                         </>
                         :
                         <Button color="inherit" component={Link} to="/auth">
+                        {/* <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all" onClick={() => dispatch(logIn())}> */}
                             <FormattedMessage id="login" />
                         </Button>
                 }

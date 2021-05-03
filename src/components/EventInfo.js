@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 
 });
 
-function EventInfo() {
+function EventInfo(props) {
     const classes = useStyles();
     const [currentTab, setCurrentTab] = useState(1);
 
@@ -36,8 +36,8 @@ function EventInfo() {
                 </Tabs>
 
                 {currentTab === 1 ?
-                    <EventBasicInfo /> :
-                    <RichTextEditor tab={currentTab} />
+                    <EventBasicInfo eventID={props.eventID} /> :
+                    <RichTextEditor tab={currentTab} eventID={props.eventID} />
                 }
             </Paper>
         </>

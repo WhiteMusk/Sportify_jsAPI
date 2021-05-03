@@ -28,9 +28,9 @@ function App () {
         <Route exact path="/event/:eventID?" component={EventPage}></Route>
         <Route exact path="/event/:eventID?/register/" component={EventRegistration}></Route>
         <Route exact path="/auth"><AuthPage /></Route>
-        <Route exact path="/manage/all"><EventManagement /></Route>
-        <Route exact path="/manage/organizerInfo"><OranizerInfo /></Route>
-        <Route exact path="/manage/:eventID?"><EventDashboard /></Route>
+        <Route exact path="/manage/:hostID?/all" component={EventManagement}></Route>
+        <Route exact path="/manage/:hostID?/organizerInfo" component={OranizerInfo}></Route>
+        <Route exact path="/manage/:hostID?/:eventID?" component={EventDashboard}></Route>
       </Switch>
     </IntlProvider>
   );

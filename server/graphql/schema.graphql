@@ -3,46 +3,148 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
   type Event {
     _id: String!
+    host_id: String
     title: String!
-    date: String!
-    location: String!
-    description: String!
+    date: Date
+    dateEnd: Date
+    location: String
+    description: String
+    registrationInfo: String
+    trafficInfo: String
+    prize: String
+    highlight: String
+    fee: Int
+    public: Boolean!
+    release: Boolean!
+  }
+
+  type Host {
+    _id: String!
+    name: String!
+    phone: String
+    email: String!
+    page: String
+    bank_code: String
+    bank_account: String
+  }
+
+  type Applicant {
+      name: String!
+      gender: String
+      birthday: Date
+      email: String!
+      phone: String!
+      studentID: String
+      department: String
+      notableResult: String
+      lastFiveDigit: String
+      transactionTime: String
+      transactionName: String
+      information: String
+      otherInformation: String
+      paid: Boolean
+  }
+
+  type EmergencyContact {
+      name: String!
+      relationship: String!
+      phone: String!
+  }
+
+  type EventOption {
+      category: String!
+      partner: String
+      group: Int!
+  }
+
+  type Form {
+      _id: String!
+      event_id: String!
+      applicant: Applicant!
+      emergency_contact: EmergencyContact
+      event_option: EventOption
   }
 
   type Query {
     getEvents: [Event]
-    getEvent(eventId: String!): Event
+    getEvent(eventId: String!): Event!
+    hostEvents(host_id: String!): [Event]
+    host(host_id: String!): Host!
+    eventForms(event_id: String!): [Form]
+    getEventHost(event_id: String!): Host!
   }
 
-  input Applicant {
-    name: String!
-    gender: String!
-    birthday: String!
-    email: String!
-    phone: String!
+  input ApplicantInput {
+      name: String
+      gender: String
+      birthday: Date
+      email: String
+      phone: String
+      studentID: String
+      department: String
+      notableResult: String
+      lastFiveDigit: String
+      transactionTime: String
+      transactionName: String
+      information: String
+      otherInformation: String
+      paid: Boolean
   }
 
-  input EmergencyContact {
-    name: String!
-    relationship: String!
-    phone: String!
+  input EmergencyContactInput {
+      name: String!
+      relationship: String!
+      phone: String!
   }
 
-  input EventOption {
-    category: String!
-    partner: String
-    group: Int!
+  input EventOptionInput {
+      category: String!
+      partner: String
+      group: Int!
   }
 
   input FormInput {
-    event_id: String!
-    applicant: Applicant!
-    emergency_contact: EmergencyContact!
-    event_option: EventOption!
+      _id: String
+      event_id: String
+      applicant: ApplicantInput!
+      emergency_contact: EmergencyContactInput
+      event_option: EventOptionInput
+  }
+
+  input EventInput {
+      _id: String
+      host_id: String
+      title: String
+      date: Date
+      dateEnd: Date
+      location: String
+      description: String
+      registrationInfo: String
+      trafficInfo: String
+      prize: String
+      highlight: String
+      fee: Int
+      public: Boolean
+      release: Boolean
+  }
+
+  input HostInput {
+    _id: String
+    name: String!
+    phone: String
+    email: String!
+    page: String
+    bank_code: String
+    bank_account: String
   }
 
   type Mutation {
     addForm(data: FormInput!): Boolean!
+    newEvent(data: EventInput!): Boolean!
+    editEvent(data: EventInput!): Boolean!
+    editHost(data: HostInput!): Boolean!
+    saveRichEditor(data: EventInput!): Boolean!
+    setPaidStatus(data: FormInput!): Boolean!
   }
 `;
 
