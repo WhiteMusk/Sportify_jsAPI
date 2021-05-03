@@ -25,10 +25,10 @@ function EventCard({ event }) {
           <Typography gutterBottom variant="h5" component="h2">
             {event.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          {/* <Typography variant="body2" color="textSecondary" component="p">
             {"活動日期： " + event.date.slice(0, 10)}<br />
             {"集合地點： " + event.location}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions>
