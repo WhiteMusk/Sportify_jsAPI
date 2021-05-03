@@ -1,5 +1,5 @@
 const { ApolloServer } = require('apollo-server');
-const { DateTimeResolver, DateTimeTypeDefinition } = require('graphql-scalars');
+const { typeDefs, resolvers } = require('graphql-scalars');
 const mongoose = require('mongoose');
 
 const self_typeDefs = require('./graphql/schema.graphql');
