@@ -90,7 +90,9 @@ export const LOGIN_CHECK_MUTATION = gql`
                 email: $email
                 password: $password
             }
-        )
+        ) {
+            _id name email
+        }
     }
 `
 
@@ -108,7 +110,9 @@ export const ADD_HOST_MUTATION = gql`
                 password: $password
                 confirmPassword: $confirmPassword
             }
-        )
+        ) {
+            _id name email
+        }
     }
 `
 

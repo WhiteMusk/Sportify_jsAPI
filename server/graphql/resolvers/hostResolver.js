@@ -53,15 +53,17 @@ module.exports = {
                 password: passwordHashed
             });
 
-            newHost.save()
-            .then(host => {
-                console.log(host);
-                return { _id: host._id, name: host.name, email: host.email };
-            })
-            .catch(err => {
-                console.log(err);
-                return null;
-            });
+            const host = await newHost.save();
+            return { _id: host._id, name: host.name, email: host.email };
+            // await newHost.save()
+            // .then(host => {
+            //     console.log(host);
+            //     return { _id: host._id, name: host.name, email: host.email };
+            // })
+            // .catch(err => {
+            //     console.log(err);
+            //     return null;
+            // });
         },
         async editHost(_, args) {
             await Host.findOne({ _id: ObjectId(args.data._id) }, function (err, host) {
