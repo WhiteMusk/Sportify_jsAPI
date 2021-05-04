@@ -30,7 +30,7 @@ module.exports = {
                 // Generate jwt token
                 const token = jwt.sign({ email: host.email }, "SECRET_KEY", { expiresIn: "1h" });
             }
-            return host;
+            return { _id: host._id, name: host.name, email: host.email };
         },
         async addHost(_, args) {
             // Make sure the email hasn't been used to sign up
@@ -56,7 +56,7 @@ module.exports = {
             newHost.save()
             .then(host => {
                 console.log(host);
-                return host;
+                return { _id: host._id, name: host.name, email: host.email };
             })
             .catch(err => {
                 console.log(err);
