@@ -55,13 +55,15 @@ function HomePage() {
     }
     const searchEventList1 = eventList.filter(event => {
         if (!date || !date.length) { return true }
-        else if (!event.date) { return false }
+        // else if (!event.date) { return false }
         else {
+            if (!event.date) { return false }
+
             var time = event.date;
             if (event.date.length > 10) {
                 var time = moment(new Date(parseInt(event.date))).format('YYYY-MM-DD');
             }
-            console.log(time);
+            // console.log(time);
             if (date[0].isAfter(time) || date[1].isBefore(time)) {
                 return false
             }
@@ -73,7 +75,9 @@ function HomePage() {
 
 
     const searchEventList = searchEventList1.length ? searchEventList1.filter(event => {
-        if (!event.region || !event.level) {
+        if (!Region && !Level && !searchField) { return true }
+        else if (searchField && !Region && !Level) { return event.title.includes(searchField) }
+        else if (!event.region || !event.level) {
             return false;
         }
         else {
