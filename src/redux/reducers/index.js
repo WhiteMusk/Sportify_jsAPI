@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import localeReducer from './localeReducer';
-import loginReducer from './loginReducer';
+import authReducer from './authReducer';
 
 const rootReducer = combineReducers({
     locale: localeReducer,
-    auth: loginReducer
+    auth: authReducer
 });
 
 export default rootReducer;

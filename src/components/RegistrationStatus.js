@@ -41,8 +41,6 @@ function RegistrationStatus(props) {
     const [setPaid] = useMutation(Host_SetPaidStatus_MUTATION);
 
     const handlePaid = async (index) => {
-        console.log(data.eventForms[index]._id);
-        console.log(data.eventForms[index].applicant)
         var isPaid = false;
 
         if (!data.eventForms[index].applicant.paid)

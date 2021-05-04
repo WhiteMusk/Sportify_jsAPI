@@ -12,6 +12,8 @@ import EventInfo from '../components/EventInfo';
 import { FormattedMessage } from 'react-intl';
 import Navbar from "../components/Navbar";
 
+import EventTracking from "../components/EventTracking";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -52,7 +54,8 @@ function EventDashboard(props) {
                 <Toolbar />
                 {currentTab === 0 ? <EventOverview eventID={props.match.params.eventID} /> :
                     (currentTab === 1 ? <EventInfo eventID={props.match.params.eventID} /> :
-                        (currentTab === 2 ? <RegistrationStatus eventID={props.match.params.eventID} /> : <></>))
+                        (currentTab === 2 ? <RegistrationStatus eventID={props.match.params.eventID} /> : 
+                            (currentTab === 3 ? <EventTracking eventID={props.match.params.eventID} /> : <></>)))
                 }
             </Container>
         </>

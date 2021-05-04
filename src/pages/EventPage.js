@@ -267,8 +267,6 @@ function EventInfo(props) {
       >
     
       <div className={classes.drawerHeader} />
-
-
         <Toolbar />
       {/* <Container maxWidth="md" className={clsx(classes.content, {
           [classes.contentShift]: open,

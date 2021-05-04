@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -141,6 +141,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 var host_id = "";
+var doRefetch;
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
@@ -166,7 +167,7 @@ const EnhancedTableToolbar = (props) => {
         variables: {
           host_id: host_id,
           title: title,
-          public: false,
+          public: true,
           release: false
         }
       })
@@ -177,6 +178,7 @@ const EnhancedTableToolbar = (props) => {
 
     if (isSuccess) {
       alert("新增比賽成功！");
+      doRefetch();
       setOpen(false)
     } else {
       alert("新增比賽失敗！請再試一次");
@@ -265,11 +267,16 @@ export default function EnhancedTable(props) {
 
   host_id = props.hostID;
 
-  const { loading, error, data } = useQuery(Host_Events_QUERY, { variables: { host_id: props.hostID } });
+  const { loading, error, data, refetch } = useQuery(Host_Events_QUERY, { variables: { host_id: props.hostID } });
   // if (error) console.log(error);
   if (error) console.log(error.networkError.result.errors);
+  doRefetch = refetch;
 
-  const handleRequestSort = (_, property) => {
+  useEffect(() => {
+    refetch()
+  }, [data]);
+
+  const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -341,9 +348,11 @@ export default function EnhancedTable(props) {
                         <TableCell component="th" id={labelId} scope="row" align="left" padding="none">
                           {row.title}
                         </TableCell>
-                        <TableCell align="left">{row.date}</TableCell>
+                        <TableCell align="left">
+                          {row.date == null ? "未設定" : (row.dateEnd == null ? row.date.slice(0, 10) : row.date.slice(0, 10) + "~" + row.dateEnd.slice(0, 10))}
+                        </TableCell>
                         <TableCell align="left">{row.public ? "是" : "否"}</TableCell>
-                        <TableCell align="left">{row.release ? "已發佈" : "未發佈"}</TableCell>
+                        <TableCell align="left">功能尚未啟用</TableCell>
                         <TableCell align="left">即將開始</TableCell>
                       </TableRow>
                     );

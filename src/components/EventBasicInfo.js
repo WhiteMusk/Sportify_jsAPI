@@ -67,22 +67,56 @@ function EventBasicInfo(props) {
         event.preventDefault();
 
         var isSuccess = true;
-        try {
-            await editEvent({
-                variables: {
-                    _id: props.eventID,
-                    title: title,
-                    highlight: highlight,
-                    date: date,
-                    dateEnd: dateEnd,
-                    location: location,
-                    fee: Number(fee)
-                }
-            })
-        } catch (e) {
-            console.log(e.networkError.result.errors); // here you can see your network
-            isSuccess = false;
+        if (date === "") {
+            try {
+                await editEvent({
+                    variables: {
+                        _id: props.eventID,
+                        title: title,
+                        highlight: highlight,
+                        location: location,
+                        fee: Number(fee)
+                    }
+                })
+            } catch (e) {
+                console.log(e.networkError.result.errors); // here you can see your network
+                isSuccess = false;
+            }
+        } else if (dateEnd === "") {
+            try {
+                await editEvent({
+                    variables: {
+                        _id: props.eventID,
+                        title: title,
+                        highlight: highlight,
+                        date: date,
+                        location: location,
+                        fee: Number(fee)
+                    }
+                })
+            } catch (e) {
+                console.log(e.networkError.result.errors); // here you can see your network
+                isSuccess = false;
+            }
+        } else {
+            try {
+                await editEvent({
+                    variables: {
+                        _id: props.eventID,
+                        title: title,
+                        highlight: highlight,
+                        date: date,
+                        dateEnd: dateEnd,
+                        location: location,
+                        fee: Number(fee)
+                    }
+                })
+            } catch (e) {
+                console.log(e.networkError.result.errors); // here you can see your network
+                isSuccess = false;
+            }
         }
+
 
         if (isSuccess) {
             alert("編輯成功！");
@@ -121,14 +155,14 @@ function EventBasicInfo(props) {
                 <TextField
                     type="date"
                     className={classes.inputfield}
-                    value={date}
+                    value={date.slice(0, 10)}
                     onInput={e => setDate(e.target.value)}
                 />
                 <Typography className={classes.dateText}> ~ </Typography>
                 <TextField
                     type="date"
                     className={classes.inputfield}
-                    value={dateEnd}
+                    value={dateEnd.slice(0, 10)}
                     onInput={e => setDateEnd(e.target.value)}
                 />
                 <Typography><FormattedMessage id="eventBasicInfo.location" /></Typography>

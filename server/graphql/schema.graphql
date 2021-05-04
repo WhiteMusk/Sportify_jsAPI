@@ -5,8 +5,8 @@ const typeDefs = gql`
     _id: String!
     host_id: String
     title: String!
-    date: String
-    dateEnd: String
+    date: Date
+    dateEnd: Date
     location: String
     description: String
     region: String
@@ -23,8 +23,9 @@ const typeDefs = gql`
   type Host {
     _id: String!
     name: String!
-    phone: String
     email: String!
+    googleId: String
+    phone: String
     page: String
     bank_code: String
     bank_account: String
@@ -33,7 +34,7 @@ const typeDefs = gql`
   type Applicant {
       name: String!
       gender: String
-      birthday: String
+      birthday: Date
       email: String!
       phone: String!
       studentID: String
@@ -79,7 +80,7 @@ const typeDefs = gql`
   input ApplicantInput {
       name: String
       gender: String
-      birthday: String
+      birthday: Date
       email: String
       phone: String
       studentID: String
@@ -117,8 +118,8 @@ const typeDefs = gql`
       _id: String
       host_id: String
       title: String
-      date: String
-      dateEnd: String
+      date: Date
+      dateEnd: Date
       location: String
       description: String
       registrationInfo: String
@@ -132,9 +133,12 @@ const typeDefs = gql`
 
   input HostInput {
     _id: String
-    name: String!
-    phone: String
+    name: String
     email: String!
+    password: String
+    confirmPassword: String
+    googleId: String
+    phone: String
     page: String
     bank_code: String
     bank_account: String
@@ -144,6 +148,8 @@ const typeDefs = gql`
     addForm(data: FormInput!): Boolean!
     newEvent(data: EventInput!): Boolean!
     editEvent(data: EventInput!): Boolean!
+    loginCheck(data: HostInput!): Host
+    addHost(data: HostInput!): Host
     editHost(data: HostInput!): Boolean!
     saveRichEditor(data: EventInput!): Boolean!
     setPaidStatus(data: FormInput!): Boolean!

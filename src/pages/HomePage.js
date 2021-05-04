@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GET_EVENTS_QUERY } from '../graphql';
 import NavbarH from "../components/NavbarH";
 import Bulletin from '../components/Bulletin'
@@ -87,6 +87,10 @@ function HomePage() {
         }
         }):searchEventList1
     
+    useEffect(() => {
+        refetch();
+    }, [data]);
+
     return (
         <>
         <NavbarH searchChange={onSearchChange} />

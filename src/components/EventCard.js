@@ -26,7 +26,8 @@ function EventCard({ event }) {
             {event.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {event.date!==null?"活動日期： " + event.date.slice(0, 10):"活動日期： null"}<br />
+            {event.date == null ? "活動日期： null" : (event.dateEnd == null ? "活動日期： " + event.date.slice(0, 10) :
+              "活動日期： " + event.date.slice(0, 10) + "~" + event.dateEnd.slice(0, 10))}<br />
             {"集合地點： " + event.location}
           </Typography>
         </CardContent>

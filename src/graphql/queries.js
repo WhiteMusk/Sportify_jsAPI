@@ -6,7 +6,7 @@ const GET_EVENTS_QUERY = gql`
         _id
         title
         date
-        description
+        dateEnd
         location
         region
         level
@@ -17,9 +17,10 @@ const GET_EVENTS_QUERY = gql`
 const GET_EVENT_QUERY = gql`
   query ($eventId: String!) {
     getEvent(eventId: $eventId) {
-      host_id
+        host_id
         title
         date
+        dateEnd
         location
         description
         registrationInfo
@@ -46,6 +47,7 @@ const Host_Events_QUERY = gql`
         _id
         title
         date
+        dateEnd
         public
         release
     }

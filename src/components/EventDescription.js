@@ -35,7 +35,8 @@ function EventDescription({ info, tab ,eventID}) {
                     <Button className={classes.root} variant='outlined' component={Link} to={"/event/" + eventID + "/register/"}  >Register</Button>
                     </div>
                     <Typography paragraph>
-                        {"日期： " + info.date.slice(0, 10)}<br />
+                        {info.date == null ? "未設定" : (info.dateEnd == null ? "日期： " + info.date.slice(0, 10) :
+                            "日期： " + info.date.slice(0, 10) + "~" + info.dateEnd.slice(0, 10))}<br />
                         {"地點： " + info.location}<br />
                         說明：<br />
                     </Typography>

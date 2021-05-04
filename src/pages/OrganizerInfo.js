@@ -51,10 +51,10 @@ function OrganizerInfo(props) {
                 setPhone(data.host.phone);
             if (data.host.page !== null)
                 setPage(data.host.page);
-            if (data.host.bankCode !== null)
-                setBankCode(data.host.bankCode);
-            if (data.host.bankAccount !== null)
-                setBankAccount(data.host.bankAccount);
+            if (data.host.bank_code !== null)
+                setBankCode(data.host.bank_code);
+            if (data.host.bank_account !== null)
+                setBankAccount(data.host.bank_account);
         }
     },
         [data],
