@@ -38,9 +38,9 @@ function HomePage() {
     const [Level, setLevel] = useState('');
     const [date, setDate] = useState([])
     if (error) console.log(error);
-    if (!eventList.length && data) {
-        setEventList(data.getEvents);
-    }
+    // if (!eventList.length && data) {
+    //     setEventList(data.getEvents);
+    // }
     const onSearchChange = (event) => {
         setSearchField(event.target.value)
     }
@@ -90,6 +90,8 @@ function HomePage() {
 
     useEffect(() => {
         refetch();
+        if (!loading)
+            setEventList(data.getEvents);
     }, [data]);
 
     return (

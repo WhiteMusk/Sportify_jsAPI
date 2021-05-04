@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 // import { FormattedMessage } from 'react-intl';
@@ -52,7 +52,7 @@ function AuthPage() {
     const history = useHistory();
     const userData = useSelector(state => state.auth.userData);
     const [isSignUp, setIsSignUp] = useState(false);
-    const [formData, setFormData] = useState({'username': '', 'email': '', 'password': '', 'confirmPassword': ''});
+    const [formData, setFormData] = useState({ 'username': '', 'email': '', 'password': '', 'confirmPassword': '' });
 
     const [addHost] = useMutation(ADD_HOST_MUTATION);
     const [loginCheck] = useMutation(LOGIN_CHECK_MUTATION);
@@ -80,7 +80,7 @@ function AuthPage() {
                         confirmPassword: formData.confirmPassword
                     }
                 })
-                console.log(host);
+                // console.log(host);
             } catch (e) {
                 console.log(e.networkError.result.errors); // here you can see your network
                 isSuccess = false;
@@ -111,7 +111,7 @@ function AuthPage() {
             } else {
                 alert("登入失敗！請再試一次");
             }
-        }     
+        }
     };
 
     const handleInputChange = (e) => {
@@ -130,7 +130,7 @@ function AuthPage() {
             dispatch(logInByGoogle({ profile, token }));
             // Direct to home page
             // history.push('/');
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
     };
@@ -148,12 +148,12 @@ function AuthPage() {
                 </Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
-                        { isSignUp &&
+                        {isSignUp &&
                             <TextField name="username" onChange={handleInputChange} label="Username" type="text" variant="outlined" required fullWidth autoFocus></TextField>
                         }
                         <TextField name="email" onChange={handleInputChange} label="Email Address" type="email" variant="outlined" required fullWidth autoFocus></TextField>
                         <TextField name="password" onChange={handleInputChange} label="Password" type="password" variant="outlined" required fullWidth></TextField>
-                        { isSignUp &&
+                        {isSignUp &&
                             <TextField name="confirmPassword" onChange={handleInputChange} label="Confirm Password" type="password" variant="outlined" required fullWidth></TextField>
                         }
                     </Grid>
@@ -174,7 +174,7 @@ function AuthPage() {
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Button onClick={switchMethod}>
-                                { isSignUp ?
+                                {isSignUp ?
                                     'Already have an account? Log In' :
                                     'Don\'t have an account? Sign Up'
                                 }
