@@ -86,8 +86,8 @@ function AuthPage() {
                 isSuccess = false;
             }
 
-            if (isSuccess && host) {
-                dispatch(logIn({ profile: host.data?.addHost }));
+            if (isSuccess && host.data.addHost) {
+                dispatch(logIn({ profile: host.data.addHost }));
             } else {
                 alert("註冊失敗！請確認是否重複註冊或再試一次");
             }
@@ -106,8 +106,8 @@ function AuthPage() {
                 isSuccess = false;
             }
 
-            if (isSuccess) {
-                dispatch(logIn({ profile: host.data?.loginCheck }));
+            if (isSuccess && host.data.loginCheck) {
+                dispatch(logIn({ profile: host.data.loginCheck }));
             } else {
                 alert("登入失敗！請再試一次");
             }
