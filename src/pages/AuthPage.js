@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux'; 
+import { useEffect, useImperativeHandle, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; 
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 import { useMutation } from '@apollo/client';
 
 import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@material-ui/core';
@@ -50,11 +50,19 @@ function AuthPage() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+    const authData = useSelector(state => state.auth);
     const [isSignUp, setIsSignUp] = useState(false);
     const [formData, setFormData] = useState({'username': '', 'email': '', 'password': '', 'confirmPassword': ''});
 
     const [addHost] = useMutation(ADD_HOST_MUTATION);
     const [loginCheck] = useMutation(LOGIN_CHECK_MUTATION);
+
+    // Direct to manage page after login
+    useEffect(() => {
+        if (authData && authData.userData) {
+            history.push(`/manage/${authData.userData.profile._id}/all`);
+        }
+    }, [authData]);
 
     // Handle normal sign up / login
     const handleSubmit = async (e) => {
