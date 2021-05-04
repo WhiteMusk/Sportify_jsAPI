@@ -13,6 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import Container from '@material-ui/core/Container';
 import { useQuery, useMutation } from '@apollo/client';
 import { Host_QUERY, Edit_Host_MUTATION } from '../graphql';
+import Navbar from "../components/Navbar";
 
 const useStyles = makeStyles((theme) => ({
     submitBut: {
@@ -91,6 +92,8 @@ function OrganizerInfo(props) {
     }
 
     return (
+        <>
+        <Navbar/>
         <Container maxWidth="md" className={classes.container} alignItems="center" justify="center">
             <Toolbar />
             <form className={classes.form}>
@@ -162,6 +165,7 @@ function OrganizerInfo(props) {
                 </TableContainer>
             </form>
         </Container>
+        </>
     );
 }
 

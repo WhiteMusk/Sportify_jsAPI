@@ -20,7 +20,7 @@ function App () {
 
   return (
     <IntlProvider locale={locale} key={locale} messages={messages}>
-      <Navbar />
+      {/* <Navbar /> */}
       <Switch>
         <Route exact path="/"><HomePage /></Route>
         <Route exact path="/about"><AboutPage /></Route>
