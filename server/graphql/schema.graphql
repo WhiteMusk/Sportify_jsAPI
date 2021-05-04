@@ -9,6 +9,8 @@ const typeDefs = gql`
     dateEnd: Date
     location: String
     description: String
+    region: String
+    level: String
     registrationInfo: String
     trafficInfo: String
     prize: String

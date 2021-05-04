@@ -3,16 +3,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from "react-intl";
 import { useQuery } from '@apollo/client';
 import { Host_QUERY } from '../graphql';
+import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
 var HtmlToReactParser = require('html-to-react').Parser;
 var htmlToReactParser = new HtmlToReactParser();
 
 const useStyles = makeStyles((theme) => ({
+    root:{
+        color:'white',
+        backgroundColor:"#212121",
+        marginBottom: theme.spacing(2),
+        borderRadius: 20
+    },
     title: {
         marginBottom: "30px",
     },
 }));
 
-function EventDescription({ info, tab }) {
+function EventDescription({ info, tab ,eventID}) {
     const classes = useStyles();
 
     const { loading, error, data } = useQuery(Host_QUERY, { variables: { host_id: info.host_id } });
@@ -22,7 +30,10 @@ function EventDescription({ info, tab }) {
         <>
             {tab === 0 ?
                 <>
+                <div>
                     <Typography variant="h4" className={classes.title}>{info.title}</Typography>
+                    <Button className={classes.root} variant='outlined' component={Link} to={"/event/" + eventID + "/register/"}  >Register</Button>
+                    </div>
                     <Typography paragraph>
                         {info.date == null ? "未設定" : (info.dateEnd == null ? "日期： " + info.date.slice(0, 10) :
                             "日期： " + info.date.slice(0, 10) + "~" + info.dateEnd.slice(0, 10))}<br />

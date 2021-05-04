@@ -10,6 +10,7 @@ import EventOverview from '../components/EventOverview';
 import RegistrationStatus from '../components/RegistrationStatus';
 import EventInfo from '../components/EventInfo';
 import { FormattedMessage } from 'react-intl';
+import Navbar from "../components/Navbar";
 
 import EventTracking from "../components/EventTracking";
 
@@ -32,6 +33,7 @@ function EventDashboard(props) {
 
     return (
         <>
+        <Navbar/>
             <Drawer
                 style={{ width: { drawerWidth }, flexShrink: 0 }}
                 variant="permanent"

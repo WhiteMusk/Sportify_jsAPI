@@ -13,7 +13,10 @@ const eventSchema = new Schema({
     highlight: { type: String },
     fee: { type: Number },
     public: { type: Boolean },
-    release: { type: Boolean }
+    release: { type: Boolean },
+    region:{ type : String},
+    level: {type: String}
+
 }, {
     timestamps: true,
 });

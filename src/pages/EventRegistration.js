@@ -17,7 +17,7 @@ import SignUpSuccess from '../components/SignUpSuccess';
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_EVENTHOST_QUERY, CREATE_FORM_MUTATION } from '../graphql';
-
+import Navbar from "../components/Navbar";
 // const API_ROOT = 'http://localhost:5000/';
 // const instance = axios.create({
 //     baseURL: API_ROOT
@@ -167,6 +167,8 @@ function EventRegistration(props) {
     }
 
     return (
+        <>
+        <Navbar/>
         <Container maxWidth="md" className={classes.container}>
             <div className={classes.appBarSpacer} />
             {!success ?
@@ -341,6 +343,7 @@ function EventRegistration(props) {
                     bankInfo={data.getEventHost}
                     application={application} />}
         </Container>
+        </> 
     );
 }
 

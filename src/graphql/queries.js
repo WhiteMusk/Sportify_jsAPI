@@ -8,6 +8,8 @@ const GET_EVENTS_QUERY = gql`
         date
         dateEnd
         location
+        region
+        level
     }
   }
 `

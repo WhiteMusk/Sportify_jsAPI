@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setLocale, logOut } from '../redux/actions';
+import { setLocale, logIn, logOut } from '../redux/actions';
 import { FormattedMessage } from 'react-intl';
 import { LOCALE_OPTIONS } from '../i18n/locale-settings';
 import { useMediaQuery } from 'react-responsive'
@@ -15,12 +15,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
-import { Typography } from "@material-ui/core";
+import SearchBox from "./SearchBox"
 
-function Navbar() {
+function NavbarH(props) {
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
     const dispatch = useDispatch();
-    const userData = useSelector(state => state.auth.userData);
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     return (
         <AppBar position="fixed" style={{ zIndex: 1201 }}>
@@ -29,34 +29,31 @@ function Navbar() {
                 <Button color="inherit" component={Link} to="/">
                     <FormattedMessage id="app.title" />
                 </Button>
+                <SearchBox searchChange={props.searchChange}/>
+                <div style={{ flexGrow: 1 }}></div>
                 {/* Show ManageEvents link if user is logged in, else show Services link */
-                    userData ?
-                        <Button color="inherit" component={Link} to={`/manage/${userData.profile._id}/all`}>
+                    isLoggedIn ?
+                        <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all">
                             <FormattedMessage id="navbar.manageEvents" />
                         </Button> :
                         <Button color="inherit" component={Link} to="/about">
                             <FormattedMessage id="navbar.about" />
                         </Button>
                 }
-                <div style={{ flexGrow: 1 }}></div>
                 <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
                 <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>ENGLISH</Button>
                 {/* Show log out button if user is currently logged in, and vice versa */
-                    userData ?
+                    isLoggedIn ?
                         <>
-                            <Button color="inherit" component={Link} to={`/manage/${userData.profile._id}/organizerInfo`}>
-                                <FormattedMessage id="navbar.hostInfo" />
+                            <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/organizerInfo">
+                                <FormattedMessage id="organizerInfo" />
                             </Button>
-                            <Typography>
-                                {userData.profile.name}
-                            </Typography>
                             <Button color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
                                 <FormattedMessage id="logout" />
                             </Button>
                         </>
                         :
-                        <Button color="inherit" component={Link} to="/auth">
-                        {/* <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all" onClick={() => dispatch(logIn())}> */}
+                        <Button color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all" onClick={() => dispatch(logIn())}>
                             <FormattedMessage id="login" />
                         </Button>
                 
@@ -101,4 +98,4 @@ function Navbar() {
     );
 }
 
-export default Navbar;
+export default NavbarH;

@@ -18,7 +18,7 @@ function EventCard({ event }) {
           component="img"
           alt="Contemplative Reptile"
           height="140"
-          image="https://www.eventpal.com.tw/573a50d7-122f-4d23-9c9a-525ba403732e/1.jpg"
+          image="https://yt3.ggpht.com/ytc/AAUvwnjO2_Wkoejhofk003Y3YcS09G0-JyrbQM8ybTIikw=s900-c-k-c0x00ffffff-no-rj"
           title={event.title}
         />
         <CardContent>
