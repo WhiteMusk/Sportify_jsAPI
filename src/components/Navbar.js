@@ -5,14 +5,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setLocale, logIn, logOut } from '../redux/actions';
+import { setLocale, logOut } from '../redux/actions';
 import { FormattedMessage } from 'react-intl';
 import { LOCALE_OPTIONS } from '../i18n/locale-settings';
 import { Typography } from "@material-ui/core";
 
 function Navbar() {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const userData = useSelector(state => state.auth.userData);
 
     return (
@@ -22,7 +21,7 @@ function Navbar() {
                     <FormattedMessage id="app.title" />
                 </Button>
                 {/* Show ManageEvents link if user is logged in, else show Services link */
-                    isLoggedIn ?
+                    userData ?
                         <Button color="inherit" component={Link} to={`/manage/${userData.profile._id}/all`}>
                             <FormattedMessage id="navbar.manageEvents" />
                         </Button> :
@@ -34,7 +33,7 @@ function Navbar() {
                 <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>中文</Button>
                 <Button color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>English</Button>
                 {/* Show log out button if user is currently logged in, and vice versa */
-                    isLoggedIn ?
+                    userData ?
                         <>
                             <Button color="inherit" component={Link} to={`/manage/${userData.profile._id}/organizerInfo`}>
                                 <FormattedMessage id="navbar.hostInfo" />

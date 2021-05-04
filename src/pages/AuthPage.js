@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
@@ -50,19 +50,19 @@ function AuthPage() {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
-    const authData = useSelector(state => state.auth);
+    const userData = useSelector(state => state.auth.userData);
     const [isSignUp, setIsSignUp] = useState(false);
     const [formData, setFormData] = useState({'username': '', 'email': '', 'password': '', 'confirmPassword': ''});
 
     const [addHost] = useMutation(ADD_HOST_MUTATION);
     const [loginCheck] = useMutation(LOGIN_CHECK_MUTATION);
 
-    // Direct to manage page after login
+    // Redirect to manage page after login
     useEffect(() => {
-        if (authData && authData.userData) {
-            history.push(`/manage/${authData.userData.profile._id}/all`);
+        if (userData) {
+            history.push(`/manage/${userData.profile._id}/all`);
         }
-    }, [authData]);
+    }, [userData]);
 
     // Handle normal sign up / login
     const handleSubmit = async (e) => {
@@ -129,7 +129,7 @@ function AuthPage() {
         try { //TODO: Add to database for sign up and check for login
             dispatch(logInByGoogle({ profile, token }));
             // Direct to home page
-            history.push('/');
+            // history.push('/');
         } catch(err) {
             console.log(err);
         }
