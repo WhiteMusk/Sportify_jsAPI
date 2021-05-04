@@ -2,8 +2,10 @@ const { model, Schema } = require('mongoose');
 
 const hostSchema = new Schema({
     name: { type: String, required: true, trim: true, minlength: 3 },
-    phone: { type: String, trim: true },
     email: { type: String, required: true, trim: true, minlength: 5 },
+    password: { type: String },
+    googleId: { type: String },
+    phone: { type: String, trim: true },
     page: { type: String, trim: true },
     bank_code: { type: String, trim: true },
     bank_account: { type: String, trim: true },

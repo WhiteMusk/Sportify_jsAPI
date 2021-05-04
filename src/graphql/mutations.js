@@ -80,12 +80,46 @@ const Event_RichEditor_MUTATION = gql`
     }
 `
 
+export const LOGIN_CHECK_MUTATION = gql`
+  mutation loginCheck(
+        $email: String!
+        $password: String!
+    ){
+        loginCheck(
+            data: {
+                email: $email
+                password: $password
+            }
+        )
+    }
+`
+
+export const ADD_HOST_MUTATION = gql`
+  mutation addHost(
+        $name: String!
+        $email: String!
+        $password: String!
+        $confirmPassword: String!
+    ){
+        addHost(
+            data: {
+                name: $name
+                email: $email
+                password: $password
+                confirmPassword: $confirmPassword
+            }
+        )
+    }
+`
+
 const Edit_Host_MUTATION = gql`
   mutation editHost(
         $_id: String
         $name: String!
-        $phone: String
         $email: String!
+        $password: String
+        $googleId: String
+        $phone: String
         $page: String
         $bank_code: String
         $bank_account: String
@@ -94,8 +128,10 @@ const Edit_Host_MUTATION = gql`
             data: {
                 _id: $_id
                 name: $name
-                phone: $phone
                 email: $email
+                password: $password
+                googleId: $googleId
+                phone: $phone
                 page: $page
                 bank_code: $bank_code
                 bank_account: $bank_account
