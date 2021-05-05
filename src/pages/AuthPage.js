@@ -9,6 +9,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@
 import { makeStyles } from '@material-ui/core/styles';
 
 import { logIn, logInByGoogle } from "../redux/actions";
+import Navbar from '../components/Navbar';
 import { ADD_HOST_MUTATION, LOGIN_CHECK_MUTATION } from '../graphql';
 
 const useStyles = makeStyles((theme) => ({
@@ -140,50 +141,53 @@ function AuthPage() {
     };
 
     return (
-        <Container component="main" maxWidth="xs" className={classes.container}>
-            <div className={classes.appBarSpacer} />
-            <Paper className={classes.paper} elevation={3}>
-                <Typography gutterBottom variant="h5" component="h2">
-                    {isSignUp ? 'Sign Up' : 'Log In'}
-                </Typography>
-                <form className={classes.form} onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        {isSignUp &&
-                            <TextField name="username" onChange={handleInputChange} label="Username" type="text" variant="outlined" required fullWidth autoFocus></TextField>
-                        }
-                        <TextField name="email" onChange={handleInputChange} label="Email Address" type="email" variant="outlined" required fullWidth autoFocus></TextField>
-                        <TextField name="password" onChange={handleInputChange} label="Password" type="password" variant="outlined" required fullWidth></TextField>
-                        {isSignUp &&
-                            <TextField name="confirmPassword" onChange={handleInputChange} label="Confirm Password" type="password" variant="outlined" required fullWidth></TextField>
-                        }
-                    </Grid>
-                    <Button className={classes.submit} type="submit" variant="contained" color="primary" fullWidth >
+        <>
+            <Navbar />
+            <Container component="main" maxWidth="xs" className={classes.container}>
+                <div className={classes.appBarSpacer} />
+                <Paper className={classes.paper} elevation={3}>
+                    <Typography gutterBottom variant="h5" component="h2">
                         {isSignUp ? 'Sign Up' : 'Log In'}
-                    </Button>
-                    <GoogleLogin
-                        clientId="394019166466-c0nvqp8tino8j0eko00esq27q2fme85b.apps.googleusercontent.com"
-                        render={(renderProps) => (
-                            <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained">
-                                {isSignUp ? 'Sign Up' : 'Log In'} with Google
-                            </Button>
-                        )}
-                        onSuccess={handleGoogleLoginSuccess}
-                        onFailure={handleGoogleLoginFailure}
-                        cookiePolicy="single_host_origin"
-                    />
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Button onClick={switchMethod}>
-                                {isSignUp ?
-                                    'Already have an account? Log In' :
-                                    'Don\'t have an account? Sign Up'
-                                }
-                            </Button>
+                    </Typography>
+                    <form className={classes.form} onSubmit={handleSubmit}>
+                        <Grid container spacing={2}>
+                            {isSignUp &&
+                                <TextField name="username" onChange={handleInputChange} label="Username" type="text" variant="outlined" required fullWidth autoFocus></TextField>
+                            }
+                            <TextField name="email" onChange={handleInputChange} label="Email Address" type="email" variant="outlined" required fullWidth autoFocus></TextField>
+                            <TextField name="password" onChange={handleInputChange} label="Password" type="password" variant="outlined" required fullWidth></TextField>
+                            {isSignUp &&
+                                <TextField name="confirmPassword" onChange={handleInputChange} label="Confirm Password" type="password" variant="outlined" required fullWidth></TextField>
+                            }
                         </Grid>
-                    </Grid>
-                </form>
-            </Paper>
-        </Container>
+                        <Button className={classes.submit} type="submit" variant="contained" color="primary" fullWidth >
+                            {isSignUp ? 'Sign Up' : 'Log In'}
+                        </Button>
+                        <GoogleLogin
+                            clientId="394019166466-c0nvqp8tino8j0eko00esq27q2fme85b.apps.googleusercontent.com"
+                            render={(renderProps) => (
+                                <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained">
+                                    {isSignUp ? 'Sign Up' : 'Log In'} with Google
+                                </Button>
+                            )}
+                            onSuccess={handleGoogleLoginSuccess}
+                            onFailure={handleGoogleLoginFailure}
+                            cookiePolicy="single_host_origin"
+                        />
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Button onClick={switchMethod}>
+                                    {isSignUp ?
+                                        'Already have an account? Log In' :
+                                        'Don\'t have an account? Sign Up'
+                                    }
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Paper>
+            </Container>
+        </>
     )
 }
 

@@ -7,6 +7,7 @@ const GET_EVENTS_QUERY = gql`
         title
         date
         dateEnd
+        description
         location
         region
         level

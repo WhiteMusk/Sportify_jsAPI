@@ -104,7 +104,8 @@ function EventInfo(props) {
   const theme = useTheme();
   const [currentTab, setCurrentTab] = useState(0);
   const [open, setOpen] = useState(false);
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const userData = useSelector(state => state.auth.userData);
   const dispatch = useDispatch();
   const handleTabClick = (index) => {
     setCurrentTab(index);
@@ -122,162 +123,162 @@ function EventInfo(props) {
   });
   // if (error) console.log(error);
   if (error) console.log(error.networkError.result.errors);
-  
- 
+
+
   return (
     <div className={classes.root}>
-      {!isTabletOrMobile? 
-      <>
-  <Navbar/>
-   <Drawer
-   style={{ width: { drawerWidth }, flexShrink: 0 }}
-   variant="permanent"
-  >
-   <Toolbar />
-   <div>
-     <List>
-       {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
-         <ListItem button key={text} onClick={() => handleTabClick(index)}>
-           <ListItemText primary={text} />
-         </ListItem>
-       ))}
-     </List>
-     <Divider />
-     <List>
-       {['聯絡主辦', '線上報名'].map((text, index) => (
-         index === 0 ?
-           (<ListItem button key={text} onClick={() => handleTabClick(index + 4)}
-           >
-             <ListItemText primary={text} />
-           </ListItem>) :
-           (<ListItem button key={text}
-             component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
-           >
-             <ListItemText primary={text} />
-           </ListItem>)
-       ))}
-     </List>
-   </div>
- </Drawer>
- </>:
+      {!isTabletOrMobile ?
         <>
-        <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar className={classes.root}>
-                <IconButton
+          <Navbar />
+          <Drawer
+            style={{ width: { drawerWidth }, flexShrink: 0 }}
+            variant="permanent"
+          >
+            <Toolbar />
+            <div>
+              <List>
+                {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
+                  <ListItem button key={text} onClick={() => handleTabClick(index)}>
+                    <ListItemText primary={text} />
+                  </ListItem>
+                ))}
+              </List>
+              <Divider />
+              <List>
+                {['聯絡主辦', '線上報名'].map((text, index) => (
+                  index === 0 ?
+                    (<ListItem button key={text} onClick={() => handleTabClick(index + 4)}
+                    >
+                      <ListItemText primary={text} />
+                    </ListItem>) :
+                    (<ListItem button key={text}
+                      component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
+                    >
+                      <ListItemText primary={text} />
+                    </ListItem>)
+                ))}
+              </List>
+            </div>
+          </Drawer>
+        </> :
+        <>
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, {
+              [classes.appBarShift]: open,
+            })}
+          >
+            <Toolbar className={classes.root}>
+              <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 onClick={handleDrawerOpen}
                 edge="start"
                 className={clsx(classes.menuButton, open && classes.hide)}
-            >
+              >
                 <MenuIcon />
-          </IconButton>
-                <IconButton color="inherit" component={Link} to="/">
-                <SportsTennisIcon/>
-                </IconButton>
-                {/* Show ManageEvents link if user is logged in, else show Services link */
-                    isLoggedIn ?
-                        <IconButton color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all">
-                           <DashboardIcon/>
-                        </IconButton> :
-                        <IconButton color="inherit" component={Link} to="/about">
-                           <InfoIcon/>
-                        </IconButton>
-                }
-                <div style={{ flexGrow: 1 }}></div>
-                <IconButton size ='small' color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>CH</IconButton>
-                <IconButton size='small' color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>EN</IconButton>
-                {/* Show log out button if user is currently logged in, and vice versa */
-                    isLoggedIn ?
-                        <>
-                            <IconButton color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/organizerInfo">
-                            <ContactMailIcon/>
-                            </IconButton>
-                            <IconButton size='small'  color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
-                            <ExitToAppIcon/>
-                            </IconButton>
-                        </>
-                        :
-                        <IconButton size='small' color="inherit" component={Link} to="/manage/60719d96ccb9eb6520edba71/all" onClick={() => dispatch(logIn())}>
-                            <FormattedMessage id="login" />
-                        </IconButton>
-                }
+              </IconButton>
+              <IconButton color="inherit" component={Link} to="/">
+                <SportsTennisIcon />
+              </IconButton>
+              {/* Show ManageEvents link if user is logged in, else show Services link */
+                userData ?
+                  <IconButton color="inherit" component={Link} to={`/manage/${userData.profile._id}/all`}>
+                    <DashboardIcon />
+                  </IconButton> :
+                  <IconButton color="inherit" component={Link} to="/about">
+                    <InfoIcon />
+                  </IconButton>
+              }
+              <div style={{ flexGrow: 1 }}></div>
+              <IconButton size='small' color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.zh))}>CH</IconButton>
+              <IconButton size='small' color="inherit" onClick={() => dispatch(setLocale(LOCALE_OPTIONS.en))}>EN</IconButton>
+              {/* Show log out button if user is currently logged in, and vice versa */
+                userData ?
+                  <>
+                    <IconButton color="inherit" component={Link} to={`/manage/${userData.profile._id}/organizerInfo`}>
+                      <ContactMailIcon />
+                    </IconButton>
+                    <IconButton size='small' color="inherit" component={Link} to="/" onClick={() => dispatch(logOut())}>
+                      <ExitToAppIcon />
+                    </IconButton>
+                  </>
+                  :
+                  <IconButton size='small' color="inherit" component={Link} to="/auth">
+                    <FormattedMessage id="login" />
+                  </IconButton>
+              }
             </Toolbar>
-      </AppBar>
-        
-      <Drawer
-         className={classes.drawer}
-         variant="persistent"
-         anchor="left"
-         open={open}
-         classes={{
-           paper: classes.drawerPaper,
-         }}
-       >
-         <div className={classes.drawerHeader}>
-           <IconButton onClick={handleDrawerClose}>
-             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-           </IconButton>
-         </div>
-         <Divider />
-        <div>
-          <List>
-            {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
-              <ListItem button key={text} onClick={() => handleTabClick(index)}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['聯絡主辦', '線上報名'].map((text, index) => (
-              index === 0 ?
-                (<ListItem button key={text} onClick={() => handleTabClick(index + 4)}
-                >
-                  <ListItemText primary={text} />
-                </ListItem>) :
-                (<ListItem button key={text}
-                  component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
-                >
-                  <ListItemText primary={text} />
-                </ListItem>)
-            ))}
-          </List>
-        </div>
-      </Drawer>
-      </>
-  } 
-  {!isTabletOrMobile?
-  <Container maxWidth="md" className={`display-ckeditor ${classes.container}`}>
-  <Toolbar />
-  {loading ?
-    <Typography><FormattedMessage id="loading" /></Typography> :
-    <EventDescription info={data.getEvent} tab={currentTab} eventID={props.match.params.eventID}/>}
-</Container>
-  :
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-    
-      <div className={classes.drawerHeader} />
-        <Toolbar />
-      {/* <Container maxWidth="md" className={clsx(classes.content, {
+          </AppBar>
+
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              </IconButton>
+            </div>
+            <Divider />
+            <div>
+              <List>
+                {[<FormattedMessage id="eventPage.regulations" />, '報名資訊', '交通資訊', '獎項'].map((text, index) => (
+                  <ListItem button key={text} onClick={() => handleTabClick(index)}>
+                    <ListItemText primary={text} />
+                  </ListItem>
+                ))}
+              </List>
+              <Divider />
+              <List>
+                {['聯絡主辦', '線上報名'].map((text, index) => (
+                  index === 0 ?
+                    (<ListItem button key={text} onClick={() => handleTabClick(index + 4)}
+                    >
+                      <ListItemText primary={text} />
+                    </ListItem>) :
+                    (<ListItem button key={text}
+                      component={Link} to={"/event/" + props.match.params.eventID + "/register/"}
+                    >
+                      <ListItemText primary={text} />
+                    </ListItem>)
+                ))}
+              </List>
+            </div>
+          </Drawer>
+        </>
+      }
+      {!isTabletOrMobile ?
+        <Container maxWidth="md" className={`display-ckeditor ${classes.container}`}>
+          <Toolbar />
+          {loading ?
+            <Typography><FormattedMessage id="loading" /></Typography> :
+            <EventDescription info={data.getEvent} tab={currentTab} eventID={props.match.params.eventID} />}
+        </Container>
+        :
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+
+          <div className={classes.drawerHeader} />
+          <Toolbar />
+          {/* <Container maxWidth="md" className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}>
         <Toolbar /> */}
-        {loading ?
-          <Typography><FormattedMessage id="loading" /></Typography> :
-          <EventDescription info={data.getEvent} tab={currentTab} eventID={props.match.params.eventID} />}
-      {/* </Container> */}
-    </main> 
-    }
+          {loading ?
+            <Typography><FormattedMessage id="loading" /></Typography> :
+            <EventDescription info={data.getEvent} tab={currentTab} eventID={props.match.params.eventID} />}
+          {/* </Container> */}
+        </main>
+      }
     </div>
   );
 }
