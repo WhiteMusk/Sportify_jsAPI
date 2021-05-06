@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { useQuery, useMutation } from '@apollo/client';
 import { Host_RegistrationStatus_QUERY, Host_SetPaidStatus_MUTATION } from '../graphql';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     chip: {
@@ -39,6 +39,10 @@ function RegistrationStatus(props) {
     if (error) console.log(error);
 
     const [setPaid] = useMutation(Host_SetPaidStatus_MUTATION);
+
+    useEffect(() => {
+        refetch()
+    }, [data]);
 
     const handlePaid = async (index) => {
         var isPaid = false;

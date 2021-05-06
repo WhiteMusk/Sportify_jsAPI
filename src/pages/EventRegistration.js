@@ -127,7 +127,7 @@ function EventRegistration(props) {
                     applicant: {
                         name: applicantName,
                         gender: gender,
-                        birthday: birthday,
+                        // birthday: birthday,
                         email: email,
                         phone: applicantPhone,
                         studentID: studentID,

@@ -16,7 +16,7 @@ module.exports = {
                 applicant: {
                     name: applicant.name,
                     gender: applicant.gender,
-                    birthday: applicant.birthday,
+                    // birthday: applicant.birthday,
                     email: applicant.email,
                     phone: applicant.phone,
                     studentID: applicant.studentID,

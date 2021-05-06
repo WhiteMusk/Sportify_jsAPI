@@ -9,28 +9,28 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, Box} from '@material-ui/core'
+import { Paper, Button, Box } from '@material-ui/core'
 import Link from '@material-ui/core/Link';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SportsTennisIcon from '@material-ui/icons/SportsTennis';
 import black from '@material-ui/core/colors';
-import ExpansionPanelSummary  from '@material-ui/core/AccordionSummary';
+import ExpansionPanelSummary from '@material-ui/core/AccordionSummary';
 import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-    summary: {
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
-      },
-  root:{
-      color:'white',
-      backgroundColor:"#212121",
-      marginTop: theme.spacing(6),
-      borderRadius: 20
+  summary: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  },
+  root: {
+    color: 'white',
+    backgroundColor: "#212121",
+    marginTop: theme.spacing(6),
+    borderRadius: 20
   },
   mainFeaturedPost: {
     position: 'relative',
-    height:400,
+    height: 400,
     backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
     marginTop: theme.spacing(6),
@@ -58,47 +58,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Bulletin(props)
-{
-    // console.log('props',props)
-    // const a = props[0].slice(0,3)
-    // console.log('duplicate',a)
-    var items = props.eventList
-    console.log(items)
-    // var items = [
-    //     {
-    //         title: "Random Name #1",
-    //         img : "https://source.unsplash.com/random",
-    //         description: "Probably the most random thing you have ever seen!"
-    //     },
-    //     {
-    //         title: "Random Name #2",
-    //         img:"https://source.unsplash.com/random",
-    //         description: "Hello World!"
-    //     },
-    //     {
-    //         title: "Random Name #3",
-    //         img: "https://source.unsplash.com/random",
-    //         description: "Happy Tennis Tour!"
-    //     }
-    // ]
+function Bulletin(props) {
+  // console.log('props',props)
+  // const a = props[0].slice(0,3)
+  // console.log('duplicate',a)
+  var items = props.eventList
+  // console.log(items)
+  // var items = [
+  //     {
+  //         title: "Random Name #1",
+  //         img : "https://source.unsplash.com/random",
+  //         description: "Probably the most random thing you have ever seen!"
+  //     },
+  //     {
+  //         title: "Random Name #2",
+  //         img:"https://source.unsplash.com/random",
+  //         description: "Hello World!"
+  //     },
+  //     {
+  //         title: "Random Name #3",
+  //         img: "https://source.unsplash.com/random",
+  //         description: "Happy Tennis Tour!"
+  //     }
+  // ]
 
-    return (
-        <Carousel>
-          
-            {
-                items.map( (item, i) => <Item key={i} item={item} /> )
-            }
-        </Carousel>
-    )
+  return (
+    <Carousel>
+
+      {
+        items.map((item, i) => <Item key={i} item={item} />)
+      }
+    </Carousel>
+  )
 }
 
-function Item(props)
-{
+function Item(props) {
   const classes = useStyles();
-  console.log(props)
-    return (
-      <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${'https://source.unsplash.com/random'})` }}>
+  // console.log(props)
+  return (
+    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${'https://source.unsplash.com/random'})` }}>
       {/* Increase the priority of the hero background image */}
       {/* {<img style={{ display: 'none' }} src={props.item.img} />} */}
       <div className={classes.overlay} />
@@ -108,18 +106,18 @@ function Item(props)
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
               {props.item.title}
             </Typography>
-            <Box  classes={classes.summary} expandIcon={<ExpandMoreIcon/>}>
-            <Typography variant="h5" color="inherit"  noWrap displayBlock>
-              {props.item.description}
-            </Typography> 
+            <Box classes={classes.summary} expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="h5" color="inherit" noWrap displayBlock>
+                {props.item.description}
+              </Typography>
             </Box >
             <Link variant="subtitle1" href="#">
-            <Button className={classes.root} variant='outlined'  component={NavLink} to={"/event/" + props.item._id} startIcon={<SportsTennisIcon/>}>Register Now</Button>
+              <Button className={classes.root} variant='outlined' component={NavLink} to={"/event/" + props.item._id} startIcon={<SportsTennisIcon />}>Register Now</Button>
             </Link>
           </div>
         </Grid>
       </Grid>
     </Paper>
-    )
+  )
 }
 export default Bulletin;

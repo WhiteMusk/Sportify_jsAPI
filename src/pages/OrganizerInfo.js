@@ -93,78 +93,78 @@ function OrganizerInfo(props) {
 
     return (
         <>
-        <Navbar/>
-        <Container maxWidth="md" className={classes.container} alignItems="center" justify="center">
-            <Toolbar />
-            <form className={classes.form}>
-                <Button className={classes.submitBut} variant="contained" color="default"
-                    type="submit"
-                    onClick={handleSubmit}
-                >
-                    <FormattedMessage id="organizerInfo.save" />
-                </Button>
-                <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableBody>
-                            <TableRow key="info1">
-                                <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.name" /></TableCell>
-                                <TableCell>
-                                    <TextField fullWidth label="Name"
-                                        value={name}
-                                        onInput={e => setName(e.target.value)}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key="info2">
-                                <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.phone" /></TableCell>
-                                <TableCell>
-                                    <TextField fullWidth label="Phone"
-                                        value={phone}
-                                        onInput={e => setPhone(e.target.value)}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key="info3">
-                                <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.email" /></TableCell>
-                                <TableCell>
-                                    <TextField fullWidth label="Email"
-                                        value={email}
-                                        onInput={e => setEmail(e.target.value)}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key="info4">
-                                <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.website" /></TableCell>
-                                <TableCell>
-                                    <TextField fullWidth label="Page"
-                                        value={page}
-                                        onInput={e => setPage(e.target.value)}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key="info5">
-                                <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.bank" /></TableCell>
-                                <TableCell>
-                                    <TextField fullWidth label="Bank Code"
-                                        value={bankCode}
-                                        onInput={e => setBankCode(e.target.value)}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key="info6">
-                                <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.bankAccount" /></TableCell>
-                                <TableCell>
-                                    <TextField fullWidth label="Bank Account"
-                                        value={bankAccount}
-                                        onInput={e => setBankAccount(e.target.value)}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </form>
-        </Container>
+            <Navbar />
+            <Container maxWidth="md" className={classes.container} alignItems="center" justify="center">
+                <Toolbar />
+                <form className={classes.form}>
+                    <Button className={classes.submitBut} variant="contained" color="default"
+                        type="submit"
+                        onClick={handleSubmit}
+                    >
+                        <FormattedMessage id="organizerInfo.save" />
+                    </Button>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="simple table">
+                            <TableBody>
+                                <TableRow key="info1">
+                                    <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.name" /></TableCell>
+                                    <TableCell>
+                                        <TextField fullWidth label="Name"
+                                            value={name}
+                                            onInput={e => setName(e.target.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key="info2">
+                                    <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.phone" /></TableCell>
+                                    <TableCell>
+                                        <TextField fullWidth label="Phone"
+                                            value={phone}
+                                            onInput={e => setPhone(e.target.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key="info3">
+                                    <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.email" /></TableCell>
+                                    <TableCell>
+                                        <TextField fullWidth label="Email"
+                                            value={email}
+                                            onInput={e => setEmail(e.target.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key="info4">
+                                    <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.website" /></TableCell>
+                                    <TableCell>
+                                        <TextField fullWidth label="Page"
+                                            value={page}
+                                            onInput={e => setPage(e.target.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key="info5">
+                                    <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.bank" /></TableCell>
+                                    <TableCell>
+                                        <TextField fullWidth label="Bank Code"
+                                            value={bankCode}
+                                            onInput={e => setBankCode(e.target.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key="info6">
+                                    <TableCell component="th" scope="row" align="center"><FormattedMessage id="organizerInfo.bankAccount" /></TableCell>
+                                    <TableCell>
+                                        <TextField fullWidth label="Bank Account"
+                                            value={bankAccount}
+                                            onInput={e => setBankAccount(e.target.value)}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </form>
+            </Container>
         </>
     );
 }
