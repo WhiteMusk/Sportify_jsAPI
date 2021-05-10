@@ -16,7 +16,8 @@ import moment from "moment";
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4)
+        paddingBottom: theme.spacing(4),
+
     },
     appBarSpacer: theme.mixins.toolbar,
     divider: {
@@ -95,9 +96,8 @@ function HomePage() {
     }, [data]);
 
     return (
-        <>
-            <NavbarH searchChange={onSearchChange} />
-            <Container maxWidth="md" className={classes.container}>
+        <div style={{overflow: 'auto'}}>
+            <NavbarH searchChange={onSearchChange} />   
                 <div className={classes.appBarSpacer} />
                 {data ?
                     <>
@@ -110,13 +110,14 @@ function HomePage() {
                             RegionChange={onRegionChange}
                             LevelChange={onLevelChange} />
                         <Divider variant='middle' className={classes.divider2} />
-                        <Typography gutterBottom variant="h5" component="h2">
-                            <FormattedMessage id="homePage.allEvents" />
-                        </Typography>
                     </>
                     : <></>
                 }
-
+                <Container maxWidth="lg" className={classes.container} >
+                {data?
+                <Typography gutterBottom variant="h5" component="h2">
+                <FormattedMessage id="homePage.allEvents" />
+            </Typography>:<></>}
                 {loading ?
                     <Typography>
                         <FormattedMessage id="loading" />
@@ -135,7 +136,7 @@ function HomePage() {
             </Container>
             <Divider />
             <Footer />
-        </>
+        </div>
     )
 }
 

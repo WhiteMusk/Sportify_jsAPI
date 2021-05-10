@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+
   },
 }));
 
@@ -16,11 +17,11 @@ function EventCardList({ events }) {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="md" className={classes.container}>
+    <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         {events.map((e, i) => {
           return (
-            <Grid item sm={6} md={4} key={i}>
+            <Grid item lg={3} sm={6} md={4} key={i}>
               <EventCard event={e} />
             </Grid>
           )

@@ -18,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchBox from "./SearchBox"
 
 function NavbarH(props) {
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 992px)' });
     const dispatch = useDispatch();
     // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const userData = useSelector(state => state.auth.userData);
