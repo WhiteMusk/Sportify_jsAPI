@@ -9,6 +9,7 @@ import { useState } from 'react'
 import EventOverview from '../components/EventOverview';
 import RegistrationStatus from '../components/RegistrationStatus';
 import EventInfo from '../components/EventInfo';
+import FormEdit from '../components/FormEdit';
 import { FormattedMessage } from 'react-intl';
 import Navbar from "../components/Navbar";
 import { useMediaQuery } from 'react-responsive'
@@ -104,7 +105,7 @@ function EventDashboard(props) {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const classes = useStyles();
   const theme = useTheme();
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(3);
   const [open, setOpen] = useState(false);
   // const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const userData = useSelector(state => state.auth.userData);
@@ -119,6 +120,23 @@ function EventDashboard(props) {
     setOpen(false);
   };
 
+  const renderView = () => {
+    switch(currentTab) {
+      case 0:
+        return <EventOverview eventID={props.match.params.eventID} />;
+      case 1:
+        return <EventInfo eventID={props.match.params.eventID} />;
+      case 2:
+        return <RegistrationStatus eventID={props.match.params.eventID} />;
+      case 3:
+        return <FormEdit eventID={props.match.params.eventID} />;
+      case 4:
+        return <EventTracking eventID={props.match.params.eventID} />;
+      default:
+        return <div>Something's wrong...</div>
+    }
+  }
+
     return (
         <div className={classes.root}>
         {!isTabletOrMobile?
@@ -131,7 +149,7 @@ function EventDashboard(props) {
                 <Toolbar />
                 <div>
                     <List>
-                        {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
+                        {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.editRegistration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
                             <ListItem button key={text} onClick={() => handleTabClick(index)}>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -141,12 +159,8 @@ function EventDashboard(props) {
             </Drawer>
 
             <Container maxWidth="md" className={classes.container}>
-                <Toolbar />
-                {currentTab === 0 ? <EventOverview eventID={props.match.params.eventID} /> :
-                    (currentTab === 1 ? <EventInfo eventID={props.match.params.eventID} /> :
-                        (currentTab === 2 ? <RegistrationStatus eventID={props.match.params.eventID} /> : 
-                            (currentTab === 3 ? <EventTracking eventID={props.match.params.eventID} /> : <></>)))
-                }
+              <Toolbar />
+              {renderView()}
             </Container></>: <>
             <AppBar
             position="fixed"
@@ -214,7 +228,7 @@ function EventDashboard(props) {
             <Divider />
             <div>
             <List>
-                        {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
+                        {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.editRegistration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
                             <ListItem button key={text} onClick={() => handleTabClick(index)}>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -229,11 +243,7 @@ function EventDashboard(props) {
              >
             <Container>
             <Toolbar />
-                {currentTab === 0 ? <EventOverview eventID={props.match.params.eventID} /> :
-                    (currentTab === 1 ? <EventInfo eventID={props.match.params.eventID} /> :
-                        (currentTab === 2 ? <RegistrationStatus eventID={props.match.params.eventID} /> : 
-                            (currentTab === 3 ? <EventTracking eventID={props.match.params.eventID} /> : <></>)))
-                }
+            {renderView()}
             </Container>
             </main>
         </>
