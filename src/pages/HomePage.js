@@ -12,7 +12,6 @@ import Divider from '@material-ui/core/Divider'
 import Filter from '../components/Filter'
 import Footer from '../components/Footer'
 import moment from "moment";
-
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
@@ -94,14 +93,18 @@ function HomePage() {
         if (!loading)
             setEventList(data.getEvents);
     }, [data]);
-
+    if(data)
+    {
+        console.log(data.getEvents.slice(0,10));
+    }
     return (
         <div style={{overflow: 'auto'}}>
             <NavbarH searchChange={onSearchChange} />   
                 <div className={classes.appBarSpacer} />
                 {data ?
                     <>
-                        <Bulletin eventList={data.getEvents} />
+                    
+                        <Bulletin eventList={data.getEvents.slice(0,10)} />
                         <Divider variant='middle' className={classes.divider} />
 
                         <Filter
