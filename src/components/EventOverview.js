@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from '@apollo/client';
 import { Host_EventOverview_QUERY } from '../graphql';
+import { createMuiTheme, responsiveFontSizes,ThemeProvider  } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,13 +18,14 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
     title: {
-        width: 'max-content',
+        width: '90%',
+        // flexWrap:'wrap',
+        
     }
 }));
 
 function EventOverview(props) {
     const classes = useStyles();
-
     const { loading, error, data } = useQuery(Host_EventOverview_QUERY, { variables: { eventId: props.eventID } });
     // if (error) console.log(error);
     if (error) console.log(error.networkError.result.errors);
@@ -30,7 +33,7 @@ function EventOverview(props) {
     return (
         <List className={classes.root}>
             {loading ?
-                <Typography variant="h4"><FormattedMessage id="loading" /></Typography>
+                <Typography  variant="h4"><FormattedMessage id="loading" /></Typography>
                 :
                 <>
                     <Typography variant="h4" className={classes.title}><FormattedMessage id="eventOverview.name" />：{data.getEvent.title}</Typography>
@@ -69,6 +72,7 @@ function EventOverview(props) {
                         <ListItemText primary={<FormattedMessage id="eventOverview.count" />} secondary="功能未開放" />
                     </ListItem></>}
         </List>
+
     );
 }
 

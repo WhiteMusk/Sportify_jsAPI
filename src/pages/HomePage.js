@@ -93,12 +93,8 @@ function HomePage() {
         if (!loading)
             setEventList(data.getEvents);
     }, [data]);
-    if(data)
-    {
-        console.log(data.getEvents.slice(0,10));
-    }
     return (
-        <div style={{overflow: 'auto'}}>
+        <div>
             <NavbarH searchChange={onSearchChange} />   
                 <div className={classes.appBarSpacer} />
                 {data ?

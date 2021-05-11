@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function EventInfo(props) {
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1162px)' });
   const classes = useStyles();
   const theme = useTheme();
   const [currentTab, setCurrentTab] = useState(0);

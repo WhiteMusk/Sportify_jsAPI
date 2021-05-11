@@ -28,7 +28,7 @@ import { useQuery } from '@apollo/client';
 import { Host_Events_QUERY } from '../graphql';
 import { useMutation } from '@apollo/client';
 import { New_Event_MUTATION } from '../graphql';
-
+import FilterListIcon from '@material-ui/icons/FilterList';
 // function createData(title, date, access, publish, status) {
 //   return { title, date, access, publish, status };
 // }
@@ -222,7 +222,6 @@ const EnhancedTableToolbar = (props) => {
 
       <Tooltip title="Filter list">
         <IconButton aria-label="filter list">
-          {/* <FilterListIcon /> */}
         </IconButton>
       </Tooltip>
     </Toolbar>
