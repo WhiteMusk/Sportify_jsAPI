@@ -1,6 +1,5 @@
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography, Paper, Input } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,9 +13,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "20px",
     marginBottom: "10px"
   },
-  table: {
-    minWidth: 700,
+  paper: {
+    padding: "2em",
+    marginBottom: "1em"
   },
+  title: {
+    fontSize: "2em",
+    marginBottom: "0.5em"
+  }
 }));
 
 export default function FormEdit(props) {
@@ -25,11 +29,15 @@ export default function FormEdit(props) {
 
   return (
     <Container maxWidth="md">
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h4"><FormattedMessage id="formEdit.title" /></Typography>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        {/* <Typography variant="h4"><FormattedMessage id="formEdit.title" /></Typography> */}
         <Button variant="contained">儲存</Button>
       </div>
       {/* <Typography><FormattedMessage id="loading" /></Typography> */}
+      <Paper className={classes.paper}>
+        <Typography className={classes.title}>比賽標題＋報名表(標題直接帶入，不開放編輯)</Typography>
+        <Input placeholder="Form description" fullWidth multiline />
+      </Paper>
       {formData.blocks.map((block) => (
         <FormEditBlock block={block} />
       ))}
