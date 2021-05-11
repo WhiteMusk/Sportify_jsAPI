@@ -33,14 +33,11 @@ const blockTypes = [
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: "2em"
+    padding: "2.5em 2em",
+    marginTop: "1em"
   },
-  chip: {
-    marginTop: "20px",
-    marginBottom: "10px"
-  },
-  table: {
-    minWidth: 700,
+  element: {
+    marginBottom: "1em",
   },
 }));
 
@@ -65,7 +62,7 @@ const ChoiceItem = ({ choiceType, uniqueKey, index, showDelete, callOnDelete, ca
   }
 
   return (
-    <Grid container justify="space-between">
+    <Grid container justify="space-between" style={{ marginBottom: "0.5em" }}>
       <Grid item>
         {renderChoiceIcon(choiceType, index)}
         <Input name={`option ${index}`} defaultValue={`option ${index}`} inputProps={{ 'aria-label': 'option' }}
@@ -134,6 +131,8 @@ const renderBlock = (blockType) => {
       return <ChoiceEdit choiceType='checkboxes' />;
     case 'dropdown':
       return <ChoiceEdit choiceType='dropdown' />;
+    case 'shortAnswer':
+      return <Input placeholder="Answer" disabled/>;
     default:
       return <div>Something's wrong...</div>;
   }
@@ -155,12 +154,14 @@ export default function FormEditBlock(props) {
   return (
     <Paper className={classes.paper}>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.element}>
           <Grid container justify="space-between">
-            <OutlinedInput placeholder="Question"></OutlinedInput>
+            <OutlinedInput placeholder="Question" style={{ flexGrow: 1 }}></OutlinedInput>
             <Select
+              variant="outlined"
               value={blockType}
               onChange={handleSelectChange}
+              style={{ marginLeft: "2em" }}
             >
               {blockTypes.map((type => (
                 <MenuItem key={type.value} value={type.value}>{type.text}</MenuItem>
@@ -168,7 +169,7 @@ export default function FormEditBlock(props) {
             </Select>
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.element}>
           <Input placeholder="description" fullWidth inputProps={{ 'aria-label': 'description' }} />
         </Grid>
         {renderBlock(blockType)}
