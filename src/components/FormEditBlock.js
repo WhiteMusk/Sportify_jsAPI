@@ -1,7 +1,4 @@
-import { Paper, Typography, Grid, FilledInput, OutlinedInput, Select, MenuItem, Input, Radio, IconButton } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
+import { Paper, Typography, Grid, FilledInput, OutlinedInput, Select, MenuItem, Input, Radio, IconButton, Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { useState, useEffect } from 'react';
@@ -47,7 +44,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MultipleChoiceItem = ({ uniqueKey, index, showDelete, callOnDelete, callOnChange }) => {
+const renderChoiceIcon = (choiceType, index) => {
+  switch(choiceType) {
+    case 'multipleChoice':
+      return <><Radio hidden disabled/><Radio checked={false} disabled/></>;
+    case 'checkboxes':
+      return <Checkbox checked={false} disabled />;
+    case 'dropdown':
+      return <Typography display="inline">{index}. </Typography>
+  }
+}
+
+const ChoiceItem = ({ choiceType, uniqueKey, index, showDelete, callOnDelete, callOnChange }) => {
   const onDeleteClicked = () => {
     callOnDelete(uniqueKey);
   }
@@ -59,8 +67,7 @@ const MultipleChoiceItem = ({ uniqueKey, index, showDelete, callOnDelete, callOn
   return (
     <Grid container justify="space-between">
       <Grid item>
-        <Radio hidden disabled/>
-        <Radio checked={false} disabled/>
+        {renderChoiceIcon(choiceType, index)}
         <Input name={`option ${index}`} defaultValue={`option ${index}`} inputProps={{ 'aria-label': 'option' }}
           onChange={onInputChanged} autoFocus />
       </Grid>
@@ -72,7 +79,7 @@ const MultipleChoiceItem = ({ uniqueKey, index, showDelete, callOnDelete, callOn
   )
 }
 
-const MultipleChoiceEdit = () => {
+const ChoiceEdit = ({ choiceType }) => {
   const [uniqueKey, setUniqueKey] = useState(1);
   const [formData, setFormData] = useState({ [uniqueKey]: "option 1" });
 
@@ -101,7 +108,8 @@ const MultipleChoiceEdit = () => {
   return (
     <Grid container>
       {Object.keys(formData).map((key, index) => (
-        <MultipleChoiceItem 
+        <ChoiceItem 
+          choiceType={choiceType}
           key={key} 
           uniqueKey={key} 
           index={index+1} 
@@ -111,7 +119,7 @@ const MultipleChoiceEdit = () => {
         />
       ))}
       <Grid item xs={12}>
-        <Radio checked={false} disabled/>
+        {renderChoiceIcon(choiceType, Object.keys(formData).length + 1)}
         <Input placeholder="Add option" onClick={onAddOptionClicked} inputProps={{ 'aria-label': 'add option' }} />
       </Grid>
     </Grid>
@@ -121,7 +129,11 @@ const MultipleChoiceEdit = () => {
 const renderBlock = (blockType) => {
   switch(blockType) {
     case 'multipleChoice':
-      return <MultipleChoiceEdit />;
+      return <ChoiceEdit choiceType='multipleChoice' />;
+    case 'checkboxes':
+      return <ChoiceEdit choiceType='checkboxes' />;
+    case 'dropdown':
+      return <ChoiceEdit choiceType='dropdown' />;
     default:
       return <div>Something's wrong...</div>;
   }
