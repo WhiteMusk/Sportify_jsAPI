@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import EventBasicInfo from './EventBasicInfo';
 import RichTextEditor from './RichTextEditor';
 import { FormattedMessage } from 'react-intl';
-
+import { useMediaQuery } from 'react-responsive'
 const useStyles = makeStyles({
 
 });
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 function EventInfo(props) {
     const classes = useStyles();
     const [currentTab, setCurrentTab] = useState(1);
-
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 375px)' });
     const handleTabChange = (event, newValue) => {
         setCurrentTab(newValue);
     }
@@ -26,6 +26,8 @@ function EventInfo(props) {
                     value={currentTab}
                     indicatorColor="primary"
                     textColor="primary"
+                    variant="scrollable"
+                    scrollButtons="auto"
                     onChange={handleTabChange}
                 >
                     <Tab label={<FormattedMessage id="eventInfo.basic" />} value={1} />

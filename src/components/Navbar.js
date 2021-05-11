@@ -18,7 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Typography } from "@material-ui/core";
 
 function Navbar() {
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 375px)' });
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 992px)' });
     const dispatch = useDispatch();
     const userData = useSelector(state => state.auth.userData);
 
