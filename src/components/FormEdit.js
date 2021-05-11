@@ -11,9 +11,8 @@ import { AddCircleOutline, DeleteOutline } from '@material-ui/icons';
 import FormEditBlock from './FormEditBlock';
 
 const useStyles = makeStyles((theme) => ({
-  chip: {
-    marginTop: "20px",
-    marginBottom: "10px"
+  container: {
+    minWidth: "580px"
   },
   paper: {
     padding: "2em",
@@ -22,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: "2em",
     marginBottom: "0.5em"
+  },
+  saveButton: {
+    height: "3em"
   }
 }));
 
@@ -89,15 +91,14 @@ export default function FormEdit(props) {
   }, [data]);
 
   return (
-    <Container maxWidth="md">
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        {/* <Typography variant="h4"><FormattedMessage id="formEdit.title" /></Typography> */}
-        <Button variant="contained">儲存</Button>
-      </div>
+    <Container className={classes.container} maxWidth="md">
       {loading ? <Typography><FormattedMessage id="loading" /></Typography> : (
         <>
           <Paper className={classes.paper}>
-            <Typography className={classes.title}>{data.getEvent.title}報名表</Typography>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography className={classes.title}>{data.getEvent.title}報名表</Typography>
+              <Button className={classes.saveButton} variant="contained">儲存</Button>
+            </div>
             <Input placeholder="Form description" fullWidth multiline defaultValue={data.getEvent.description} />
           </Paper>
           { formData && formData.blocks.length ? (
@@ -125,7 +126,6 @@ export default function FormEdit(props) {
         </>
       )}
     </Container>
-
   );
 }
 
