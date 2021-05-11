@@ -12,7 +12,7 @@ import EventRegistration from "./pages/EventRegistration";
 import EventManagement from "./pages/EventManagement";
 import EventDashboard from "./pages/EventDashboard";
 import OranizerInfo from "./pages/OrganizerInfo";
-
+import ContactUs from './pages/ContactUs'
 import { getLocaleMessages } from './i18n/locale-settings';
 
 function App () {
@@ -25,6 +25,7 @@ function App () {
       <Switch>
         <Route exact path="/"><HomePage /></Route>
         <Route exact path="/about"><AboutPage /></Route>
+        <Route exact path="/contact"><ContactUs/></Route>
         <Route exact path="/event/:eventID?" component={EventPage}></Route>
         <Route exact path="/event/:eventID?/register/" component={EventRegistration}></Route>
         <Route exact path="/auth"><AuthPage /></Route>
