@@ -130,14 +130,14 @@ const ChoiceEdit = ({ choiceType, options }) => {
   )
 }
 
-const renderBlock = (blockType, fields) => {
+const renderBlock = (blockType, options) => {
   switch(blockType) {
     case 'multipleChoice':
-      return <ChoiceEdit choiceType='multipleChoice' options={fields} />;
+      return <ChoiceEdit choiceType='multipleChoice' options={options} />;
     case 'checkboxes':
-      return <ChoiceEdit choiceType='checkboxes' options={fields}/>;
+      return <ChoiceEdit choiceType='checkboxes' options={options}/>;
     case 'dropdown':
-      return <ChoiceEdit choiceType='dropdown' options={fields}/>;
+      return <ChoiceEdit choiceType='dropdown' options={options}/>;
     case 'shortAnswer':
       return <Input placeholder="Answer" disabled />;
     default:
@@ -181,7 +181,7 @@ export default function FormEditBlock({ block }) {
           <Input placeholder="description" fullWidth inputProps={{ 'aria-label': 'description' }} 
             defaultValue={block.description}/>
         </Grid>
-        {renderBlock(blockType, block.fields)}
+        {renderBlock(blockType, block.options)}
       </Grid>
     </Paper>
   );

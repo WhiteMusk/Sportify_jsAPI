@@ -90,5 +90,18 @@ module.exports = {
 
             return true;
         },
+        async editEventForm(_, args) {
+            await Event.findOne({ _id: ObjectId(args.data._id) }, function (err, event) {
+                if (!err && event) {
+                    if (args.data.description !== undefined)
+                        event.form.description = args.data.description;
+                    if (args.data.blocks !== undefined)
+                        event.form.blocks = args.data.blocks;
+                    event.save();                  
+                }
+            });
+
+            return true;
+        },
     }
 }

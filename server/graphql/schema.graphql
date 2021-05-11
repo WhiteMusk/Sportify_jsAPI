@@ -131,6 +131,19 @@ const typeDefs = gql`
       release: Boolean
   }
 
+  input EventFormBlock {
+    blockType: String!
+    question: String
+    description: String
+    options: [String]
+  }
+
+  input EventForm {
+    _id: String!
+    description: String
+    blocks: [EventFormBlock]
+  }
+
   input HostInput {
     _id: String
     name: String
@@ -148,6 +161,7 @@ const typeDefs = gql`
     addForm(data: FormInput!): Boolean!
     newEvent(data: EventInput!): Boolean!
     editEvent(data: EventInput!): Boolean!
+    editEventForm(data: EventForm!): Boolean!
     loginCheck(data: HostInput!): Host
     addHost(data: HostInput!): Host
     editHost(data: HostInput!): Boolean!

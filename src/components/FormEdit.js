@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // TODO: generate uniqueKey for each block data
+// TODO: if db has no data, create one default block, else use db data
 export default function FormEdit(props) {
   const classes = useStyles();
   const [formData, setFormData] = useState({ "blocks": [
@@ -34,21 +35,21 @@ export default function FormEdit(props) {
       "blockType": "multipleChoice",
       "question": "test Question #1",
       "description": "some description",
-      "fields": ["male", "female", "other"]
+      "options": ["male", "female", "other"]
     },
     {
       "id": "someUniqueIdMaybe2",
       "blockType": "checkboxes",
       "question": "test Question #2",
       "description": "some description",
-      "fields": ["male", "female", "other"]
+      "options": ["male", "female", "other"]
     },
     {
       "id": "someUniqueIdMaybe3",
       "blockType": "dropdown",
       "question": "test Question #3",
       "description": "some description",
-      "fields": ["male", "female", "other"]
+      "options": ["male", "female", "other"]
     },
     {
       "id": "someUniqueIdMaybe4",
