@@ -15,7 +15,7 @@ class SimpleReactFooter extends React.Component {
 
 	render() {
 		return (
-            <div className="footer-container" style={{ backgroundColor: this.props.backgroundColor || "bisque" }}>
+            <div style={{ backgroundColor: this.props.backgroundColor || "bisque" }} className="footer-container">
 
                 <div className="first-row">
                     <div className="col-about">
