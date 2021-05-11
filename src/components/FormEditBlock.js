@@ -52,7 +52,7 @@ const renderChoiceIcon = (choiceType, index) => {
   }
 }
 
-const ChoiceItem = ({ choiceType, uniqueKey, index, showDelete, callOnDelete, callOnChange }) => {
+const ChoiceItem = ({ choiceType, inputValue, uniqueKey, index, showDelete, callOnDelete, callOnChange }) => {
   const onDeleteClicked = () => {
     callOnDelete(uniqueKey);
   }
@@ -65,8 +65,8 @@ const ChoiceItem = ({ choiceType, uniqueKey, index, showDelete, callOnDelete, ca
     <Grid container justify="space-between" style={{ marginBottom: "0.5em" }}>
       <Grid item>
         {renderChoiceIcon(choiceType, index)}
-        <Input name={`option ${index}`} defaultValue={`option ${index}`} inputProps={{ 'aria-label': 'option' }}
-          onChange={onInputChanged} autoFocus />
+        <Input name={`option ${index}`} defaultValue={inputValue} inputProps={{ 'aria-label': 'option' }}
+          onChange={onInputChanged} />
       </Grid>
       <Grid item>
       {showDelete &&
@@ -76,9 +76,15 @@ const ChoiceItem = ({ choiceType, uniqueKey, index, showDelete, callOnDelete, ca
   )
 }
 
-const ChoiceEdit = ({ choiceType }) => {
-  const [uniqueKey, setUniqueKey] = useState(1);
-  const [formData, setFormData] = useState({ [uniqueKey]: "option 1" });
+const ChoiceEdit = ({ choiceType, options }) => {
+  const [uniqueKey, setUniqueKey] = useState(options ? options.length : 1);
+  const [formData, setFormData] = useState(options ? (
+    options.reduce((obj, option) => {
+    obj[Object.keys(obj).length] = option;
+    return obj;
+  }, {})) : 
+    { [uniqueKey]: "option 1" }
+  );
 
   const onAddOptionClicked = (e) => {
     const newFormData = Object.assign({}, formData, { 
@@ -107,6 +113,7 @@ const ChoiceEdit = ({ choiceType }) => {
       {Object.keys(formData).map((key, index) => (
         <ChoiceItem 
           choiceType={choiceType}
+          inputValue={formData[key]}
           key={key} 
           uniqueKey={key} 
           index={index+1} 
@@ -123,24 +130,24 @@ const ChoiceEdit = ({ choiceType }) => {
   )
 }
 
-const renderBlock = (blockType) => {
+const renderBlock = (blockType, fields) => {
   switch(blockType) {
     case 'multipleChoice':
-      return <ChoiceEdit choiceType='multipleChoice' />;
+      return <ChoiceEdit choiceType='multipleChoice' options={fields} />;
     case 'checkboxes':
-      return <ChoiceEdit choiceType='checkboxes' />;
+      return <ChoiceEdit choiceType='checkboxes' options={fields}/>;
     case 'dropdown':
-      return <ChoiceEdit choiceType='dropdown' />;
+      return <ChoiceEdit choiceType='dropdown' options={fields}/>;
     case 'shortAnswer':
-      return <Input placeholder="Answer" disabled/>;
+      return <Input placeholder="Answer" disabled />;
     default:
       return <div>Something's wrong...</div>;
   }
 };
 
-export default function FormEditBlock(props) {
+export default function FormEditBlock({ block }) {
   const classes = useStyles();
-  const [blockType, setBlockType] = useState("multipleChoice");
+  const [blockType, setBlockType] = useState(block.blockType);
   // const [formData, setFormData] = useState();
 
   const handleSelectChange = (e) => {
@@ -156,7 +163,8 @@ export default function FormEditBlock(props) {
       <Grid container>
         <Grid item xs={12} className={classes.element}>
           <Grid container justify="space-between">
-            <OutlinedInput placeholder="Question" style={{ flexGrow: 1 }}></OutlinedInput>
+            <OutlinedInput placeholder="Question" style={{ flexGrow: 1 }}
+              defaultValue={block.question}></OutlinedInput>
             <Select
               variant="outlined"
               value={blockType}
@@ -170,9 +178,10 @@ export default function FormEditBlock(props) {
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.element}>
-          <Input placeholder="description" fullWidth inputProps={{ 'aria-label': 'description' }} />
+          <Input placeholder="description" fullWidth inputProps={{ 'aria-label': 'description' }} 
+            defaultValue={block.description}/>
         </Grid>
-        {renderBlock(blockType)}
+        {renderBlock(blockType, block.fields)}
       </Grid>
     </Paper>
   );
