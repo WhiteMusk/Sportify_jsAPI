@@ -1,6 +1,18 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+  type EventFormBlock {
+    blockType: String!
+    question: String
+    description: String
+    options: [String]
+  }
+
+  type EventForm {
+    description: String
+    blocks: [EventFormBlock]
+  }
+
   type Event {
     _id: String!
     host_id: String
@@ -18,6 +30,7 @@ const typeDefs = gql`
     fee: Int
     public: Boolean!
     release: Boolean!
+    form: EventForm
   }
 
   type Host {
@@ -131,17 +144,17 @@ const typeDefs = gql`
       release: Boolean
   }
 
-  input EventFormBlock {
+  input EventFormBlockInput {
     blockType: String!
     question: String
     description: String
     options: [String]
   }
 
-  input EventForm {
+  input EventFormInput {
     _id: String!
     description: String
-    blocks: [EventFormBlock]
+    blocks: [EventFormBlockInput]
   }
 
   input HostInput {
@@ -161,7 +174,7 @@ const typeDefs = gql`
     addForm(data: FormInput!): Boolean!
     newEvent(data: EventInput!): Boolean!
     editEvent(data: EventInput!): Boolean!
-    editEventForm(data: EventForm!): Boolean!
+    editEventForm(data: EventFormInput!): Boolean!
     loginCheck(data: HostInput!): Host
     addHost(data: HostInput!): Host
     editHost(data: HostInput!): Boolean!
