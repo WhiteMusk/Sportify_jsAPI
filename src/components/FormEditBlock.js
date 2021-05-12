@@ -86,10 +86,15 @@ const ChoiceEdit = ({ choiceType, options }) => {
     { [uniqueKey]: "option 1" }
   );
 
+  const getUniqueKey = () => {
+    setUniqueKey(prevState => prevState + 1);
+    return uniqueKey + 1;
+  }
+
   const onAddOptionClicked = (e) => {
     const newFormData = Object.assign({}, formData, { 
-      [uniqueKey + 1]: `option ${Object.keys(formData).length + 1}` } );
-    setUniqueKey(prevState => prevState + 1);
+      [getUniqueKey()]: `option ${Object.keys(formData).length + 1}` 
+    });
     setFormData(newFormData);
   }
 

@@ -27,12 +27,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-// TODO: generate uniqueKey for each block data
-// TODO: if db has no data, create one default block, else use db data
 export default function FormEdit(props) {
   const classes = useStyles();
   const { loading, error, data } = useQuery(GET_EVENT_FORM_QUERY, { variables: { eventId: props.eventID } });
   const [formData, setFormData] = useState();
+  const [uniqueKey, setUniqueKey] = useState(1);
   // const [formData, setFormData] = useState({ "blocks": [
   //   {
   //     "id": "someUniqueIdMaybe",
@@ -63,9 +62,17 @@ export default function FormEdit(props) {
   //   }
   // ] });
 
+  const getUniqueKey = () => {
+    setUniqueKey(prevState => prevState + 1);
+    return uniqueKey;
+  }
+
   const handleAddBlockClick = (_, index) => {
     const newFormData = Object.assign({}, formData);
-    newFormData.blocks.splice(index + 1, 0, { "blockType": "multipleChoice" });
+    newFormData.blocks.splice(index + 1, 0, { 
+      "blockType": "multipleChoice",
+      "blockId": getUniqueKey()
+    });
     setFormData(newFormData);
   }
 
@@ -77,14 +84,23 @@ export default function FormEdit(props) {
 
   useEffect(() => {
     console.log(formData);
+    console.log(uniqueKey);
   }, [formData]);
 
   useEffect(() => {
     console.log(data);
     if (data) {
       let form = data.getEvent.form;
-      if (!form.blocks.length) { // Set default form block if there is no form data
-        form = { "blocks": [{ "blockType": "multipleChoice" }]};
+      if (!form.blocks.length) { 
+        // Set default form block if there is no form data
+        form = { "blocks": [{ 
+          "blockType": "multipleChoice", 
+          "blockId": getUniqueKey() }]};
+      } else {
+        form.blocks.forEach((block, index) => {
+          form.blocks[index]["blockId"] = index
+        })
+        setUniqueKey(form.blocks.length);
       }
       setFormData(form);
     }
@@ -104,7 +120,7 @@ export default function FormEdit(props) {
           { formData && formData.blocks.length ? (
             formData.blocks.map((block, index) => (
             <>
-              <FormEditBlock key={index} block={block} />
+              <FormEditBlock key={block.blockId} block={block} />
               <Grid container alignItems="center" justify="center">
                 <Grid item>
                   <IconButton onClick={(e) => handleAddBlockClick(e, index)}>
