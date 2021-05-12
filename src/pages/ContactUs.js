@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
     root:{
-       marginTop: theme.spacing(2),
-       marginBottom:theme.spacing(2)
+       marginTop: theme.spacing(4),
+    //    marginBottom:theme.spacing(2)
     },
     message:{
         height:400,
@@ -42,7 +42,6 @@ function ContactUs()
         <div className={classes.appBarSpacer} />
         <Paper className={classes.paper} elevation={5}>
         <Typography  variant='h4'>Contact us</Typography>
-        <Divider />
         <Typography className={classes.root} variant='h5'>How can we contact you?</Typography>
         <Grid container spacing={3}>
         <Grid item xs={6}>
