@@ -57,7 +57,7 @@ function Footer()
     instagram="fluffy_cat_live"
     youtube="UCFt6TSF464J8K82xeA?"
     pinterest="fluffy_cats_collections"
-    copyright="black"
+    copyright="Sportify"
     iconColor="black"
     backgroundColor="#fffff"
     fontColor="black"
