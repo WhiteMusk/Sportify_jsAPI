@@ -18,10 +18,10 @@ import ExpansionPanelSummary from '@material-ui/core/AccordionSummary';
 import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  summary: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
-  },
+  // summary: {
+  //   overflow: 'hidden',
+  //   textOverflow: 'ellipsis'
+  // },
   root: {
     color: 'white',
     backgroundColor: "#212121",
@@ -84,9 +84,9 @@ function Item(props) {
             <Typography component="h1" variant="h3" color="inherit" gutterBottom>
               {props.item.title}
             </Typography>
-            <Box classes={classes.summary}>
-              <Typography variant="h5" color="inherit" noWrap displayBlock>
-                {props.item.description}
+            <Box>
+              <Typography variant="h5" color="inherit" >
+                {props.item.highlight}
               </Typography>
             </Box >
             <Link variant="subtitle1" href="#">
