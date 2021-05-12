@@ -96,13 +96,18 @@ export default function FormEdit(props) {
         form = { "blocks": [{ 
           "blockType": "multipleChoice", 
           "blockId": getUniqueKey() }]};
+        setFormData(form);
       } else {
-        form.blocks.forEach((block, index) => {
-          form.blocks[index]["blockId"] = index
+        const newBlocks = [];
+        form.blocks.map((_, index) => {
+          newBlocks[index] = Object.assign({}, form.blocks[index]);
+          newBlocks[index]["blockId"] = index
         })
+        const newFormData = Object.assign({}, form);
+        newFormData.blocks = newBlocks;
+        setFormData(newFormData);
         setUniqueKey(form.blocks.length);
       }
-      setFormData(form);
     }
   }, [data]);
 
