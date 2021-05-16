@@ -11,6 +11,7 @@ const GET_EVENTS_QUERY = gql`
         location
         region
         level
+        highlight
     }
   }
 `

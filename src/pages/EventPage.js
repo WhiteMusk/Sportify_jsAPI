@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useEffect, useState } from 'react';
 import EventDescription from '../components/EventDescription';
+import EventTrackingView from "../components/EventTrackingView";
 import { useQuery } from '@apollo/client';
 import { FormattedMessage } from "react-intl";
 import { GET_EVENT_QUERY } from '../graphql';
@@ -158,6 +159,16 @@ function EventInfo(props) {
                     </ListItem>)
                 ))}
               </List>
+
+              <Divider />
+              <List>
+                {['比賽結果'].map((text, index) => (
+                  <ListItem button key={text} onClick={() => handleTabClick(index + 6)}>
+                  <ListItemText primary={text} />
+                  </ListItem>
+                ))}
+              </List>
+
             </div>
           </Drawer>
         </> :
@@ -249,6 +260,16 @@ function EventInfo(props) {
                     </ListItem>)
                 ))}
               </List>
+
+              <Divider />
+              <List>
+                {['比賽結果'].map((text, index) => (
+                  <ListItem button key={text} onClick={() => handleTabClick(index + 6)}>
+                  <ListItemText primary={text} />
+                  </ListItem>
+                ))}
+              </List>
+
             </div>
           </Drawer>
         </>
@@ -258,6 +279,8 @@ function EventInfo(props) {
           <Toolbar />
           {loading ?
             <Typography><FormattedMessage id="loading" /></Typography> :
+              currentTab === 6 ? /* 6指的就是按 "比賽結果" 那一格 */
+              <EventTrackingView eventID={props.match.params.eventID} /> :
             <EventDescription info={data.getEvent} tab={currentTab} eventID={props.match.params.eventID} />}
         </Container>
         :
@@ -275,6 +298,8 @@ function EventInfo(props) {
         <Toolbar /> */}
           {loading ?
             <Typography><FormattedMessage id="loading" /></Typography> :
+              currentTab === 6 ? /* 6指的就是按 "比賽結果" 那一格 */
+              <EventTrackingView eventID={props.match.params.eventID} /> :
             <EventDescription info={data.getEvent} tab={currentTab} eventID={props.match.params.eventID} />}
           {/* </Container> */}
         </main>

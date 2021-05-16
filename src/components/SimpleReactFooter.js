@@ -7,12 +7,11 @@ import {ImInstagram} from "react-icons/im";
 import {ImLinkedin} from "react-icons/im";
 import {FaPinterestSquare} from "react-icons/fa";
 import {ImYoutube} from "react-icons/im";
-
+import { Link } from "react-router-dom";
 class SimpleReactFooter extends React.Component {
     constructor(props) {
         super(props);
     }
-
 	render() {
 		return (
             <div style={{ backgroundColor: this.props.backgroundColor || "bisque" }} className="footer-container">
@@ -27,7 +26,7 @@ class SimpleReactFooter extends React.Component {
                             <div style={{ color: this.props.fontColor || "black" }} className="second-title">{column.title}</div>
                             {column.resources.map(resource => (
                                 <div key={resource.id}>
-                                    <a href={`${resource.link}`} target="_blank" style={{ color: this.props.fontColor || "black" }} className="resources">{resource.name}</a>
+                                    <Link to={resource.link} style={{ color: this.props.fontColor || "black" }} className="resources">{resource.name}</Link>
                                 </div>
                             ))}
                         </div>
