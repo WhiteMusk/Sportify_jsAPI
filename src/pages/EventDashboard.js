@@ -150,7 +150,7 @@ function EventDashboard(props) {
                 <div>
                     <List>
                         {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.editRegistration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
-                            <ListItem button key={text} onClick={() => handleTabClick(index)}>
+                            <ListItem button key={index} onClick={() => handleTabClick(index)}>
                                 <ListItemText primary={text} />
                             </ListItem>
                         ))}
@@ -229,7 +229,7 @@ function EventDashboard(props) {
             <div>
             <List>
                         {[<FormattedMessage id="eventDashBoard.overview" />, <FormattedMessage id="eventDashBoard.info" />, <FormattedMessage id="eventDashBoard.registration" />, <FormattedMessage id="eventDashBoard.editRegistration" />, <FormattedMessage id="eventDashBoard.progress" />].map((text, index) => (
-                            <ListItem button key={text} onClick={() => handleTabClick(index)}>
+                            <ListItem button key={index} onClick={() => handleTabClick(index)}>
                                 <ListItemText primary={text} />
                             </ListItem>
                         ))}

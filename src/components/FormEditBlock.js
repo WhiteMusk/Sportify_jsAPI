@@ -79,8 +79,8 @@ const ChoiceItem = ({ choiceType, inputValue, uniqueKey, index, showDelete, call
 const ChoiceEdit = ({ choiceType, context, blockIndex }) => {
   const [formData, setFormData] = useContext(context);
   const options = formData.blocks[blockIndex].options;
-  const [uniqueKey, setUniqueKey] = useState(options ? options.length : 1);
-  const [optionData, setOptionData] = useState(options ? (
+  const [uniqueKey, setUniqueKey] = useState(options && options.length > 0 ? options.length : 1);
+  const [optionData, setOptionData] = useState(options && options.length > 0 ? (
     options.reduce((obj, option) => {
     obj[Object.keys(obj).length] = option;
     return obj;
@@ -165,7 +165,14 @@ export default function FormEditBlock({ block, blockIndex, formContext }) {
   const [formData, setFormData] = useContext(formContext);
 
   const handleSelectChange = (e) => {
-    setBlockType(e.target.value);
+    const newBlockType = e.target.value;
+    setBlockType(newBlockType);
+    const newBlocks = Object.assign([], formData.blocks);
+    newBlocks[blockIndex] = { ...newBlocks[blockIndex], blockType: newBlockType };
+    if (newBlockType === 'shortAnswer') {
+      newBlocks[blockIndex].options = [];
+    }
+    setFormData({ ...formData, blocks: newBlocks });
   }
 
   const handleInputChange = (e) => {
@@ -175,7 +182,7 @@ export default function FormEditBlock({ block, blockIndex, formContext }) {
   }
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} key={block.blockId}>
       <Grid container>
         <Grid item xs={12} className={classes.element}>
           <Grid container justify="space-between">

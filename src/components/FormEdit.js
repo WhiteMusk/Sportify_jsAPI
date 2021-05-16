@@ -1,6 +1,5 @@
 import { useState, useEffect, createContext } from 'react';
 import { gql } from '@apollo/client';
-import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { useQuery, useMutation } from '@apollo/client';
@@ -34,35 +33,8 @@ export default function FormEdit(props) {
   const { loading, error, data } = useQuery(GET_EVENT_FORM_QUERY, { variables: { eventId: props.eventID } });
   const [formData, setFormData] = useState();
   const [uniqueKey, setUniqueKey] = useState(1);
-  // const [formData, setFormData] = useState({ "blocks": [
-  //   {
-  //     "id": "someUniqueIdMaybe",
-  //     "blockType": "multipleChoice",
-  //     "question": "test Question #1",
-  //     "description": "some description",
-  //     "options": ["male", "female", "other"]
-  //   },
-  //   {
-  //     "id": "someUniqueIdMaybe2",
-  //     "blockType": "checkboxes",
-  //     "question": "test Question #2",
-  //     "description": "some description",
-  //     "options": ["male", "female", "other"]
-  //   },
-  //   {
-  //     "id": "someUniqueIdMaybe3",
-  //     "blockType": "dropdown",
-  //     "question": "test Question #3",
-  //     "description": "some description",
-  //     "options": ["male", "female", "other"]
-  //   },
-  //   {
-  //     "id": "someUniqueIdMaybe4",
-  //     "blockType": "shortAnswer",
-  //     "question": "test Question #4",
-  //     "description": "some description",
-  //   }
-  // ] });
+
+  const [editEventForm] = useMutation(UPDATE_EVENT_FORM_MUTATION);
 
   const getUniqueKey = () => {
     setUniqueKey(prevState => prevState + 1);
@@ -84,9 +56,38 @@ export default function FormEdit(props) {
     setFormData(newFormData);
   }
 
-  const handleSaveClick = (e) => {
+  const handleSaveClick = async (e) => {
     e.preventDefault();
-    
+    console.log("save clicked");
+
+    // Remove blockId property from blocks
+    const newFormData = Object.assign({}, formData);
+    newFormData.blocks.forEach((block) => (delete block.blockId));
+
+    let success = false;
+    try {
+      success = await editEventForm({
+        variables: {
+          _id: props.eventID,
+          description: formData.description,
+          blocks: newFormData.blocks
+        }
+      })
+    } catch (err) {
+      console.log(err.networkError.result.errors);
+    }
+
+    if (success) {
+      alert("編輯成功！");
+    } else {
+      alert("編輯失敗！請再試一次");
+    }
+  }
+
+  const handleFormDescriptionChange = (e) => {
+    const newFormData = Object.assign({}, formData);
+    newFormData.description = e.target.value;
+    setFormData(newFormData);
   }
 
   useEffect(() => {
@@ -94,6 +95,7 @@ export default function FormEdit(props) {
     // console.log(uniqueKey);
   }, [formData]);
 
+  // Set form data when first get data from query
   useEffect(() => {
     console.log(data);
     if (data) {
@@ -104,11 +106,15 @@ export default function FormEdit(props) {
           "blockType": "multipleChoice", 
           "blockId": getUniqueKey() }]};
         setFormData(form);
-      } else {
+      } else { // Adjust data retrieved from db
         const newFormData = Object.assign({}, form);
-        newFormData.blocks.map((block, index) => {
-          return { ...block, [index]: index }
-        });
+        delete newFormData.__typename; // apollo auto adds this property, delete it
+        const newBlocks = Object.assign([], form.blocks);
+        for (let i = 0; i < newBlocks.length; ++i) {
+          newBlocks[i] = { ...newBlocks[i], "blockId": i } // add block id for each block to use as key when mapped
+          delete newBlocks[i].__typename; // apollo auto adds this property, delete it
+        }
+        newFormData.blocks = newBlocks;
         setFormData(newFormData);
         setUniqueKey(form.blocks.length);
       }
@@ -122,24 +128,24 @@ export default function FormEdit(props) {
           <Paper className={classes.paper}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Typography className={classes.title}>{data.getEvent.title}報名表</Typography>
-              <Button className={classes.saveButton} variant="contained"
-                onSubmit={handleSaveClick}>儲存</Button>
+              <Button className={classes.saveButton} variant="contained" color="primary"
+                onClick={handleSaveClick}>儲存</Button>
             </div>
             <Input placeholder="Form description" fullWidth multiline 
-              defaultValue={data.getEvent.form.description} />
+              defaultValue={data.getEvent.form.description}
+              onChange={handleFormDescriptionChange} />
           </Paper>
           { formData && formData.blocks.length ? (
             formData.blocks.map((block, index) => (
-            <>
-              <FormContext.Provider value={[formData, setFormData]}>
+            <div key={block.blockId} >
+              <FormContext.Provider value={[formData, setFormData]} >
                 <FormEditBlock 
-                  key={block.blockId} 
                   block={block} 
                   blockIndex={index}
                   formContext={FormContext}
                 />
               </FormContext.Provider>
-              <Grid container alignItems="center" justify="center">
+              <Grid container alignItems="center" justify="center" >
                 <Grid item>
                   <IconButton onClick={(e) => handleAddBlockClick(e, index)}>
                     <AddCircleOutline /></IconButton>
@@ -149,8 +155,8 @@ export default function FormEdit(props) {
                     <DeleteOutline /></IconButton>
                 </Grid>
               </Grid>
-            </>))) : ( // Show AddBlock icon when no block is present
-            <Grid container alignItems="center" justify="center">
+            </div>))) : ( // Show AddBlock icon when no block is present
+            <Grid container alignItems="center" justify="center" >
               <Grid item>
                 <IconButton onClick={(e) => handleAddBlockClick(e, 0)}>
                   <AddCircleOutline /></IconButton>
@@ -177,5 +183,19 @@ const GET_EVENT_FORM_QUERY = gql`
         }
       }
     }
+  }
+`;
+
+const UPDATE_EVENT_FORM_MUTATION = gql`
+  mutation editEventForm(
+    $_id: String!
+    $description: String
+    $blocks: [EventFormBlockInput]
+  ) {
+    editEventForm (data: {
+      _id: $_id
+      description: $description
+      blocks: $blocks
+    })
   }
 `;
