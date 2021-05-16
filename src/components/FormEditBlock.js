@@ -1,7 +1,7 @@
 import { Paper, Typography, Grid, FilledInput, OutlinedInput, Select, MenuItem, Input, Radio, IconButton, Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Clear } from '@material-ui/icons';
 
 const blockTypes = [
@@ -66,19 +66,21 @@ const ChoiceItem = ({ choiceType, inputValue, uniqueKey, index, showDelete, call
       <Grid item>
         {renderChoiceIcon(choiceType, index)}
         <Input name={`option ${index}`} defaultValue={inputValue} inputProps={{ 'aria-label': 'option' }}
-          onChange={onInputChanged} />
+          onChange={onInputChanged} autoFocus/>
       </Grid>
       <Grid item>
       {showDelete &&
-        <IconButton color="grey" onClick={onDeleteClicked}><Clear /></IconButton>}
+        <IconButton color="default" onClick={onDeleteClicked}><Clear /></IconButton>}
       </Grid>
     </Grid>
   )
 }
 
-const ChoiceEdit = ({ choiceType, options }) => {
+const ChoiceEdit = ({ choiceType, context, blockIndex }) => {
+  const [formData, setFormData] = useContext(context);
+  const options = formData.blocks[blockIndex].options;
   const [uniqueKey, setUniqueKey] = useState(options ? options.length : 1);
-  const [formData, setFormData] = useState(options ? (
+  const [optionData, setOptionData] = useState(options ? (
     options.reduce((obj, option) => {
     obj[Object.keys(obj).length] = option;
     return obj;
@@ -91,58 +93,65 @@ const ChoiceEdit = ({ choiceType, options }) => {
     return uniqueKey + 1;
   }
 
+  const updateFormData = () => {
+    const newBlocks = Object.assign([], formData.blocks);
+    newBlocks[blockIndex] = { ...newBlocks[blockIndex], options: Object.values(optionData) };
+    setFormData({ ...formData, blocks: newBlocks });
+  }
+
   const onAddOptionClicked = (e) => {
-    const newFormData = Object.assign({}, formData, { 
-      [getUniqueKey()]: `option ${Object.keys(formData).length + 1}` 
+    const newOptionData = Object.assign({}, optionData, { 
+      [getUniqueKey()]: `option ${Object.keys(optionData).length + 1}` 
     });
-    setFormData(newFormData);
+    setOptionData(newOptionData);
   }
 
   const onItemInputChanged = (key, value) => {
-    const newFormData = Object.assign({}, formData, { [key]: value } );
-    setFormData(newFormData);
+    const newOptionData = Object.assign({}, optionData, { [key]: value } );
+    setOptionData(newOptionData);
   }
 
   const onItemDelete = (key) => {
-    const newFormData = Object.assign({}, formData);
-    delete newFormData[key];
-    setFormData(newFormData);
+    const newOptionData = Object.assign({}, optionData);
+    delete newOptionData[key];
+    setOptionData(newOptionData);
   }
 
   useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+    // console.log(optionData);
+    updateFormData();
+  }, [optionData]);
 
   return (
     <Grid container>
-      {Object.keys(formData).map((key, index) => (
+      {Object.keys(optionData).map((key, index) => (
         <ChoiceItem 
           choiceType={choiceType}
-          inputValue={formData[key]}
+          inputValue={optionData[key]}
           key={key} 
           uniqueKey={key} 
           index={index+1} 
-          showDelete={Object.keys(formData).length > 1} 
+          showDelete={Object.keys(optionData).length > 1} 
           callOnDelete={onItemDelete}
           callOnChange={onItemInputChanged}
         />
       ))}
       <Grid item xs={12}>
-        {renderChoiceIcon(choiceType, Object.keys(formData).length + 1)}
+        {renderChoiceIcon(choiceType, Object.keys(optionData).length + 1)}
         <Input placeholder="Add option" onClick={onAddOptionClicked} inputProps={{ 'aria-label': 'add option' }} />
       </Grid>
     </Grid>
   )
 }
 
-const renderBlock = (blockType, options) => {
+const renderBlock = (blockType, blockIndex, formContext) => {
   switch(blockType) {
     case 'multipleChoice':
-      return <ChoiceEdit choiceType='multipleChoice' options={options} />;
+      return <ChoiceEdit choiceType='multipleChoice' context={formContext} blockIndex={blockIndex} />;
     case 'checkboxes':
-      return <ChoiceEdit choiceType='checkboxes' options={options}/>;
+      return <ChoiceEdit choiceType='checkboxes' context={formContext} blockIndex={blockIndex} />;
     case 'dropdown':
-      return <ChoiceEdit choiceType='dropdown' options={options}/>;
+      return <ChoiceEdit choiceType='dropdown' context={formContext} blockIndex={blockIndex} />;
     case 'shortAnswer':
       return <Input placeholder="Answer" disabled />;
     default:
@@ -150,18 +159,20 @@ const renderBlock = (blockType, options) => {
   }
 };
 
-export default function FormEditBlock({ block }) {
+export default function FormEditBlock({ block, blockIndex, formContext }) {
   const classes = useStyles();
   const [blockType, setBlockType] = useState(block.blockType);
-  // const [formData, setFormData] = useState();
+  const [formData, setFormData] = useContext(formContext);
 
   const handleSelectChange = (e) => {
     setBlockType(e.target.value);
   }
 
-//   const handleInputChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-// }
+  const handleInputChange = (e) => {
+    const newBlocks = Object.assign([], formData.blocks);
+    newBlocks[blockIndex] = { ...newBlocks[blockIndex], [e.target.name]: e.target.value };
+    setFormData({ ...formData, blocks: newBlocks });
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -169,7 +180,9 @@ export default function FormEditBlock({ block }) {
         <Grid item xs={12} className={classes.element}>
           <Grid container justify="space-between">
             <OutlinedInput placeholder="Question" style={{ flexGrow: 1 }}
-              defaultValue={block.question}></OutlinedInput>
+              defaultValue={block.question}
+              name="question"
+              onChange={handleInputChange}></OutlinedInput>
             <Select
               variant="outlined"
               value={blockType}
@@ -184,9 +197,11 @@ export default function FormEditBlock({ block }) {
         </Grid>
         <Grid item xs={12} className={classes.element}>
           <Input placeholder="description" fullWidth inputProps={{ 'aria-label': 'description' }} 
-            defaultValue={block.description}/>
+            defaultValue={block.description}
+            name="description"
+            onChange={handleInputChange}/>
         </Grid>
-        {renderBlock(blockType, block.options)}
+        {renderBlock(blockType, blockIndex, formContext)}
       </Grid>
     </Paper>
   );

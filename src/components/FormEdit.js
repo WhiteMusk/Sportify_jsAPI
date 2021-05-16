@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { gql } from '@apollo/client';
 import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     height: "3em"
   }
 }));
+
+const FormContext = createContext(null);
 
 export default function FormEdit(props) {
   const classes = useStyles();
@@ -82,9 +84,14 @@ export default function FormEdit(props) {
     setFormData(newFormData);
   }
 
+  const handleSaveClick = (e) => {
+    e.preventDefault();
+    
+  }
+
   useEffect(() => {
     console.log(formData);
-    console.log(uniqueKey);
+    // console.log(uniqueKey);
   }, [formData]);
 
   useEffect(() => {
@@ -98,13 +105,10 @@ export default function FormEdit(props) {
           "blockId": getUniqueKey() }]};
         setFormData(form);
       } else {
-        const newBlocks = [];
-        form.blocks.map((_, index) => {
-          newBlocks[index] = Object.assign({}, form.blocks[index]);
-          newBlocks[index]["blockId"] = index
-        })
         const newFormData = Object.assign({}, form);
-        newFormData.blocks = newBlocks;
+        newFormData.blocks.map((block, index) => {
+          return { ...block, [index]: index }
+        });
         setFormData(newFormData);
         setUniqueKey(form.blocks.length);
       }
@@ -118,14 +122,23 @@ export default function FormEdit(props) {
           <Paper className={classes.paper}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Typography className={classes.title}>{data.getEvent.title}報名表</Typography>
-              <Button className={classes.saveButton} variant="contained">儲存</Button>
+              <Button className={classes.saveButton} variant="contained"
+                onSubmit={handleSaveClick}>儲存</Button>
             </div>
-            <Input placeholder="Form description" fullWidth multiline defaultValue={data.getEvent.description} />
+            <Input placeholder="Form description" fullWidth multiline 
+              defaultValue={data.getEvent.form.description} />
           </Paper>
           { formData && formData.blocks.length ? (
             formData.blocks.map((block, index) => (
             <>
-              <FormEditBlock key={block.blockId} block={block} />
+              <FormContext.Provider value={[formData, setFormData]}>
+                <FormEditBlock 
+                  key={block.blockId} 
+                  block={block} 
+                  blockIndex={index}
+                  formContext={FormContext}
+                />
+              </FormContext.Provider>
               <Grid container alignItems="center" justify="center">
                 <Grid item>
                   <IconButton onClick={(e) => handleAddBlockClick(e, index)}>
