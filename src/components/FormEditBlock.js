@@ -21,14 +21,14 @@ const blockTypes = [
     value: 'dropdown',
     text: 'Dropdown',
   },
-  {
-    value: 'date',
-    text: 'Date',
-  },
-  {
-    value: 'time',
-    text: 'Time',
-  },
+  // {
+  //   value: 'date',
+  //   text: 'Date',
+  // },
+  // {
+  //   value: 'time',
+  //   text: 'Time',
+  // },
 ];
 
 const useStyles = makeStyles((theme) => ({
