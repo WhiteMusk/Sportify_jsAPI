@@ -15,6 +15,8 @@ import OranizerInfo from "./pages/OrganizerInfo";
 import ContactUs from './pages/ContactUs'
 import { getLocaleMessages } from './i18n/locale-settings';
 
+import Payment from './components/aio_check_out_all'
+
 function App () {
   const locale = useSelector(state => state.locale.locale);
   const messages = getLocaleMessages(locale);
@@ -32,6 +34,7 @@ function App () {
         <Route exact path="/manage/:hostID?/all" component={EventManagement}></Route>
         <Route exact path="/manage/:hostID?/organizerInfo" component={OranizerInfo}></Route>
         <Route exact path="/manage/:hostID?/:eventID?" component={EventDashboard}></Route>
+        <Route exact path="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" component={Payment}></Route>
       </Switch>
     </IntlProvider>
   );

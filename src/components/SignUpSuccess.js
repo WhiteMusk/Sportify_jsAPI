@@ -6,6 +6,9 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const ecpay_payment = require('../ECPAY_Payment_node_js/lib/ecpay_payment')
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -51,6 +54,10 @@ function SignUpSuccess(props) {
                 <Grid>
                     <Typography variant="h4">{"匯款帳號" + props.bankInfo.bank_account}</Typography>
                 </Grid>
+                <Link to="/aio_check_out_all.js"><button>
+                    Pay via Credit Card
+                    </button>
+                </Link>
                 {/* <Grid>
                     <Typography className={classes.fromItemTitle}>名字</Typography>
                     <Typography>{props.application.applicant.name}</Typography>
